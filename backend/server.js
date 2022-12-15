@@ -153,8 +153,8 @@ app.get("/welcome", (req, res) => {
   })
 })
 
-// // Get questions/question set from API?
-// app.get("/questions", (req, res) => {
+// Get questions/question set from API?
+// app.get("/set", (req, res) => {
   
 // })
 
