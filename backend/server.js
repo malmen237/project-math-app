@@ -32,16 +32,16 @@ const UserSchema = mongoose.Schema({
 
 const User = mongoose.model("User", UserSchema);
 
-const QuestionSchema = mongoose.Schema('Question', {
-  ask: {
-    type: String
-  },
-  answer: {
-    type: String
-  }
-})
+// const QuestionSchema = mongoose.Schema('Question', {
+//   ask: {
+//     type: String
+//   },
+//   answer: {
+//     type: String
+//   }
+// })
 
-const Question = mongoose.model('Question', QuestionSchema)
+// const Question = mongoose.model('Question', QuestionSchema)
 
 // Defines the port the app will run on. Defaults to 8080, but can be overridden
 // when starting the server. Example command to overwrite PORT env variable value:
@@ -143,18 +143,18 @@ const authenticateUser = async (req, res, next) => {
   }
 }
 
-app.get("/welcome", authenticateUser)
-app.get("/welcome", (req, res) => {
-  res.status(200).json({
-    success: true,
-    response: "Welcome! You are logged in"
-  })
-})
+// app.get("/welcome", authenticateUser)
+// app.get("/welcome", (req, res) => {
+//   res.status(200).json({
+//     success: true,
+//     response: "Welcome! You are logged in"
+//   })
+// })
 
-// Get questions/question set from API?
-app.get("/questions", (req, res) => {
+// // Get questions/question set from API?
+// app.get("/questions", (req, res) => {
   
-})
+// })
 
 // Start the server
 app.listen(port, () => {

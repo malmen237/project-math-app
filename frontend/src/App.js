@@ -2,7 +2,8 @@ import React from 'react';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // import Main from 'components/Main';
 import Login from 'globalComponents/Login';
-import NotFound from 'components/NotFound';
+import NotFound from 'globalComponents/NotFound';
+import Math from 'globalComponents/Math';
 import { Provider } from 'react-redux';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import user from 'reducers/user';
@@ -19,6 +20,7 @@ export const App = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/login" element={<Login />} />
+          <Route path="/" element={<Math />} />
           {/* <Route path='/' element={<Main />}></Route> */}
           <Route path="*" element={<NotFound />} />
         </Routes>
