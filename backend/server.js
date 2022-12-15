@@ -8,6 +8,14 @@ const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/math"
 mongoose.connect(mongoUrl, {useNewUrlParser: true, useUnifiedTopology: true})
 mongoose.Promise = Promise
 
+mongoose.set('toJSON', {
+  virtuals: true,
+  versionKey: false,
+  transform: (doc, converted) => {
+    delete converted._id;
+  }
+});
+
 // Schema for user information stored in database
 const UserSchema = mongoose.Schema({
   username: {
@@ -30,17 +38,6 @@ const UserSchema = mongoose.Schema({
 })
 
 const User = mongoose.model("User", UserSchema);
-
-// const QuestionSchema = mongoose.Schema('Question', {
-//   ask: {
-//     type: String
-//   },
-//   answer: {
-//     type: String
-//   }
-// })
-
-// const Question = mongoose.model('Question', QuestionSchema)
 
 // Defines the port the app will run on. Defaults to 8080, but can be overridden
 // when starting the server. Example command to overwrite PORT env variable value:
@@ -151,6 +148,65 @@ app.get("/welcome", (req, res) => {
     success: true,
     response: "Welcome! You are logged in"
   })
+})
+
+
+const problemGenerator = (numberRange, operation) => {
+  let a = Math.floor(Math.random() * numberRange) + 1;
+  let b = Math.floor(Math.random() * numberRange) + 1;
+  let question = "", answer = 0;
+
+  switch(operation) {
+    case "+":
+      question = `What is ${a} + ${b}?`;
+      answer = a + b;
+    break;
+    case "-":
+      question = `What is ${a} - ${b}?`;
+      answer = a - b;
+    break;
+    case "*":
+      question = `What is ${a} * ${b}?`;
+      answer = a * b;
+    break;
+    case "/":
+      question = `What is ${a} / ${b}?`;
+      answer = a / b;
+    break;
+    default:
+      question = "Wrong operation in question!";
+  }
+
+  return {question, answer};
+}
+
+
+const ProblemSchema = mongoose.Schema({
+  question: {
+    type: String,
+  },
+  answer: {
+    type: Number,
+  }
+})
+
+const Problem = mongoose.model("Problem", ProblemSchema);
+
+app.get("/questions", async (req, res) => {
+  try {
+    let q = problemGenerator(12, "*");
+    const newProblem = await new Problem({question: q.question, answer: q.answer}).save()
+    res.status(200).json({
+      success: true, 
+      response: newProblem
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      response: error
+    });
+  }
+
 })
 
 // Get questions/question set from API?
