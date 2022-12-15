@@ -8,6 +8,7 @@ import { OuterWrapper } from 'styles/GlobalStyles';
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('');
   const [mode, setMode] = useState('login');
   const [activeError, setActiveError] = useState(false);
 
@@ -18,7 +19,7 @@ const Login = () => {
 
   useEffect(() => {
     if (accessToken) {
-      navigate('/');
+      navigate('/welcome');
     }
   }, [accessToken]);
 
@@ -29,7 +30,7 @@ const Login = () => {
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify({ username, password })
+      body: JSON.stringify({ username, password, email })
     }
     fetch(API_URL(mode), options)
       .then((response) => response.json())
@@ -37,7 +38,8 @@ const Login = () => {
         if (data.success) {
           batch(() => {
             dispatch(user.actions.setUsername(data.response.username));
-            dispatch(user.actions.setId(data.response.id))
+            dispatch(user.actions.setId(data.response.id));
+            dispatch(user.actions.setUserEmail(data.response.email));
             dispatch(user.actions.setAccessToken(data.response.accessToken));
             dispatch(user.actions.setError(null));
           });
@@ -45,7 +47,8 @@ const Login = () => {
         } else {
           batch(() => {
             dispatch(user.actions.setUsername(null));
-            dispatch(user.actions.setId(null))
+            dispatch(user.actions.setId(null));
+            dispatch(user.actions.setUserEmail(null));
             dispatch(user.actions.setAccessToken(null));
             dispatch(user.actions.setError(data.response));
           });
@@ -96,6 +99,14 @@ const Login = () => {
             placeholder={mode === 'login' ? 'Enter your password' : 'Choose your password'}
             value={password}
             onChange={(e) => setPassword(e.target.value)} />
+        </label>
+        <label htmlFor="email">Email
+          <input
+            type="email"
+            id="email"
+            placeholder={mode === 'login' ? 'Enter your email' : 'Add your email-adress'}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)} />
         </label>
         <button type="submit">{mode === 'login' ? 'Log In' : 'Submit'}</button>
       </form>

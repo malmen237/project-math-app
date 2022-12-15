@@ -15,15 +15,14 @@ const UserSchema = mongoose.Schema({
     unique: true,
     required: true,
   },
-  email: {
-    type: String,
-    unique: true,
-    required: true,
-  },
   password: {
     type: String,
     required: true
   }, 
+  email: {
+    type: String,
+    required: true
+  },
   accessToken: {
     type: String,
     default: () => crypto.randomBytes(128).toString('hex')
@@ -62,7 +61,7 @@ app.get("/", (req, res) => {
 
 //REGISTER
 app.post("/register", async (req, res) => {
-  const { username, password } = req.body;
+  const { username, password, email } = req.body;
   try {
     const salt = bcrypt.genSaltSync();
     const anyUser = await User.findOne({username})
@@ -70,19 +69,21 @@ app.post("/register", async (req, res) => {
       res.status(400).json({
         success: false,
         response: "Username already in use"
-    })} if (password.length < 8) {
+      })
+    } else if (password.length < 8) {
           res.status(400).json({
           success: false,
           response: "Password must be at least 8 characters long"
       })
     } else {
-        const newUser = await User({username: username, password: bcrypt.hashSync(password, salt)}).save()
+        const newUser = await User({username: username, email: email, password: bcrypt.hashSync(password, salt)}).save()
         res.status(201).json({
         success: true,
         response: {
           username: newUser.username,
           accessToken: newUser.accessToken,
-          id: newUser._id
+          email: newUser.email,
+          id: newUser.id
         }
       })
     }
@@ -104,8 +105,9 @@ app.post("/login", async (req, res) => {
         success: true,
         response: {
           username: user.username,
+          email: user.email,
           accessToken: user.accessToken,
-          id: user._id
+          id: user.id
         }
       }) 
     } else {
@@ -143,13 +145,13 @@ const authenticateUser = async (req, res, next) => {
   }
 }
 
-// app.get("/welcome", authenticateUser)
-// app.get("/welcome", (req, res) => {
-//   res.status(200).json({
-//     success: true,
-//     response: "Welcome! You are logged in"
-//   })
-// })
+app.get("/welcome", authenticateUser)
+app.get("/welcome", (req, res) => {
+  res.status(200).json({
+    success: true,
+    response: "Welcome! You are logged in"
+  })
+})
 
 // // Get questions/question set from API?
 // app.get("/questions", (req, res) => {
