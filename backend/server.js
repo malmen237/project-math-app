@@ -206,7 +206,6 @@ app.get("/questions", async (req, res) => {
       response: error
     });
   }
-
 })
 
 // Get questions/question set from API?
