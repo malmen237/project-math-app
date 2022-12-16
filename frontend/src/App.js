@@ -7,10 +7,12 @@ import NotFound from 'globalComponents/NotFound';
 import { Provider } from 'react-redux';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import user from 'reducers/user';
+import { game } from 'reducers/game';
 import Training from 'globalComponents/Training';
 
 const reducer = combineReducers({
-  user: user.reducer
+  user: user.reducer,
+  game: game.reducer
 });
 
 const store = configureStore({ reducer });
