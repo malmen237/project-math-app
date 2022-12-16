@@ -155,7 +155,8 @@ const problemGenerator = (numberRange, operation) => {
   let a = Math.floor(Math.random() * numberRange) + 1;
   let b = Math.floor(Math.random() * numberRange) + 1;
   let question = "", answer = 0;
-
+  
+  //  const op = ['*', '+', '/', '-'][Math.floor(Math.random() * 4)]
   switch(operation) {
     case "+":
       question = `What is ${a} + ${b}?`;

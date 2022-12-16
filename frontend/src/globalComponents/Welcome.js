@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { headShake } from 'react-animations';
 import styled, { keyframes } from 'styled-components/macro';
-import { Player } from '@lottiefiles/react-lottie-player';
+// import { Player } from '@lottiefiles/react-lottie-player';
 import picture from 'images/bells.png';
 
 const HeadShakeAnimation = keyframes`${headShake}`;
@@ -14,7 +14,7 @@ const Welcome = () => {
   console.log(username)
 
   const trainButtonClick = () => {
-    navigate('/');
+    navigate('/questions');
   }
   const gameButtonClick = () => {
     navigate('/');
@@ -23,11 +23,11 @@ const Welcome = () => {
   return (
     <div>
       <h1>Welcome, {username}</h1>
-      <Player
+      {/* <Player
         src="https://assets10.lottiefiles.com/packages/lf20_jR229r.json"
         className="player"
         loop
-        autoplay />
+        autoplay /> */}
       <HeadShakeDiv>
         <Button onclick={trainButtonClick} type="button">
           <Img src={picture} alt="" />
