@@ -29,12 +29,12 @@ const Welcome = () => {
         loop
         autoplay /> */}
       <HeadShakeDiv>
-        <Button onclick={trainButtonClick} type="button">
+        <Button onClick={trainButtonClick} type="button">
           <Img src={picture} alt="" />
         Start training session
         </Button>
       </HeadShakeDiv>
-      <Button onclick={gameButtonClick} type="button">
+      <Button onClick={gameButtonClick} type="button">
         <Img src={picture} alt="" />
         Play game
       </Button>

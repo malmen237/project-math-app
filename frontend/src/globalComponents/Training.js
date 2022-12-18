@@ -1,12 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { game } from 'reducers/game';
-import styled from 'styled-components';
+// import styled from 'styled-components';
+import { headShake } from 'react-animations';
+import styled, { keyframes } from 'styled-components/macro';
+
+const HeadShakeAnimation = keyframes`${headShake}`;
 
 const Training = () => {
   const [answer, setAnswer] = useState('');
   const [goToNextQuestion, setGoToNextQuestion] = useState('false');
-
+  const [animation, setAnimation] = useState(false)
   const dispatch = useDispatch();
 
   const onFormSubmit = (event) => {
@@ -17,6 +21,8 @@ const Training = () => {
   // also resets the goToNextQuestion-state hook
   const moveToNext = () => {
     dispatch(game.actions.submitAnswer(answer));
+    setAnimation(true);
+    setTimeout(() => { setAnimation(false) }, 3000);
     dispatch(game.actions.goToNextQuestion());
     setGoToNextQuestion(false);
   }
@@ -43,7 +49,7 @@ const Training = () => {
   // console.log('trainingOver', trainingOver)
 
   const isAnswerCorrect = useSelector((state) => state.game.isCorrect)
-
+  console.log('answer is:', isAnswerCorrect)
   return (
     <>
       <h1>Question:{problem.question}</h1>
@@ -56,6 +62,15 @@ const Training = () => {
           onChange={(event) => handleUserAnswerInput(event)} />
         {goToNextQuestion ? (<StyledButton onClick={(event) => moveToNext(event)}>Next</StyledButton>) : (<DisabledButton type="button">Next</DisabledButton>)}
       </form>
+      {animation && (
+        !isAnswerCorrect && (
+          <HeadShakeDiv>
+            <Button type="button">
+              That's not it
+            </Button>
+          </HeadShakeDiv>
+        )
+      )}
     </>
   )
 }
@@ -83,3 +98,23 @@ export const StyledButton = styled.button`
     background-color: aliceblue;
    }
 `
+const Button = styled.button`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: green;
+  color: white;
+  font-size: 1.5em;
+  font-weight: bold;
+  border: none;
+  width: 400px;
+  margin: 10%;
+  padding: 5% 2%;
+  border-radius: 25px;
+  cursor: pointer;
+  text-align: center;
+`
+
+const HeadShakeDiv = styled.div`
+  animation: infinite 2s ${HeadShakeAnimation};
+`;
