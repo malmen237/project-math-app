@@ -4,13 +4,10 @@ import { game } from 'reducers/game';
 import styled from 'styled-components';
 
 const Training = () => {
-  // const [problemSet, setProblemSet] = useState({});
   const [answer, setAnswer] = useState('');
   const [goToNextQuestion, setGoToNextQuestion] = useState('false');
 
   const dispatch = useDispatch();
-
-  // dispatch(game.actions.submitQuestion())
 
   const onFormSubmit = (event) => {
     event.preventDefault()
@@ -19,14 +16,14 @@ const Training = () => {
   // Function that activates when user enters an answer,
   // also resets the goToNextQuestion-state hook
   const moveToNext = () => {
+    dispatch(game.actions.submitAnswer(answer));
     dispatch(game.actions.goToNextQuestion());
     setGoToNextQuestion(false);
   }
 
   const handleUserAnswerInput = (event) => {
-    setAnswer(event.target.value)
+    setAnswer(event.target.value);
     setGoToNextQuestion(true);
-    console.log(answer)
   }
 
   // Get set of questions from database
@@ -45,6 +42,8 @@ const Training = () => {
   // const trainingOver = useSelector((state) => state.game.gameOver);
   // console.log('trainingOver', trainingOver)
 
+  const isAnswerCorrect = useSelector((state) => state.game.isCorrect)
+
   return (
     <>
       <h1>Question:{problem.question}</h1>
@@ -53,12 +52,9 @@ const Training = () => {
           type="text"
           id="question"
           placeholder="Answer"
-          value={dispatch(game.actions.submitAnswer(answer))}
+          value={answer}
           onChange={(event) => handleUserAnswerInput(event)} />
-        {goToNextQuestion ? (<StyledButton clickAction={moveToNext} content="Next" />) : (<DisabledButton type="button">Next</DisabledButton>)}
-        {/* trainingOver && */(
-          <button type="submit">Next</button>
-        )}
+        {goToNextQuestion ? (<StyledButton onClick={(event) => moveToNext(event)}>Next</StyledButton>) : (<DisabledButton type="button">Next</DisabledButton>)}
       </form>
     </>
   )

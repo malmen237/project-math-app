@@ -4,7 +4,8 @@ const initialState = {
   questions: {},
   answers: null,
   currentProblemIndex: 0,
-  gameOver: false
+  gameOver: false,
+  isCorrect: null
 }
 
 export const game = createSlice({
@@ -15,18 +16,15 @@ export const game = createSlice({
       state.questions = action.payload;
     },
     submitAnswer: (state, action) => {
-      const { questionId } = action.payload;
-      const question = state.questions.find((q) => q.id === questionId)
+      state.answers = action.payload;
 
-      if (!question) {
-        throw new Error('Could not find question! Check to make sure you are passing the question id correctly.')
+      if (state.answers === state.questions.answer) {
+        state.isCorrect = true
+      } else {
+        state.isCorrect = false
       }
 
-      state.answers.push({
-        questionId,
-        question
-        // isCorrect: question.correctAnswerIndex === answerIndex
-      })
+      console.log('userAnswer', state.answers)
     },
     goToNextQuestion: (state) => {
       if (state.currentProblemIndex + 1 === 10) {
