@@ -26,6 +26,7 @@ const Training = () => {
   const handleUserAnswerInput = (event) => {
     setAnswer(event.target.value)
     setGoToNextQuestion(true);
+    console.log(answer)
   }
 
   // Get set of questions from database
@@ -42,20 +43,18 @@ const Training = () => {
   const problem = useSelector((state) => state.game.questions);
   console.log(problem)
   // const trainingOver = useSelector((state) => state.game.gameOver);
-  // console.log('problem', problem)
   // console.log('trainingOver', trainingOver)
 
   return (
     <>
-      {/* {console.log('answer:', problemSet.answer)} */}
       <h1>Question:{problem.question}</h1>
       <form onSubmit={onFormSubmit}>
         <input
           type="text"
           id="question"
           placeholder="Answer"
-          value={answer}
-          onChange={() => handleUserAnswerInput()} />
+          value={dispatch(game.actions.submitAnswer(answer))}
+          onChange={(event) => handleUserAnswerInput(event)} />
         {goToNextQuestion ? (<StyledButton clickAction={moveToNext} content="Next" />) : (<DisabledButton type="button">Next</DisabledButton>)}
         {/* trainingOver && */(
           <button type="submit">Next</button>

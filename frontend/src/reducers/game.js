@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   questions: {},
-  answers: {},
+  answers: null,
   currentProblemIndex: 0,
   gameOver: false
 }
@@ -15,7 +15,7 @@ export const game = createSlice({
       state.questions = action.payload;
     },
     submitAnswer: (state, action) => {
-      const { questionId } = action.payload
+      const { questionId } = action.payload;
       const question = state.questions.find((q) => q.id === questionId)
 
       if (!question) {
