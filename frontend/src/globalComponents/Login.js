@@ -3,7 +3,7 @@ import { useDispatch, useSelector, batch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { API_URL } from 'utils/utils';
 import user from 'reducers/user';
-import { OuterWrapper } from 'Styles/globalStyles';
+import { OuterWrapper } from 'styles/GlobalStyles';
 
 const Login = () => {
   const [username, setUsername] = useState('');

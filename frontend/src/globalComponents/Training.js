@@ -13,6 +13,8 @@ const Training = () => {
   const [animation, setAnimation] = useState(false)
   const dispatch = useDispatch();
 
+  const operation = useSelector((state) => state.game.operation);
+
   const onFormSubmit = (event) => {
     event.preventDefault()
   }
@@ -34,7 +36,17 @@ const Training = () => {
 
   // Get set of questions from database
   useEffect(() => {
-    fetch('http://localhost:8080/questions')
+    // To post type of math problems to be trained
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        operation
+      })
+    }
+    fetch('http://localhost:8080/questions', options)
       .then((res) => res.json())
       .then((json) => {
         // setProblemSet(json.response)
@@ -48,7 +60,7 @@ const Training = () => {
   // const trainingOver = useSelector((state) => state.game.gameOver);
   // console.log('trainingOver', trainingOver)
 
-  const isAnswerCorrect = useSelector((state) => state.game.isCorrect)
+  const isAnswerCorrect = useSelector((state) => state.game.isCorrect);
   console.log('answer is:', isAnswerCorrect)
   return (
     <>
@@ -66,7 +78,7 @@ const Training = () => {
         !isAnswerCorrect && (
           <HeadShakeDiv>
             <Button type="button">
-              That's not it
+              That is not it
             </Button>
           </HeadShakeDiv>
         )

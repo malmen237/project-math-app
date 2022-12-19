@@ -188,18 +188,22 @@ const ProblemSchema = mongoose.Schema({
   },
   answer: {
     type: Number,
+  },
+  operation: {
+    type: String,
   }
-})
+});
 
 const Problem = mongoose.model("Problem", ProblemSchema);
 
-app.get("/questions", async (req, res) => {
+app.post("/questions", async (req, res) => {
+  const {operation} = req.body;
   try {
-    let q = problemGenerator(12, "*");
-    const newProblem = await new Problem({question: q.question, answer: q.answer}).save()
+    let q = problemGenerator(12, operation);
+    const newOperation = await new Problem({question: q.question, answer: q.answer, operation: operation}).save()
     res.status(200).json({
       success: true, 
-      response: newProblem
+      response: newOperation
     });
   } catch (error) {
     res.status(400).json({
@@ -207,7 +211,23 @@ app.get("/questions", async (req, res) => {
       response: error
     });
   }
-})
+});
+
+// app.get("/questions", async (req, res) => {
+//   try {
+//     let q = problemGenerator(12, ['*', '+', '/', '-'][Math.floor(Math.random() * 4)]);
+//     const newProblem = await new Problem({question: q.question, answer: q.answer}).save()
+//     res.status(200).json({
+//       success: true, 
+//       response: newProblem
+//     });
+//   } catch (error) {
+//     res.status(400).json({
+//       success: false,
+//       response: error
+//     });
+//   }
+// });
 
 // Get questions/question set from API?
 // app.get("/set", (req, res) => {
