@@ -1,31 +1,35 @@
+/* eslint-disable no-nested-ternary */
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { game } from 'reducers/game';
-// import styled from 'styled-components';
-import { headShake } from 'react-animations';
+import { headShake, pulse } from 'react-animations';
 import styled, { keyframes } from 'styled-components/macro';
 
 const HeadShakeAnimation = keyframes`${headShake}`;
+const HeartBeatAnimation = keyframes`${pulse}`;
 
 const Training = () => {
   const [answer, setAnswer] = useState('');
+  const [nextQuestion, setNextQuestion] = useState(false);
   const [goToNextQuestion, setGoToNextQuestion] = useState('false');
-  const [animation, setAnimation] = useState(false)
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const operation = useSelector((state) => state.game.operation);
 
   const onFormSubmit = (event) => {
-    event.preventDefault()
+    event.preventDefault();
+    navigate('/summary')
   }
 
   // Function that activates when user enters an answer,
   // also resets the goToNextQuestion-state hook
   const moveToNext = () => {
     dispatch(game.actions.submitAnswer(answer));
-    setAnimation(true);
-    setTimeout(() => { setAnimation(false) }, 3000);
+    setAnswer('');
     dispatch(game.actions.goToNextQuestion());
+    setTimeout(() => { setNextQuestion(true) }, 3000);
     setGoToNextQuestion(false);
   }
 
@@ -36,6 +40,7 @@ const Training = () => {
 
   // Get set of questions from database
   useEffect(() => {
+    setNextQuestion(false);
     // To post type of math problems to be trained
     const options = {
       method: 'POST',
@@ -49,22 +54,21 @@ const Training = () => {
     fetch('http://localhost:8080/questions', options)
       .then((res) => res.json())
       .then((json) => {
-        // setProblemSet(json.response)
-        dispatch(game.actions.submitQuestion(json.response))
-        // console.log(json.response)
+        dispatch(game.actions.submitQuestion(json.response));
       })
-  }, []);
+  }, [nextQuestion]);
 
   const problem = useSelector((state) => state.game.questions);
   console.log(problem)
-  // const trainingOver = useSelector((state) => state.game.gameOver);
-  // console.log('trainingOver', trainingOver)
+
+  const trainingOver = useSelector((state) => state.game.gameOver);
+  console.log('trainingOver', trainingOver)
 
   const isAnswerCorrect = useSelector((state) => state.game.isCorrect);
   console.log('answer is:', isAnswerCorrect)
   return (
     <>
-      <h1>Question:{problem.question}</h1>
+      <h1>Question: {problem.question}</h1>
       <form onSubmit={onFormSubmit}>
         <input
           type="text"
@@ -72,44 +76,23 @@ const Training = () => {
           placeholder="Answer"
           value={answer}
           onChange={(event) => handleUserAnswerInput(event)} />
-        {goToNextQuestion ? (<StyledButton onClick={(event) => moveToNext(event)}>Next</StyledButton>) : (<DisabledButton type="button">Next</DisabledButton>)}
+        {!trainingOver && (
+          <Button
+            className={goToNextQuestion ? (isAnswerCorrect ? 'correct' : 'wrong') : 'disabled'}
+            onClick={(event) => moveToNext(event)}
+            type="button">Next
+          </Button>
+        )}
+        {trainingOver && (
+          <button type="submit">Submit</button>
+        )}
       </form>
-      {animation && (
-        !isAnswerCorrect && (
-          <HeadShakeDiv>
-            <Button type="button">
-              That is not it
-            </Button>
-          </HeadShakeDiv>
-        )
-      )}
     </>
   )
 }
 
 export default Training;
 
-const DisabledButton = styled.button`
-  border-radius: 5px;
-  color: rgb(0, 0, 0, 0.5);
-  font-size: 18px;
-  padding: 10px;
-  font-family: 'Courier Prime', monospace;
-  margin-top: 0;
-`
-
-export const StyledButton = styled.button`
-  border-radius: 5px;
-  color: black;
-  font-size: 18px;
-  padding: 10px;
-  font-family: 'Courier Prime', monospace;
-  margin-top: 0;
-
-   &:hover {
-    background-color: aliceblue;
-   }
-`
 const Button = styled.button`
   display: flex;
   flex-direction: column;
@@ -125,8 +108,19 @@ const Button = styled.button`
   border-radius: 25px;
   cursor: pointer;
   text-align: center;
+
+  &.correct {
+    background-color: orange;
+    animation: infinite 0.5s ${HeartBeatAnimation};
+  }
+
+  &.wrong {
+    background-color: red;
+    animation: infinite 1s ${HeadShakeAnimation};
+  }
+
+  &:disabled {
+    color: rgb(0, 0, 0, 0.5);
+  }
 `
 
-const HeadShakeDiv = styled.div`
-  animation: infinite 2s ${HeadShakeAnimation};
-`;
