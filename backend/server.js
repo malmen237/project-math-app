@@ -172,7 +172,10 @@ const problemGenerator = (numberRange, operation) => {
     break;
     case "/":
       question = `What is ${a} / ${b}?`;
-      answer = a / b;
+      answer = (Math.round((a / b) * 10) / 10);
+      // String(Math.round(listItem.vote_average * 10) / 10)
+      // from portfolio code:
+      // {project.name.replace('project-', '').replace('-', ' ')}
     break;
     default:
       question = "Wrong operation in question!";

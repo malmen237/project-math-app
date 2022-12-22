@@ -10,6 +10,7 @@ import user from 'reducers/user';
 import { game } from 'reducers/game';
 import Training from 'globalComponents/Training';
 import Categories from 'globalComponents/Categories';
+import Summary from 'globalComponents/Summary';
 
 const reducer = combineReducers({
   user: user.reducer,
@@ -27,6 +28,7 @@ export const App = () => {
           <Route path="/welcome" element={<Welcome />} />
           <Route path="/category" element={<Categories />} />
           <Route path="/questions" element={<Training />} />
+          <Route path="/summary" element={<Summary />} />
           {/* <Route path='/' element={<Main />}></Route> */}
           <Route path="/404" element={<NotFound />} />
           <Route path="*" element={<Navigate to="/404" />} />

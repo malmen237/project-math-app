@@ -24,30 +24,44 @@ const Training = () => {
   const trainingOver = useSelector((state) => state.game.gameOver);
   const isAnswerCorrect = useSelector((state) => state.game.isCorrect);
 
-  console.log('problem', problem)
-  // console.log('trainingOver', trainingOver)
-  // console.log('answer is:', isAnswerCorrect)
-
-  const onFormSubmit = (event) => {
-    console.log('test1')
-    event.preventDefault();
-    navigate('/summary');
-  }
+  console.log(problem)
 
   // Function that activates when user enters an answer,
   // also resets the goToNextQuestion-state hook
   const moveToNext = () => {
-    console.log('test2')
     dispatch(game.actions.submitAnswer(answer));
     setAnswer('');
     setProvidedAnswer(true)
     dispatch(game.actions.goToNextQuestion());
-    setTimeout(() => { setNextQuestion(true) }, 2000);
+    setTimeout(() => { setNextQuestion((prev) => !prev) }, 2000);
+    // setTimeout(() => { setNextQuestion((prev) => !prev) }, 3000);
     setNextButton(false);
   }
 
+  const onFormSubmit = (event) => {
+    const { keyCode } = event;
+
+    if (keyCode === 13 && !trainingOver) {
+      moveToNext(event);
+    } else if (keyCode === 13 && trainingOver) {
+      navigate('/summary');
+    } else {
+      event.preventDefault();
+    }
+  }
+
+  // Enables the user to use the enter-key to progress.
+  const onKeyDown = (event) => {
+    const { keyCode } = event;
+
+    if (keyCode === 13 && !trainingOver) {
+      moveToNext()
+    } else if (keyCode === 13 && trainingOver) {
+      onFormSubmit(event)
+    }
+  }
+
   const handleUserAnswerInput = (event) => {
-    console.log('test3')
     setAnswer(event.target.value);
     setNextButton(true);
   }
@@ -57,7 +71,6 @@ const Training = () => {
     if (nextQuestion) {
       setNextQuestion(false);
       setProvidedAnswer(false);
-      console.log('test4')
       // To post type of math problems to be trained
       const options = {
         method: 'POST',
@@ -71,7 +84,6 @@ const Training = () => {
       fetch('http://localhost:8080/questions', options)
         .then((res) => res.json())
         .then((json) => {
-          console.log('test5')
           dispatch(game.actions.submitQuestion(json.response));
         })
     }
@@ -86,17 +98,24 @@ const Training = () => {
           id="question"
           placeholder="Answer"
           value={answer}
-          onChange={(event) => handleUserAnswerInput(event)} />
+          onChange={(event) => handleUserAnswerInput(event)}
+          onKeyDown={(event) => onKeyDown(event)} />
         {!trainingOver && (
           <Button
             className={providedAnswer ? (isAnswerCorrect ? 'correct' : 'wrong') : 'default'}
-            onClick={(event) => moveToNext(event)}
+            onClick={moveToNext}
             disabled={!nextButton}
             type="button">Next
           </Button>
         )}
         {trainingOver && (
-          <button type="submit">Submit</button>
+          <Button
+            className={providedAnswer ? (isAnswerCorrect ? 'correct' : 'wrong') : 'default'}
+            type="submit"
+            disabled={!nextButton}
+            onClick={(event) => onFormSubmit(event)}>
+              Submit
+          </Button>
         )}
       </form>
       <p>Question number {problemNumber + 1}</p>

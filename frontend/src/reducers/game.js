@@ -24,17 +24,17 @@ export const game = createSlice({
       state.answers = action.payload;
 
       // eslint-disable-next-line eqeqeq
-      if (state.answers == state.questions.answer) {
+      if (state.answers.replace(',', '.') == state.questions.answer) {
         state.isCorrect = true
       } else {
         state.isCorrect = false
       }
 
       console.log('state.questions.answer', state.questions.answer)
-      console.log('userAnswer', state.answers)
+      console.log('userAnswer', state.answers.replace(',', '.'))
     },
     goToNextQuestion: (state) => {
-      if (state.currentProblemIndex + 1 === 10) {
+      if (state.currentProblemIndex + 1 === 9) {
         state.gameOver = true
       } else {
         state.currentProblemIndex += 1
