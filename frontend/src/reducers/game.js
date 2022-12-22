@@ -15,7 +15,6 @@ export const game = createSlice({
   reducers: {
     submitOperation: (state, action) => {
       state.operation = action.payload;
-      console.log('reducer', state.operation)
     },
     submitQuestion: (state, action) => {
       state.questions = action.payload;
@@ -29,9 +28,6 @@ export const game = createSlice({
       } else {
         state.isCorrect = false
       }
-
-      console.log('state.questions.answer', state.questions.answer)
-      console.log('userAnswer', state.answers.replace(',', '.'))
     },
     goToNextQuestion: (state) => {
       if (state.currentProblemIndex + 1 === 9) {

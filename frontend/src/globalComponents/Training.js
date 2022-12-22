@@ -31,10 +31,9 @@ const Training = () => {
   const moveToNext = () => {
     dispatch(game.actions.submitAnswer(answer));
     setAnswer('');
-    setProvidedAnswer(true)
+    setProvidedAnswer(true);
     dispatch(game.actions.goToNextQuestion());
-    setTimeout(() => { setNextQuestion((prev) => !prev) }, 2000);
-    // setTimeout(() => { setNextQuestion((prev) => !prev) }, 3000);
+    setTimeout(() => { setNextQuestion(true) }, 2000);
     setNextButton(false);
   }
 
@@ -55,9 +54,9 @@ const Training = () => {
     const { keyCode } = event;
 
     if (keyCode === 13 && !trainingOver) {
-      moveToNext()
+      moveToNext();
     } else if (keyCode === 13 && trainingOver) {
-      onFormSubmit(event)
+      onFormSubmit(event);
     }
   }
 
@@ -120,7 +119,7 @@ const Training = () => {
       </form>
       <p>Question number {problemNumber + 1}</p>
     </>
-  )
+  );
 }
 
 export default Training;

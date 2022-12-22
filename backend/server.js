@@ -156,7 +156,6 @@ const problemGenerator = (numberRange, operation) => {
   let b = Math.floor(Math.random() * numberRange) + 1;
   let question = "", answer = 0;
   
-  //  const op = ['*', '+', '/', '-'][Math.floor(Math.random() * 4)]
   switch(operation) {
     case "+":
       question = `What is ${a} + ${b}?`;
@@ -173,9 +172,6 @@ const problemGenerator = (numberRange, operation) => {
     case "/":
       question = `What is ${a} / ${b}?`;
       answer = (Math.round((a / b) * 10) / 10);
-      // String(Math.round(listItem.vote_average * 10) / 10)
-      // from portfolio code:
-      // {project.name.replace('project-', '').replace('-', ' ')}
     break;
     default:
       question = "Wrong operation in question!";
