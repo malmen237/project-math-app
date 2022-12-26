@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { game } from 'reducers/game';
 import { headShake, pulse } from 'react-animations';
 import styled, { keyframes } from 'styled-components/macro';
+import Timer from './Timer';
 
 const HeadShakeAnimation = keyframes`${headShake}`;
 const HeartBeatAnimation = keyframes`${pulse}`;
@@ -14,6 +15,7 @@ const Training = () => {
   const [nextQuestion, setNextQuestion] = useState(true);
   const [nextButton, setNextButton] = useState(false);
   const [providedAnswer, setProvidedAnswer] = useState(false);
+  const [time, setTime] = useState(0);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -23,6 +25,14 @@ const Training = () => {
   const problemNumber = useSelector((state) => state.game.currentProblemIndex);
   const trainingOver = useSelector((state) => state.game.gameOver);
   const isAnswerCorrect = useSelector((state) => state.game.isCorrect);
+
+  // Function that start's the counter to a 1 second interval
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setTime((t) => t + 1);
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   console.log(problem)
 
@@ -68,8 +78,10 @@ const Training = () => {
   // Get set of questions from database
   useEffect(() => {
     if (nextQuestion) {
+      setTime(0);
+      <Timer />
+      // counter();
       setNextQuestion(false);
-      setProvidedAnswer(false);
       // To post type of math problems to be trained
       const options = {
         method: 'POST',
@@ -117,6 +129,7 @@ const Training = () => {
           </Button>
         )}
       </form>
+      <Timer time={time} />
       <p>Question number {problemNumber + 1}</p>
     </>
   );
