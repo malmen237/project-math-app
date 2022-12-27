@@ -2,6 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   operation: null,
+  setNumber: null,
   questions: {},
   answers: null,
   currentProblemIndex: 0,
@@ -15,6 +16,12 @@ export const game = createSlice({
   reducers: {
     submitOperation: (state, action) => {
       state.operation = action.payload;
+
+      if (state.operation === '+' || state.operation === '-') {
+        state.setNumber = 1000
+      } else if (state.operation === '*' || state.operation === '/') {
+        state.setNumber = 12
+      }
     },
     submitQuestion: (state, action) => {
       state.questions = action.payload;

@@ -180,7 +180,6 @@ const problemGenerator = (numberRange, operation) => {
   return {question, answer};
 }
 
-
 const ProblemSchema = mongoose.Schema({
   question: {
     type: String,
@@ -196,9 +195,9 @@ const ProblemSchema = mongoose.Schema({
 const Problem = mongoose.model("Problem", ProblemSchema);
 
 app.post("/questions", async (req, res) => {
-  const {operation} = req.body;
+  const {operation, setNumber} = req.body;
   try {
-    let q = problemGenerator(12, operation);
+    let q = problemGenerator(setNumber, operation);
     const newOperation = await new Problem({question: q.question, answer: q.answer, operation: operation}).save()
     res.status(200).json({
       success: true, 

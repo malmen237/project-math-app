@@ -21,6 +21,7 @@ const Training = () => {
   const navigate = useNavigate();
 
   const operation = useSelector((state) => state.game.operation);
+  const setNumber = useSelector((state) => state.game.setNumber);
   const problem = useSelector((state) => state.game.questions);
   const problemNumber = useSelector((state) => state.game.currentProblemIndex);
   const trainingOver = useSelector((state) => state.game.gameOver);
@@ -89,7 +90,8 @@ const Training = () => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          operation
+          operation,
+          setNumber
         })
       }
       fetch('http://localhost:8080/questions', options)
