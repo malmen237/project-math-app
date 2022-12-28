@@ -3,6 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   operation: null,
   questions: {},
+  equations: {},
   answers: null,
   currentProblemIndex: 0,
   gameOver: false,
@@ -18,6 +19,20 @@ export const game = createSlice({
     },
     submitQuestion: (state, action) => {
       state.questions = action.payload;
+    },
+    submitEquations: (state, action) => {
+      state.equations = action.payload;
+      console.log('equations assigned in reducer:', state.equations)
+    },
+    submitEqAnswer: (state, action) => {
+      state.answers = action.payload;
+
+      // eslint-disable-next-line eqeqeq
+      if (state.answers.replace(',', '.') == state.equations.correct_answer) {
+        state.isCorrect = true
+      } else {
+        state.isCorrect = false
+      }
     },
     submitAnswer: (state, action) => {
       state.answers = action.payload;

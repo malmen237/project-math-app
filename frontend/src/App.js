@@ -11,6 +11,7 @@ import { game } from 'reducers/game';
 import Training from 'globalComponents/Training';
 import Categories from 'globalComponents/Categories';
 import Summary from 'globalComponents/Summary';
+import Equation from 'globalComponents/Equation';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { Basket } from 'dndComponents/Basket';
@@ -33,6 +34,7 @@ export const App = () => {
             <Route path="/welcome" element={<Welcome />} />
             <Route path="/category" element={<Categories />} />
             <Route path="/questions" element={<Training />} />
+            <Route path="/equations" element={<Equation />} />
             <Route path="/summary" element={<Summary />} />
             {/* <Route path='/' element={<Main />}></Route> */}
             <Route path="/404" element={<NotFound />} />

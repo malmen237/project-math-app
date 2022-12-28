@@ -3,6 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
+import equationData from "./data/equations.json";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/math"
 mongoose.connect(mongoUrl, {useNewUrlParser: true, useUnifiedTopology: true})
@@ -38,6 +39,40 @@ const UserSchema = mongoose.Schema({
 })
 
 const User = mongoose.model("User", UserSchema);
+
+// Schema for equations stored in the database
+const EquationSchema = mongoose.Schema({
+  number: {
+    type: Number
+  },
+  text: {
+    type: String
+  },
+  question: {
+    type: String
+  },
+  answers: {
+    type: Array
+  },
+  correct_answer: {
+    type: Number
+  }
+})
+
+const Equation = mongoose.model("Equation", EquationSchema); 
+
+// Generate entries into the db from the json file:
+if (process.env.RESET_DB) {
+  const resetDataBase = async () => {
+    await Equation.deleteMany();
+    equationData.forEach((equation) => {
+      const newEquation = new Equation(equation);
+      newEquation.save();
+    })
+  }
+  resetDataBase();
+}
+
 
 // Defines the port the app will run on. Defaults to 8080, but can be overridden
 // when starting the server. Example command to overwrite PORT env variable value:
@@ -211,6 +246,20 @@ app.post("/questions", async (req, res) => {
     });
   }
 });
+
+// SEPARATE ENDPOINT FOR EQUATIONS?
+app.get("/equations", async (req, res) => {
+  try {
+    const equations = await Equation.find()
+    if (equations.length > 0) {
+      res.status(200).json(equations)
+    } else {
+      res.status(404).json({ error: 'No equations found' })
+    }
+  } catch (error) {
+    res.status(400).json({ error: 'Sumting wong' })
+  }
+})
 
 // app.get("/questions", async (req, res) => {
 //   try {

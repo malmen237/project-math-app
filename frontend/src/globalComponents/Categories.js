@@ -19,6 +19,8 @@ const Categories = () => {
       <button type="button" onClick={() => onButtonClick('-')}>-</button>
       <button type="button" onClick={() => onButtonClick('*')}>*</button>
       <button type="button" onClick={() => onButtonClick('/')}>/</button>
+
+      <button type="button" onClick={() => navigate('/equations')}>equations</button>
     </>
   )
 }
