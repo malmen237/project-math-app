@@ -5,15 +5,19 @@ import { useNavigate } from 'react-router-dom';
 import { game } from 'reducers/game';
 import { headShake, pulse } from 'react-animations';
 import styled, { keyframes } from 'styled-components/macro';
+import { useDrop } from 'react-dnd';
+import { PetCard } from '../dndComponents/PetCard';
 
 const HeadShakeAnimation = keyframes`${headShake}`;
 const HeartBeatAnimation = keyframes`${pulse}`;
 
 const Equation = () => {
-  const [answer, setAnswer] = useState('');
+  // const [answer, setAnswer] = useState('');
   const [nextQuestion, setNextQuestion] = useState(true);
   const [nextButton, setNextButton] = useState(false);
   const [providedAnswer, setProvidedAnswer] = useState(false);
+  const [basket, setBasket] = useState([])
+  console.log('THE DROPPED ONE:', basket[0])
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -23,13 +27,34 @@ const Equation = () => {
   const trainingOver = useSelector((state) => state.game.gameOver);
   const isAnswerCorrect = useSelector((state) => state.game.isCorrect);
   console.log('problem:', problem)
-  console.log('problem:', Array.isArray(problem))
+  // console.log('problem:', Array.isArray(problem))
+
+  const addAnswerToBasket = (id) => {
+    const answerList = problem.answers.filter((pet, index) => index === id)
+    setBasket([answerList[0]])
+    // setAnswer(basket[0])
+    setNextButton(true);
+    console.log('BASKET SET TO:', answerList[0])
+  }
+
+  const [{ isOver }, dropRef] = useDrop({
+    // input object:
+    // accept is mandatory
+    accept: 'pet',
+    // drop is a callback function, triggers with every drop, receives data from item in useDrag
+    // adds the item to the basket array if it's not already there, a new instance of array returned
+    drop: (item) => addAnswerToBasket(item.id),
+    collect: (monitor) => ({
+      isOver: monitor.isOver()
+    })
+  })
 
   // Function that activates when user enters an answer,
   // also resets the goToNextQuestion-state hook
   const moveToNext = () => {
-    dispatch(game.actions.submitEqAnswer(answer));
-    setAnswer('');
+    dispatch(game.actions.submitEqAnswer(basket[0]));
+    // setAnswer('');
+    setBasket([]);
     setProvidedAnswer(true);
     dispatch(game.actions.goToNextQuestion());
     setTimeout(() => { setNextQuestion(true) }, 2000);
@@ -49,20 +74,21 @@ const Equation = () => {
   }
 
   // Enables the user to use the enter-key to progress.
-  const onKeyDown = (event) => {
-    const { keyCode } = event;
+  // const onKeyDown = (event) => {
+  //   const { keyCode } = event;
 
-    if (keyCode === 13 && !trainingOver) {
-      moveToNext();
-    } else if (keyCode === 13 && trainingOver) {
-      onFormSubmit(event);
-    }
-  }
+  //   if (keyCode === 13 && !trainingOver) {
+  //     moveToNext();
+  //   } else if (keyCode === 13 && trainingOver) {
+  //     onFormSubmit(event);
+  //   }
+  // }
 
-  const handleUserAnswerInput = (event) => {
-    setAnswer(event.target.value);
-    setNextButton(true);
-  }
+  // const handleUserAnswerInput = () => {
+  //   // setAnswer(event.target.value);
+  //   // setAnswer(basket[0])
+  //   // setNextButton(true);
+  // }
 
   // Get set of questions from database
   useEffect(() => {
@@ -72,7 +98,7 @@ const Equation = () => {
       fetch('http://localhost:8080/equations')
         .then((res) => res.json())
         .then((json) => {
-          console.log(json)
+          // console.log(json)
           dispatch(game.actions.submitEquations(json[0]));
         })
     }
@@ -83,13 +109,14 @@ const Equation = () => {
       <h1>{problem.text}</h1>
       <h1>{problem.question}</h1>
       <form onSubmit={onFormSubmit}>
-        <input
-          type="text"
-          id="question"
-          placeholder="Answer"
-          value={answer}
-          onChange={(event) => handleUserAnswerInput(event)}
-          onKeyDown={(event) => onKeyDown(event)} />
+        <BasketArea ref={dropRef}>
+          {basket.map((pet, index) => <PetCard key={pet} id={index} name={pet} />)}
+          {/* If the item is within the drop area, "drop here" is displayed */}
+          {isOver && <div>Drop Here!</div>}
+        </BasketArea>
+        <Pets>
+          {problem.answers?.map((pet, index) => <PetCard key={pet} id={index} name={pet} />)}
+        </Pets>
         {!trainingOver && (
           <Button
             className={providedAnswer ? (isAnswerCorrect ? 'correct' : 'wrong') : 'default'}
@@ -106,6 +133,22 @@ const Equation = () => {
 
 export default Equation;
 
+const Pets = styled.div`
+  height: 8rem;
+  width: 25rem;
+  background-color: beige;
+  display: flex;
+  margin: 1rem;
+`
+
+const BasketArea = styled.div`
+  height: 8rem;
+  width: 25rem;
+  background-color: thistle;
+  display: flex;
+  margin: 1rem;
+`
+
 const Button = styled.button`
   display: flex;
   flex-direction: column;
@@ -116,7 +159,7 @@ const Button = styled.button`
   font-weight: bold;
   border: none;
   width: 400px;
-  margin: 10%;
+  margin: 5%;
   padding: 5% 2%;
   border-radius: 25px;
   cursor: pointer;

@@ -28,7 +28,7 @@ export const game = createSlice({
       state.answers = action.payload;
 
       // eslint-disable-next-line eqeqeq
-      if (state.answers.replace(',', '.') == state.equations.correct_answer) {
+      if (state.answers == state.equations.correct_answer) {
         state.isCorrect = true
       } else {
         state.isCorrect = false

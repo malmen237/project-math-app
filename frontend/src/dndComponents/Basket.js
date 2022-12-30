@@ -17,8 +17,8 @@ export const Basket = () => {
   const addPetToBasket = (id) => {
     console.log(id)
     const petList = PETS.filter((pet) => pet.id === id)
-    // setBasket(() => [...basket, petList[0]])
-    setBasket([petList[0]])
+    // setBasket(() => [...basket, petList[0]]) // adds all in drop area
+    setBasket([petList[0]]) // keeps only one in drop area
   }
 
   const [{ isOver }, dropRef] = useDrop({
@@ -37,15 +37,15 @@ export const Basket = () => {
 
   return (
     <>
-      <Pets>
-        {PETS.map((pet) => <PetCard draggable id={pet.id} name={pet.name} />)}
-      </Pets>
       {/* Any element that is draggable has to have a ref */}
       <BasketArea ref={dropRef}>
-        {basket.map((pet) => <PetCard draggable id={pet.id} name={pet.name} />)}
+        {basket.map((pet) => <PetCard id={pet.id} name={pet.name} />)}
         {/* If the item is within the drop area, "drop here" is displayed */}
         {isOver && <div>Drop Here!</div>}
       </BasketArea>
+      <Pets>
+        {PETS.map((pet) => <PetCard draggable id={pet.id} name={pet.name} />)}
+      </Pets>
     </>
   )
 }

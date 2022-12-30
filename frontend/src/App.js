@@ -13,7 +13,8 @@ import Categories from 'globalComponents/Categories';
 import Summary from 'globalComponents/Summary';
 import Equation from 'globalComponents/Equation';
 import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+import { HTML5Backend } from 'react-dnd-html5-backend'; // for desktop
+// import { TouchBackend } from 'react-dnd-touch-backend'; <DndProvider backend={TouchBackend}>
 import { Basket } from 'dndComponents/Basket';
 
 const reducer = combineReducers({
