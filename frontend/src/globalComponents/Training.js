@@ -81,8 +81,8 @@ const Training = () => {
     if (nextQuestion) {
       setTime(0);
       <Timer />
-      // counter();
       setNextQuestion(false);
+      setProvidedAnswer(false);
       // To post type of math problems to be trained
       const options = {
         method: 'POST',

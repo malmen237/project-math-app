@@ -19,7 +19,7 @@ export const game = createSlice({
 
       if (state.operation === '+' || state.operation === '-') {
         state.setNumber = 1000
-      } else if (state.operation === '*' || state.operation === '/') {
+      } else if (state.operation === '*' || state.operation === '/' || state.operation === 'eq') {
         state.setNumber = 12
       }
     },

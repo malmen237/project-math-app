@@ -3,6 +3,7 @@ import cors from "cors";
 import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
+import { gcd } from "mathjs";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/math"
 mongoose.connect(mongoUrl, {useNewUrlParser: true, useUnifiedTopology: true})
@@ -150,11 +151,13 @@ app.get("/welcome", (req, res) => {
   })
 })
 
-
 const problemGenerator = (numberRange, operation) => {
   let a = Math.floor(Math.random() * numberRange) + 1;
   let b = Math.floor(Math.random() * numberRange) + 1;
+  let c = Math.floor(Math.random() * numberRange) + 1;
   let question = "", answer = 0;
+
+  let commonDivisor = gcd(c - b, a);
   
   switch(operation) {
     case "+":
@@ -173,6 +176,10 @@ const problemGenerator = (numberRange, operation) => {
       question = `What is ${a} / ${b}?`;
       answer = (Math.round((a / b) * 10) / 10);
     break;
+    case "eq":
+      question = `In the equation: ${a}x + ${b} = ${c}. What is the value of x?`;
+      answer = `${(c - b) / commonDivisor}/${a / commonDivisor}`;
+    break;
     default:
       question = "Wrong operation in question!";
   }
@@ -185,7 +192,7 @@ const ProblemSchema = mongoose.Schema({
     type: String,
   },
   answer: {
-    type: Number,
+    type: String,
   },
   operation: {
     type: String,
