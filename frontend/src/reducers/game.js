@@ -18,9 +18,11 @@ export const game = createSlice({
       state.operation = action.payload;
 
       if (state.operation === '+' || state.operation === '-') {
-        state.setNumber = 1000
-      } else if (state.operation === '*' || state.operation === '/' || state.operation === 'eq') {
-        state.setNumber = 12
+        state.setNumber = 1000;
+      } else if (state.operation === '*' || state.operation === '/') {
+        state.setNumber = 12;
+      } else if (state.operation === 'eq' || state.operation === 'fr') {
+        state.setNumber = 10;
       }
     },
     submitQuestion: (state, action) => {

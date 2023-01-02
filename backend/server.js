@@ -155,9 +155,11 @@ const problemGenerator = (numberRange, operation) => {
   let a = Math.floor(Math.random() * numberRange) + 1;
   let b = Math.floor(Math.random() * numberRange) + 1;
   let c = Math.floor(Math.random() * numberRange) + 1;
+  let d = Math.floor(Math.random() * numberRange) + 1;
   let question = "", answer = 0;
 
-  let commonDivisor = gcd(c - b, a);
+  let commonDivisorEquations = gcd(c - b, a);
+  let commonDivisorFractions = gcd(a * c, b * d);
   
   switch(operation) {
     case "+":
@@ -178,7 +180,11 @@ const problemGenerator = (numberRange, operation) => {
     break;
     case "eq":
       question = `In the equation: ${a}x + ${b} = ${c}. What is the value of x?`;
-      answer = `${(c - b) / commonDivisor}/${a / commonDivisor}`;
+      answer = `${(c - b) / commonDivisorEquations}/${a / commonDivisorEquations}`;
+    break;
+    case "fr":
+      question = `What is ${a}/${b} * ${c}/${d}?`;
+      answer = `${(a * c) / commonDivisorFractions}/${(b * d) / commonDivisorFractions}`;
     break;
     default:
       question = "Wrong operation in question!";

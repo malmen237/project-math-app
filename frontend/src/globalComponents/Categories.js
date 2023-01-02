@@ -20,6 +20,7 @@ const Categories = () => {
       <button type="button" onClick={() => onButtonClick('*')}>*</button>
       <button type="button" onClick={() => onButtonClick('/')}>/</button>
       <button type="button" onClick={() => onButtonClick('eq')}>Equations</button>
+      <button type="button" onClick={() => onButtonClick('fr')}>Fractions</button>
     </>
   )
 }
