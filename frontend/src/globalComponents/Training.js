@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-indent-props */
 /* eslint-disable no-nested-ternary */
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
@@ -5,7 +6,10 @@ import { useNavigate } from 'react-router-dom';
 import { game } from 'reducers/game';
 import { headShake, pulse } from 'react-animations';
 import styled, { keyframes } from 'styled-components/macro';
+import { useMultiDrop } from 'react-dnd-multi-backend';
+import DnDForm from 'dndComponents/DnDForm';
 import Timer from './Timer';
+import TextForm from './TextForm';
 
 const HeadShakeAnimation = keyframes`${headShake}`;
 const HeartBeatAnimation = keyframes`${pulse}`;
@@ -16,6 +20,8 @@ const Training = () => {
   const [nextButton, setNextButton] = useState(false);
   const [providedAnswer, setProvidedAnswer] = useState(false);
   const [time, setTime] = useState(0);
+  const [formInput, setFormInput] = useState(false);
+  const [basket, setBasket] = useState([])
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -27,6 +33,33 @@ const Training = () => {
   const trainingOver = useSelector((state) => state.game.gameOver);
   const isAnswerCorrect = useSelector((state) => state.game.isCorrect);
 
+  const addAnswerToBasket = (id) => {
+    const answerList = problem.answers.filter((pet, index) => index === id)
+    const selected = problem.id === id
+    setBasket([selected])
+    // setBasket([answerList[0]])
+    // setAnswer(basket[0])
+    setNextButton(true);
+    console.log('BASKET SET TO:', answerList[0])
+  }
+
+  // eslint-disable-next-line max-len
+  const [[dropProps], { html5: [html5Props, html5Drop], touch: [touchProps, touchDrop] }] = useMultiDrop({
+    // input object:
+    // accept is mandatory
+    accept: 'card',
+    // drop is a callback function, triggers with every drop, receives data from item in useDrag
+    // adds the item to the basket array if it's not already there, a new instance of array returned
+    drop: (item) => addAnswerToBasket(item.id),
+    collect: (monitor) => ({
+      isOver: monitor.isOver()
+    })
+  })
+
+  // DROPPROPS - Where should it be used??
+  const html5DropStyle = { backgroundColor: (dropProps.isOver && html5Props.canDrop) ? '#f3f3f3' : '#bbbbbb' } // (html5Props.isOver && html5Props.canDrop)
+  const touchDropStyle = { backgroundColor: (touchProps.isOver && touchProps.canDrop) ? '#f3f3f3' : 'lightcoral' } // (touchProps.isOver && touchProps.canDrop)
+
   // Function that start's the counter to a 1 second interval
   useEffect(() => {
     const interval = setInterval(() => {
@@ -34,8 +67,6 @@ const Training = () => {
     }, 1000);
     return () => clearInterval(interval);
   }, []);
-
-  console.log(problem)
 
   // Function that activates when user enters an answer,
   // also resets the goToNextQuestion-state hook
@@ -97,7 +128,14 @@ const Training = () => {
       fetch('http://localhost:8080/questions', options)
         .then((res) => res.json())
         .then((json) => {
+          console.log('json.response', json.response)
           dispatch(game.actions.submitQuestion(json.response));
+          console.log(json.response);
+          if (operation === '+' || operation === '-' || operation === '*' || operation === '/') {
+            return setFormInput(true)
+          } else if (operation === 'eq' || operation === 'fr') {
+            return setFormInput(false)
+          }
         })
     }
   }, [nextQuestion]);
@@ -106,13 +144,24 @@ const Training = () => {
     <>
       <h1>Question: {problem.question}</h1>
       <form onSubmit={onFormSubmit}>
-        <input
+        {formInput ? <TextForm
+          answer={answer}
+          handleUserAnswerInput={handleUserAnswerInput}
+          onKeyDown={onKeyDown} /> : <DnDForm
+          basket={basket}
+          html5DropStyle={html5DropStyle}
+          html5Drop={html5Drop}
+          touchDropStyle={touchDropStyle}
+          touchDrop={touchDrop}
+          problem={problem}
+          answer={answer} />}
+        {/* <input
           type="text"
           id="question"
           placeholder="Answer"
           value={answer}
           onChange={(event) => handleUserAnswerInput(event)}
-          onKeyDown={(event) => onKeyDown(event)} />
+          onKeyDown={(event) => onKeyDown(event)} /> */}
         {!trainingOver && (
           <Button
             className={providedAnswer ? (isAnswerCorrect ? 'correct' : 'wrong') : 'default'}

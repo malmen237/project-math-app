@@ -27,6 +27,7 @@ export const game = createSlice({
     },
     submitQuestion: (state, action) => {
       state.questions = action.payload;
+      console.log('state.questions', state.questions)
     },
     submitAnswer: (state, action) => {
       state.answers = action.payload;
