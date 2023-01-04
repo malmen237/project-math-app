@@ -27,16 +27,28 @@ export const game = createSlice({
     },
     submitQuestion: (state, action) => {
       state.questions = action.payload;
-      console.log('state.questions', state.questions)
     },
     submitAnswer: (state, action) => {
       state.answers = action.payload;
+      console.log('state.answer:', state.answers, typeof state.answers)
+      const answerType = typeof state.answers
 
-      // eslint-disable-next-line eqeqeq
-      if (state.answers.replace(',', '.') == state.questions.answer) {
-        state.isCorrect = true
-      } else {
-        state.isCorrect = false
+      if (answerType === 'string') {
+        // eslint-disable-next-line eqeqeq
+        if (state.answers.replace(',', '.') == state.questions.answer) {
+          state.isCorrect = true
+        } else {
+          state.isCorrect = false
+        }
+      }
+
+      if (answerType === 'number') {
+        // eslint-disable-next-line eqeqeq
+        if (state.answers == state.questions.answer) {
+          state.isCorrect = true
+        } else {
+          state.isCorrect = false
+        }
       }
     },
     goToNextQuestion: (state) => {

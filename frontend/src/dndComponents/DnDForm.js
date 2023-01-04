@@ -1,22 +1,23 @@
 /* eslint-disable max-len */
+/* eslint-disable no-plusplus */
 import React from 'react';
 import styled from 'styled-components/macro';
 // import { useMultiDrop } from 'react-dnd-multi-backend';
 import { Devices } from 'styles/GlobalStyles';
 import { OptionCard } from './OptionCard';
 
-const DnDForm = ({ answer, problem, basket, html5DropStyle, html5Drop, touchDropStyle, touchDrop }) => {
-  console.log('answer', answer)
-  const option1 = <OptionCard id={problem.id} name={problem.answer} />
-  const option2 = <OptionCard id={problem.id} name={problem.secondAnswer} />
-  const option3 = <OptionCard id={problem.id} name={problem.thirdAnswer} />
-  const option4 = <OptionCard id={problem.id} name={problem.fourthAnswer} />
+const DnDForm = ({ problem, basket, html5DropStyle, html5Drop, touchDropStyle, touchDrop }) => {
+  console.log('shuffledOptions', problem.answer)
 
-  const options = [option1, option2, option3, option4];
-
-  const shuffledOptions = options.sort(() => {
-    return Math.random() - 0.5;
-  });
+  const choices = () => {
+    for (let i = 0; i < problem.answer.length; i++) {
+      problem.answer[i].map((singleAnswer, index) => {
+        return (
+          <OptionCard key={singleAnswer} id={index} name={singleAnswer.map((test) => test)} />
+        )
+      })
+    }
+  }
 
   return (
     <>
@@ -30,30 +31,17 @@ const DnDForm = ({ answer, problem, basket, html5DropStyle, html5Drop, touchDrop
         {basket.length === 0 && <Instruct>Drag & drop your answer here!</Instruct>}
         {/* {touchProps.isOver && <div>Drop Here!</div>} */}
       </TouchDropArea>
-      <Pets>
-        {shuffledOptions}
-        {/* {problem.answers?.map((card, index) => <OptionCard key={card} id={index} name={card} />)} */}
-      </Pets>
+      <Options>
+        {choices()}
+        {/* {problem.answer?.map((card, index) => <OptionCard key={card} id={index} name={card} />)} */}
+      </Options>
     </>
   );
 }
 
-// {
-//   "number": 1,
-//   "text": "What is x in: ",
-//   "question": "3x + 6 = 9",
-//   "answers": [
-//     "1",
-//     "9",
-//     "6",
-//     "4"
-//   ],
-//   "correct_answer": 1
-// }
-
 export default DnDForm;
 
-const Pets = styled.div`
+const Options = styled.div`
   height: 8rem;
   width: 80vw;
   border-radius: 5px;

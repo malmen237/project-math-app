@@ -14,7 +14,7 @@ const Welcome = () => {
   console.log(username)
 
   const trainButtonClick = () => {
-    navigate('/questions');
+    navigate('/category');
   }
   const gameButtonClick = () => {
     navigate('/');

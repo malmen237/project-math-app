@@ -34,13 +34,15 @@ const Training = () => {
   const isAnswerCorrect = useSelector((state) => state.game.isCorrect);
 
   const addAnswerToBasket = (id) => {
-    const answerList = problem.answers.filter((pet, index) => index === id)
-    const selected = problem.id === id
+    // const answerList = problem.answers.filter((pet, index) => index === id)
+    const selected = id
+    console.log('dragged:', id)
+    setAnswer(id)
     setBasket([selected])
     // setBasket([answerList[0]])
     // setAnswer(basket[0])
     setNextButton(true);
-    console.log('BASKET SET TO:', answerList[0])
+    // console.log('BASKET SET TO:', answerList[0])
   }
 
   // eslint-disable-next-line max-len
@@ -71,8 +73,10 @@ const Training = () => {
   // Function that activates when user enters an answer,
   // also resets the goToNextQuestion-state hook
   const moveToNext = () => {
+    console.log('answer before dispatch:', answer)
     dispatch(game.actions.submitAnswer(answer));
     setAnswer('');
+    setBasket([]);
     setProvidedAnswer(true);
     dispatch(game.actions.goToNextQuestion());
     setTimeout(() => { setNextQuestion(true) }, 2000);
@@ -130,7 +134,6 @@ const Training = () => {
         .then((json) => {
           console.log('json.response', json.response)
           dispatch(game.actions.submitQuestion(json.response));
-          console.log(json.response);
           if (operation === '+' || operation === '-' || operation === '*' || operation === '/') {
             return setFormInput(true)
           } else if (operation === 'eq' || operation === 'fr') {
@@ -153,15 +156,7 @@ const Training = () => {
           html5Drop={html5Drop}
           touchDropStyle={touchDropStyle}
           touchDrop={touchDrop}
-          problem={problem}
-          answer={answer} />}
-        {/* <input
-          type="text"
-          id="question"
-          placeholder="Answer"
-          value={answer}
-          onChange={(event) => handleUserAnswerInput(event)}
-          onKeyDown={(event) => onKeyDown(event)} /> */}
+          problem={problem} />}
         {!trainingOver && (
           <Button
             className={providedAnswer ? (isAnswerCorrect ? 'correct' : 'wrong') : 'default'}

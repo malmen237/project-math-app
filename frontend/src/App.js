@@ -29,7 +29,7 @@ export const App = () => {
       <DndProvider options={HTML5toTouch}>
         <BrowserRouter>
           <Routes>
-            <Route path="/login" element={<Login />} />
+            <Route path="/" element={<Login />} />
             <Route path="/welcome" element={<Welcome />} />
             <Route path="/category" element={<Categories />} />
             <Route path="/questions" element={<Training />} />

@@ -148,42 +148,8 @@ app.get("/welcome", (req, res) => {
   res.status(200).json({
     success: true,
     response: "Welcome! You are logged in"
-  })
-})
-
-// const fractions = (a, b, c, d) => {
-//   let commonDivisorMultiplication = gcd(a * c, b * d);
-//   let commonDivisorDivision = gcd(a * d, b * c);
-//   let commonDivisorAddition = gcd(d * a + b * c, b * d);
-//   let commonDivisorSubtraction = gcd(d * a - b * c, b * d);
-
-//   const multiplication = `What is ${a}/${b} * ${c}/${d}?`;
-//   const division = `What is ${a}/${b} / ${c}/${d}?`;
-//   const addition = `What is ${a}/${b} + ${c}/${d}?`;
-//   const subtraction = `What is ${a}/${b} - ${c}/${d}?`;
-
-//   const questionFraction = [multiplication, division, addition, subtraction][
-//     Math.floor(Math.random() * 4)
-//   ];
-
-//   if (question === multiplication) {
-//     return (
-//       `${(a * c) / commonDivisorMultiplication}/${(b * d) / commonDivisorMultiplication}`
-//     );
-//   } else if (question === division) {
-//     return (
-//       `${(a * d) / commonDivisorDivision}/${(b * c) / commonDivisorDivision}`
-//     );
-//   } else if (question === addition) {
-//     return (
-//       `${(d * a + b * c) / commonDivisorAddition}/${(b * d) / commonDivisorAddition}`
-//     );
-//   } else if (question === subtraction) {
-//     return (
-//       `${(d * a - b * c) / commonDivisorSubtraction}/${(b * d) / commonDivisorSubtraction}`
-//     );
-//   }
-// }
+  });
+});
 
 const problemGenerator = (numberRange, operation) => {
   let a = Math.floor(Math.random() * numberRange) + 1;
@@ -191,12 +157,12 @@ const problemGenerator = (numberRange, operation) => {
   let c = Math.floor(Math.random() * numberRange) + 1;
   let d = Math.floor(Math.random() * numberRange) + 1;
   let e = Math.floor(Math.random() * numberRange) + 1;
-  let f = Math.floor(Math.random() * numberRange) + 1;
+  let f = Math.floor(Math.random() * numberRange);
   let g = Math.floor(Math.random() * numberRange) + 1;
-  let h = Math.floor(Math.random() * numberRange) + 1;
+  let h = Math.floor(Math.random() * numberRange);
   let i = Math.floor(Math.random() * numberRange) + 1;
-  let j = Math.floor(Math.random() * numberRange) + 1;
-  let question = "", answer = 0, secondAnswer = 0, thirdAnswer = 0, fourthAnswer = 0;
+  let j = Math.floor(Math.random() * numberRange);
+  let question = "", answer = 0;
 
   let commonDivisorEquations = gcd(c - b, a);
   let commonDivisorMultiplication = gcd(a * c, b * d);
@@ -206,6 +172,14 @@ const problemGenerator = (numberRange, operation) => {
 
   const numeratorEquations = (c - b) / commonDivisorEquations;
   const denominatorEquations = a / commonDivisorEquations;
+  const numeratorMultiplication = (a * c) / commonDivisorMultiplication;
+  const denominatorMultiplication = (b * d) / commonDivisorMultiplication;
+  const numeratorDivision = (a * d) / commonDivisorDivision;
+  const denominatorDivision = (b * c) / commonDivisorDivision;
+  const numeratorAddition = (d * a + b * c) / commonDivisorAddition;
+  const denominatorAddition = (b * d) / commonDivisorAddition;
+  const numeratorSubtraction = (d * a - b * c) / commonDivisorSubtraction;
+  const denominatorSubtraction = (b * d) / commonDivisorSubtraction;
 
   const multiplication = `What is ${a}/${b} * ${c}/${d}?`;
   const division = `What is ${a}/${b} / ${c}/${d}?`;
@@ -218,35 +192,56 @@ const problemGenerator = (numberRange, operation) => {
 
   const answerEquations = () => {
     if (numeratorEquations === 0) {
-      return `${0}`;
+      return [0];
     } else if (numeratorEquations === denominatorEquations) {
-      return `${1}`;
+      return [1];
     } else {
       return (
-        `${numeratorEquations}/${denominatorEquations}`
+        [numeratorEquations, denominatorEquations]
       );
     }
   };
 
   const answerFractions = () => {
-    if (question === multiplication) {
+    if (numeratorMultiplication === 0 || numeratorDivision === 0 || numeratorAddition === 0 || numeratorSubtraction === 0) {
+      return [0];
+    } else if (numeratorMultiplication === denominatorMultiplication || numeratorDivision === denominatorDivision || numeratorAddition === denominatorAddition || numeratorSubtraction === denominatorSubtraction) {
+      return [1];
+    } else if (question === multiplication) {
       return (
-        `${(a * c) / commonDivisorMultiplication}/${(b * d) / commonDivisorMultiplication}`
+        [numeratorMultiplication, denominatorMultiplication]
       );
     } else if (question === division) {
       return (
-        `${(a * d) / commonDivisorDivision}/${(b * c) / commonDivisorDivision}`
+        [numeratorDivision, denominatorDivision]
       );
     } else if (question === addition) {
       return (
-        `${(d * a + b * c) / commonDivisorAddition}/${(b * d) / commonDivisorAddition}`
+        [numeratorAddition, denominatorAddition]
       );
     } else if (question === subtraction) {
       return (
-        `${(d * a - b * c) / commonDivisorSubtraction}/${(b * d) / commonDivisorSubtraction}`
+        [numeratorSubtraction, denominatorSubtraction]
       );
     }
   };
+
+  const option5 = answerEquations();
+  const option1 = answerFractions();
+  const option2 = [e, f];
+  const option3 = [g, h];
+  const option4 = [i, j]
+
+  const options1 = [option1, option2, option3, option4];
+  const options2 = [option5, option2, option3, option4];
+
+  const shuffledOptions1 = options1.sort(() => {
+    return Math.random() - 0.5;
+  });
+
+  const shuffledOptions2 = options2.sort(() => {
+    return Math.random() - 0.5;
+  });
   
   switch(operation) {
     case "+":
@@ -267,23 +262,17 @@ const problemGenerator = (numberRange, operation) => {
     break;
     case "eq":
       question = `In the equation: ${a}x + ${b} = ${c}. What is the value of x?`;
-      answer = `${answerEquations()}`;
-      secondAnswer = `${e} / ${f}`;
-      thirdAnswer = `${g} / ${h}`;
-      fourthAnswer = `${i} / ${j}`;
+      answer = [shuffledOptions2];
     break;
     case "fr":
       question = `${questionFraction}`;
-      answer = `${answerFractions()}`;
-      secondAnswer = `${e} / ${f}`;
-      thirdAnswer = `${g} / ${h}`;
-      fourthAnswer = `${i} / ${j}`;
+      answer = [shuffledOptions1];
     break;
     default:
       question = "Wrong operation in question!";
   }
 
-  return {question, answer, secondAnswer, thirdAnswer, fourthAnswer};
+  return {question, answer};
 }
 
 const ProblemSchema = mongoose.Schema({
@@ -291,16 +280,7 @@ const ProblemSchema = mongoose.Schema({
     type: String,
   },
   answer: {
-    type: String,
-  },
-  secondAnswer: {
-    type: String,
-  },
-  thirdAnswer: {
-    type: String,
-  },
-  fourthAnswer: {
-    type: String,
+    type: []
   },
   operation: {
     type: String,
@@ -311,11 +291,9 @@ const Problem = mongoose.model("Problem", ProblemSchema);
 
 app.post("/questions", async (req, res) => {
   const {operation, setNumber} = req.body;
-  console.log('operation', operation)
-  console.log('setNumber', setNumber)
   try {
     let q = problemGenerator(setNumber, operation);
-    const newOperation = await new Problem({question: q.question, answer: q.answer, secondAnswer: q.secondAnswer, thirdAnswer: q.thirdAnswer, fourthAnswer: q.fourthAnswer, operation: operation}).save()
+    const newOperation = await new Problem({question: q.question, answer: q.answer, operation: operation}).save()
     res.status(200).json({
       success: true, 
       response: newOperation
