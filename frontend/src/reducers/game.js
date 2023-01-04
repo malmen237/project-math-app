@@ -7,7 +7,10 @@ const initialState = {
   answers: null,
   currentProblemIndex: 0,
   gameOver: false,
-  isCorrect: null
+  isCorrect: null,
+  // ADDED:
+  correctAnswers: 0,
+  userPoints: 0
 }
 
 export const game = createSlice({
@@ -37,6 +40,9 @@ export const game = createSlice({
         // eslint-disable-next-line eqeqeq
         if (state.answers.replace(',', '.') == state.questions.answer) {
           state.isCorrect = true
+          // ADDED two lines:
+          state.correctAnswers += 1;
+          state.userPoints += 3;
         } else {
           state.isCorrect = false
         }
@@ -46,6 +52,9 @@ export const game = createSlice({
         // eslint-disable-next-line eqeqeq
         if (state.answers == state.questions.answer) {
           state.isCorrect = true
+          // ADDED two lines:
+          state.correctAnswers += 1;
+          state.userPoints += 3;
         } else {
           state.isCorrect = false
         }
@@ -54,6 +63,8 @@ export const game = createSlice({
     goToNextQuestion: (state) => {
       if (state.currentProblemIndex + 1 === 9) {
         state.gameOver = true
+        // ADDED one line:
+        state.currentProblemIndex += 1
       } else {
         state.currentProblemIndex += 1
       }

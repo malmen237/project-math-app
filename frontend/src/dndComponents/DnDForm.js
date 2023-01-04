@@ -3,7 +3,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 // import { useMultiDrop } from 'react-dnd-multi-backend';
-import { Devices } from 'styles/GlobalStyles';
+import { Devices } from 'Styles/globalStyles';
 import { OptionCard } from './OptionCard';
 
 const DnDForm = ({ problem, basket, html5DropStyle, html5Drop, touchDropStyle, touchDrop }) => {

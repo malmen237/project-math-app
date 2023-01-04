@@ -5,6 +5,7 @@ import { headShake } from 'react-animations';
 import styled, { keyframes } from 'styled-components/macro';
 // import { Player } from '@lottiefiles/react-lottie-player';
 import picture from 'images/bells.png';
+import { OuterWrapper } from '../Styles/globalStyles';
 
 const HeadShakeAnimation = keyframes`${headShake}`;
 
@@ -21,7 +22,7 @@ const Welcome = () => {
   }
 
   return (
-    <div>
+    <OuterWrapper>
       <h1>Welcome, {username}</h1>
       {/* <Player
         src="https://assets10.lottiefiles.com/packages/lf20_jR229r.json"
@@ -38,7 +39,7 @@ const Welcome = () => {
         <Img src={picture} alt="" />
         Play game
       </Button>
-    </div>
+    </OuterWrapper>
   )
 }
 export default Welcome;

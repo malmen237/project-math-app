@@ -10,6 +10,7 @@ import { useMultiDrop } from 'react-dnd-multi-backend';
 import DnDForm from 'dndComponents/DnDForm';
 import Timer from './Timer';
 import TextForm from './TextForm';
+import { OuterWrapper } from '../Styles/globalStyles';
 
 const HeadShakeAnimation = keyframes`${headShake}`;
 const HeartBeatAnimation = keyframes`${pulse}`;
@@ -144,7 +145,7 @@ const Training = () => {
   }, [nextQuestion]);
 
   return (
-    <>
+    <OuterWrapper>
       <h1>Question: {problem.question}</h1>
       <form onSubmit={onFormSubmit}>
         {formInput ? <TextForm
@@ -177,7 +178,7 @@ const Training = () => {
       </form>
       <Timer time={time} />
       <p>Question number {problemNumber + 1}</p>
-    </>
+    </OuterWrapper>
   );
 }
 

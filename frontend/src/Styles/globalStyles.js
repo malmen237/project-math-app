@@ -14,4 +14,12 @@ export const Devices = {
 
 export const OuterWrapper = styled.div`
   background-color: white;
+  // ADDED:
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 70vw;
+  margin: 2rem auto;
 `
