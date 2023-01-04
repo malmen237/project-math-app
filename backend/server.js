@@ -40,6 +40,33 @@ const UserSchema = mongoose.Schema({
 
 const User = mongoose.model("User", UserSchema);
 
+// ADDED:
+// Schema for users stats to be stored in database
+const UserStatsSchema = mongoose.Schema({
+  username: {
+    type: String,
+    unique: true,
+    required: true,
+  },
+  quizType: {
+    type: String
+  },
+  score: {
+    type: Number
+  },
+  points: {
+    type: Number
+  },
+  time: {
+    type: Number
+  },
+  opponent: {
+    type: String
+  }
+})
+
+const UserStats = mongoose.model("UserStats", UserStatsSchema);
+
 // Defines the port the app will run on. Defaults to 8080, but can be overridden
 // when starting the server. Example command to overwrite PORT env variable value:
 // PORT=9000 npm start

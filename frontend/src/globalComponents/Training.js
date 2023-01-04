@@ -85,6 +85,9 @@ const Training = () => {
   }
 
   const onFormSubmit = (event) => {
+    // To be ADDED to onFormsubmit once it is fully working
+    // dispatch(game.actions.submitTime(time));
+    // dispatch(game.actions.submitAnswer(answer));
     const { keyCode } = event;
 
     if (keyCode === 13 && !trainingOver) {

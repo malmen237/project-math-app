@@ -8,9 +8,11 @@ const initialState = {
   currentProblemIndex: 0,
   gameOver: false,
   isCorrect: null,
-  // ADDED:
+  // ADDED three lines:
   correctAnswers: 0,
-  userPoints: 0
+  userPoints: 0,
+  // Time is added in seconds
+  time: 0
 }
 
 export const game = createSlice({
@@ -60,6 +62,11 @@ export const game = createSlice({
         }
       }
     },
+    // ADDED:
+    submitTime: (state, action) => {
+      state.time = action.payload;
+      console.log('time action.payload:', action.payload)
+    },
     goToNextQuestion: (state) => {
       if (state.currentProblemIndex + 1 === 9) {
         state.gameOver = true
@@ -68,6 +75,9 @@ export const game = createSlice({
       } else {
         state.currentProblemIndex += 1
       }
+    },
+    restart: () => {
+      return initialState
     }
   }
 });
