@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { headShake } from 'react-animations';
+//import { headShake } from 'react-animations';
 import styled, { keyframes } from 'styled-components/macro';
 // import { Player } from '@lottiefiles/react-lottie-player';
 import picture from 'images/bells.png';

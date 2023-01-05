@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { game } from 'reducers/game';
-import { headShake, pulse } from 'react-animations';
+//import { headShake, pulse } from 'react-animations';
 import styled, { keyframes } from 'styled-components/macro';
 
 const HeadShakeAnimation = keyframes`${headShake}`;
