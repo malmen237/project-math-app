@@ -1,6 +1,10 @@
 import React from 'react';
+import styled from 'styled-components';
+import { useDispatch, useSelector } from 'react-redux';
 
 const Summary = () => {
+  const dispatch = useDispatch();
+
   return (
     <h1>
         WooooHoooooooooo
