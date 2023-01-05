@@ -11,7 +11,7 @@ import { game } from 'reducers/game';
 import Training from 'globalComponents/Training';
 // import Equations from 'dndComponents/Equations';
 import Categories from 'globalComponents/Categories';
-import Summary from 'globalComponents/Summary';
+import Summary from 'pages/Summary';
 import FriendRequestManager from 'globalComponents/FriendRequestManager';
 import { DndProvider } from 'react-dnd-multi-backend';
 import { HTML5toTouch } from 'rdndmb-html5-to-touch';
