@@ -190,7 +190,7 @@ const problemGenerator = (numberRange, operation) => {
   let h = Math.floor(Math.random() * numMax) + 1;
   let i = Math.floor(Math.random() * numMax) + 1;
   let j = Math.floor(Math.random() * numMax) + 1;
-  let question = "", answer = 0;
+  let question = "", answer = 0, option=0;
 
   let commonDivisorEquations = gcd(c - b, a);
   let commonDivisorMultiplication = gcd(a * c, b * d);
@@ -290,17 +290,19 @@ const problemGenerator = (numberRange, operation) => {
     break;
     case "eq":
       question = `In the equation: ${a}x + ${b} = ${c}. What is the value of x?`;
-      answer = shuffledEquationsOptions;
+      option = shuffledEquationsOptions;
+      answer = answerEquations();
     break;
     case "fr":
       question = `${questionFraction}`;
-      answer = shuffledFractionsOptions;
+      option = shuffledFractionsOptions;
+      answer = answerFractions();
     break;
     default:
       question = "Wrong operation in question!";
   }
 
-  return {question, answer};
+  return {question, answer, option};
 }
 
 const ProblemSchema = mongoose.Schema({
@@ -308,6 +310,9 @@ const ProblemSchema = mongoose.Schema({
     type: String,
   },
   answer: {
+    type: []
+  },
+  option: {
     type: []
   },
   operation: {
@@ -321,7 +326,7 @@ app.post("/questions", async (req, res) => {
   const {operation, setNumber} = req.body;
   try {
     let q = problemGenerator(setNumber, operation);
-    const newOperation = await new Problem({question: q.question, answer: q.answer, operation: operation}).save()
+    const newOperation = await new Problem({question: q.question, answer: q.answer, option: q.option, operation: operation}).save()
     res.status(200).json({
       success: true, 
       response: newOperation

@@ -7,7 +7,7 @@ import { Devices } from 'styles/globalStyles';
 import { OptionCard } from './OptionCard';
 
 const DnDForm = ({ problem, basket, html5DropStyle, html5Drop, touchDropStyle, touchDrop }) => {
-  console.log(problem)
+  // console.log(problem)
   return (
     <>
       <MouseDropArea style={html5DropStyle} ref={html5Drop}>
@@ -21,11 +21,7 @@ const DnDForm = ({ problem, basket, html5DropStyle, html5Drop, touchDropStyle, t
         {/* {touchProps.isOver && <div>Drop Here!</div>} */}
       </TouchDropArea>
       <Options>
-        {problem.answer?.map((card, index) => {
-          return (
-            <OptionCard key={card} id={index} name={card} />
-          )
-        })}
+        {problem.option?.map((card, index) => <OptionCard key={card} name={card} id={index} />)}
       </Options>
     </>
   );

@@ -34,11 +34,11 @@ const Training = () => {
   const trainingOver = useSelector((state) => state.game.gameOver);
   const isAnswerCorrect = useSelector((state) => state.game.isCorrect);
 
-  const addAnswerToBasket = (id) => {
+  const addAnswerToBasket = (name) => {
     // const answerList = problem.answers.filter((pet, index) => index === id)
-    const selected = id
-    console.log('dragged:', id)
-    setAnswer(id)
+    const selected = name
+    // console.log('dragged:', name)
+    setAnswer(name)
     setBasket([selected])
     // setBasket([answerList[0]])
     // setAnswer(basket[0])
@@ -53,7 +53,7 @@ const Training = () => {
     accept: 'card',
     // drop is a callback function, triggers with every drop, receives data from item in useDrag
     // adds the item to the basket array if it's not already there, a new instance of array returned
-    drop: (item) => addAnswerToBasket(item.id),
+    drop: (item) => addAnswerToBasket(item.name),
     collect: (monitor) => ({
       isOver: monitor.isOver()
     })
@@ -74,7 +74,7 @@ const Training = () => {
   // Function that activates when user enters an answer,
   // also resets the goToNextQuestion-state hook
   const moveToNext = () => {
-    console.log('answer before dispatch:', answer)
+    // console.log('answer before dispatch:', answer)
     dispatch(game.actions.submitAnswer(answer));
     setAnswer('');
     setBasket([]);
