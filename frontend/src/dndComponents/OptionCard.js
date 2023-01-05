@@ -1,7 +1,7 @@
 import React from 'react';
 import { useMultiDrag } from 'react-dnd-multi-backend';
 import styled from 'styled-components';
-import { Devices } from 'Styles/globalStyles';
+import { Devices } from 'styles/globalStyles';
 
 export const OptionCard = ({ id, name, color }) => {
   // Provide's the library the element that needs dragging

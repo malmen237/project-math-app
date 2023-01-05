@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { OuterWrapper } from '../Styles/globalStyles';
+import { OuterWrapper } from '../styles/globalStyles';
 
 const Summary = () => {
   // const dispatch = useDispatch(); useDispatch,

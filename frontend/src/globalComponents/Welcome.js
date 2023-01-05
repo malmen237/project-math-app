@@ -5,7 +5,7 @@ import { headShake } from 'react-animations';
 import styled, { keyframes } from 'styled-components/macro';
 // import { Player } from '@lottiefiles/react-lottie-player';
 import picture from 'images/bells.png';
-import { OuterWrapper } from '../Styles/globalStyles';
+import { OuterWrapper } from '../styles/globalStyles';
 
 const HeadShakeAnimation = keyframes`${headShake}`;
 
