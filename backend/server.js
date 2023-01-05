@@ -256,8 +256,8 @@ const problemGenerator = (numberRange, operation) => {
 
   const eqOption = answerEquations();
   const frOption = answerFractions();
-  const dummyOption1 = [e - 5, f - 5];
-  const dummyOption2 = [g, h];
+  const dummyOption1 = [e - 5, f];
+  const dummyOption2 = [g, h - 5];
   const dummyOption3 = [i, j];
 
   const fractionsOptions = [frOption, dummyOption1, dummyOption2, dummyOption3];
