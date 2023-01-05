@@ -152,16 +152,17 @@ app.get("/welcome", (req, res) => {
 });
 
 const problemGenerator = (numberRange, operation) => {
+  const numMax = (operation === 'fr' ? 25 : 10);
   let a = Math.floor(Math.random() * numberRange) + 1;
   let b = Math.floor(Math.random() * numberRange) + 1;
   let c = Math.floor(Math.random() * numberRange) + 1;
   let d = Math.floor(Math.random() * numberRange) + 1;
-  let e = Math.floor(Math.random() * numberRange) + 1;
-  let f = Math.floor(Math.random() * numberRange);
-  let g = Math.floor(Math.random() * numberRange) + 1;
-  let h = Math.floor(Math.random() * numberRange);
-  let i = Math.floor(Math.random() * numberRange) + 1;
-  let j = Math.floor(Math.random() * numberRange);
+  let e = Math.floor(Math.random() * numMax) + 1;
+  let f = Math.floor(Math.random() * numMax) + 1;
+  let g = Math.floor(Math.random() * numMax) + 1;
+  let h = Math.floor(Math.random() * numMax) + 1;
+  let i = Math.floor(Math.random() * numMax) + 1;
+  let j = Math.floor(Math.random() * numMax) + 1;
   let question = "", answer = 0;
 
   let commonDivisorEquations = gcd(c - b, a);
@@ -207,39 +208,39 @@ const problemGenerator = (numberRange, operation) => {
       return [0];
     } else if (numeratorMultiplication === denominatorMultiplication || numeratorDivision === denominatorDivision || numeratorAddition === denominatorAddition || numeratorSubtraction === denominatorSubtraction) {
       return [1];
-    } else if (question === multiplication) {
+    } else if (questionFraction === multiplication) {
       return (
         [numeratorMultiplication, denominatorMultiplication]
       );
-    } else if (question === division) {
+    } else if (questionFraction === division) {
       return (
         [numeratorDivision, denominatorDivision]
       );
-    } else if (question === addition) {
+    } else if (questionFraction === addition) {
       return (
         [numeratorAddition, denominatorAddition]
       );
-    } else if (question === subtraction) {
+    } else if (questionFraction === subtraction) {
       return (
         [numeratorSubtraction, denominatorSubtraction]
       );
     }
   };
 
-  const option5 = answerEquations();
-  const option1 = answerFractions();
-  const option2 = [e, f];
-  const option3 = [g, h];
-  const option4 = [i, j]
+  const eqOption = answerEquations();
+  const frOption = answerFractions();
+  const dummyOption1 = [e - 5, f - 5];
+  const dummyOption2 = [g, h];
+  const dummyOption3 = [i, j];
 
-  const options1 = [option1, option2, option3, option4];
-  const options2 = [option5, option2, option3, option4];
+  const fractionsOptions = [frOption, dummyOption1, dummyOption2, dummyOption3];
+  const equationsOptions = [eqOption, dummyOption1, dummyOption2, dummyOption3];
 
-  const shuffledOptions1 = options1.sort(() => {
+  const shuffledFractionsOptions = fractionsOptions.sort(() => {
     return Math.random() - 0.5;
   });
 
-  const shuffledOptions2 = options2.sort(() => {
+  const shuffledEquationsOptions = equationsOptions.sort(() => {
     return Math.random() - 0.5;
   });
   
@@ -262,11 +263,11 @@ const problemGenerator = (numberRange, operation) => {
     break;
     case "eq":
       question = `In the equation: ${a}x + ${b} = ${c}. What is the value of x?`;
-      answer = [shuffledOptions2];
+      answer = shuffledEquationsOptions;
     break;
     case "fr":
       question = `${questionFraction}`;
-      answer = [shuffledOptions1];
+      answer = shuffledFractionsOptions;
     break;
     default:
       question = "Wrong operation in question!";

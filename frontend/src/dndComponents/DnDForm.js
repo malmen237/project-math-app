@@ -7,18 +7,7 @@ import { Devices } from 'styles/GlobalStyles';
 import { OptionCard } from './OptionCard';
 
 const DnDForm = ({ problem, basket, html5DropStyle, html5Drop, touchDropStyle, touchDrop }) => {
-  console.log('shuffledOptions', problem.answer)
-
-  const choices = () => {
-    for (let i = 0; i < problem.answer.length; i++) {
-      problem.answer[i].map((singleAnswer, index) => {
-        return (
-          <OptionCard key={singleAnswer} id={index} name={singleAnswer.map((test) => test)} />
-        )
-      })
-    }
-  }
-
+  console.log(problem)
   return (
     <>
       <MouseDropArea style={html5DropStyle} ref={html5Drop}>
@@ -32,8 +21,11 @@ const DnDForm = ({ problem, basket, html5DropStyle, html5Drop, touchDropStyle, t
         {/* {touchProps.isOver && <div>Drop Here!</div>} */}
       </TouchDropArea>
       <Options>
-        {choices()}
-        {/* {problem.answer?.map((card, index) => <OptionCard key={card} id={index} name={card} />)} */}
+        {problem.answer?.map((card, index) => {
+          return (
+            <OptionCard key={card} id={index} name={card} />
+          )
+        })}
       </Options>
     </>
   );
