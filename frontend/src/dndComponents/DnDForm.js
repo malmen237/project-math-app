@@ -3,7 +3,7 @@
 import React from 'react';
 import styled from 'styled-components/macro';
 // import { useMultiDrop } from 'react-dnd-multi-backend';
-import { Devices } from 'Styles/globalStyles';
+import { Devices } from 'styles/globalStyles';
 import { OptionCard } from './OptionCard';
 
 const DnDForm = ({ problem, basket, html5DropStyle, html5Drop, touchDropStyle, touchDrop }) => {
@@ -48,7 +48,6 @@ const Instruct = styled.div`
   font-size: 1.2rem;
   font-weight: bold;
   color: white;
-
   align-items: center;
   justify-content: center;
 `

@@ -8,17 +8,24 @@ const initialState = {
   currentProblemIndex: 0,
   gameOver: false,
   isCorrect: null,
-  // ADDED three lines:
   correctAnswers: 0,
   userPoints: 0,
   // Time is added in seconds
-  time: 0
+  time: 0,
+  quiztype: null,
+  opponent: ''
 }
 
 export const game = createSlice({
   name: 'game',
   initialState,
   reducers: {
+    submitQuiztype: (state, action) => {
+      state.quiztype = action.payload;
+    },
+    submitOpponent: (state, action) => {
+      state.opponent = action.payload;
+    },
     submitOperation: (state, action) => {
       state.operation = action.payload;
 
@@ -42,19 +49,18 @@ export const game = createSlice({
         // eslint-disable-next-line eqeqeq
         if (state.answers.replace(',', '.') == state.questions.answer) {
           state.isCorrect = true
-          // ADDED two lines:
           state.correctAnswers += 1;
           state.userPoints += 3;
         } else {
           state.isCorrect = false
         }
+        console.log('state.correctAnswers:', state.correctAnswers)
       }
 
       if (answerType === 'number') {
         // eslint-disable-next-line eqeqeq
         if (state.answers == state.questions.answer) {
           state.isCorrect = true
-          // ADDED two lines:
           state.correctAnswers += 1;
           state.userPoints += 3;
         } else {
@@ -62,15 +68,13 @@ export const game = createSlice({
         }
       }
     },
-    // ADDED:
     submitTime: (state, action) => {
       state.time = action.payload;
       console.log('time action.payload:', action.payload)
     },
     goToNextQuestion: (state) => {
-      if (state.currentProblemIndex + 1 === 9) {
+      if (state.currentProblemIndex + 1 === 2) {
         state.gameOver = true
-        // ADDED one line:
         state.currentProblemIndex += 1
       } else {
         state.currentProblemIndex += 1

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { OuterWrapper } from '../Styles/globalStyles';
+import { OuterWrapper } from '../styles/globalStyles';
 
 const Summary = () => {
   // const dispatch = useDispatch(); useDispatch,
@@ -10,26 +10,71 @@ const Summary = () => {
 
   const onTrainBtnClick = (type) => {
     // dispatch(game.actions.submitOperation());
-    if (type === 'train') {
+    if (type === 'training') {
       setTimeout(() => { navigate('/category') }, 500);
-    // } else {
-    //   setTimeout(() => { navigate('/questions') }, 500);
-    // }
+    } else {
+      setTimeout(() => { navigate('/questions') }, 500);
     }
   }
 
-  // Check how many correct answers the user has
-  const correctAnswers = useSelector((state) => state.game.correctAnswers);
-  const userPoints = useSelector((state) => state.game.userPoints);
+  // Convert seconds to minutes and seconds
+  const toHoursAndMinutes = (totalSecs) => {
+    const totalMinutes = Math.floor(totalSecs / 60);
+    const remainingSecs = totalSecs % 60;
+    return { m: totalMinutes, s: remainingSecs }
+  }
+
+  // Adds a zero before number if it's single digits
+  const paddedNumber = (number, length) => {
+    let str = `${number}`;
+    while (str.length < length) {
+      str = `0${str}`;
+    }
+    return str;
+  }
+
+  // Display users results
+  const username = useSelector((state) => state.user.username);
+  const quiztype = useSelector((state) => state.game.quiztype);
+  const score = useSelector((state) => state.game.correctAnswers);
+  const points = useSelector((state) => state.game.userPoints);
+  const timeInSecs = useSelector((state) => state.game.time);
+  const timeConverted = toHoursAndMinutes(timeInSecs)
+  const time = `${paddedNumber(timeConverted.m, 2)}:${paddedNumber(timeConverted.s, 2)}`
+  // console.log('time in summary', time, typeof time)
+  const opponent = useSelector((state) => state.game.opponent);
+
+  // Post users results to database
+  const options = {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      username,
+      quiztype,
+      score,
+      points,
+      time,
+      opponent
+    })
+  }
+
+  fetch('http://localhost:8080/userstats', options)
+    .then((res) => res.json())
+    .then((json) => {
+      console.log('json.response', json.response);
+    })
 
   return (
     <OuterWrapper>
-      <Correct>WooooHoooooooooo</Correct>
-      <Correct>You got {correctAnswers} / 10 right!</Correct>
-      <Points>{userPoints} points earned</Points>
+      <Correct>WooooHoooooooooo {username}</Correct>
+      <Correct>You got {score} / 10 right!</Correct>
+      <Correct>{points} points earned</Correct>
+      <Correct>Time to complete: {time}</Correct>
 
-      <Next type="button" onClick={() => onTrainBtnClick('train')}>Train again?</Next>
-      <Next type="button" onClick={() => onTrainBtnClick('game')}>Start a game!</Next>
+      <Next type="button" onClick={() => onTrainBtnClick('training')}>Train again?</Next>
+      <Next type="button" onClick={() => onTrainBtnClick('challenge')}>Start a game!</Next>
     </OuterWrapper>
   )
 }
@@ -40,11 +85,6 @@ const Correct = styled.p`
   font-size: 2rem;
   color: #555;
   margin-bottom: 1rem;
-`
-
-const Points = styled.p`
-  font-size: 2rem;
-  color: #555;
 `
 
 const Next = styled.button`

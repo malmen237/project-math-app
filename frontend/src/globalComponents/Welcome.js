@@ -5,7 +5,7 @@ import { headShake } from 'react-animations';
 import styled, { keyframes } from 'styled-components/macro';
 // import { Player } from '@lottiefiles/react-lottie-player';
 import picture from 'images/bells.png';
-import { OuterWrapper } from '../Styles/globalStyles';
+import { OuterWrapper } from '../styles/globalStyles';
 
 const HeadShakeAnimation = keyframes`${headShake}`;
 
@@ -14,6 +14,9 @@ const Welcome = () => {
   const username = useSelector((store) => store.user.username);
   console.log(username)
 
+  const buttonClick = () => {
+    navigate('/profile');
+  }
   const trainButtonClick = () => {
     navigate('/category');
   }
@@ -24,6 +27,7 @@ const Welcome = () => {
   return (
     <OuterWrapper>
       <h1>Welcome, {username}</h1>
+      <button type="button" onClick={buttonClick}>PROFILE</button>
       {/* <Player
         src="https://assets10.lottiefiles.com/packages/lf20_jR229r.json"
         className="player"

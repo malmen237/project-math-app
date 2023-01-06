@@ -3,13 +3,16 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { game } from 'reducers/game';
-import { OuterWrapper } from 'Styles/globalStyles';
+import { OuterWrapper } from 'styles/globalStyles';
 
 const Categories = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const onButtonClick = (event) => {
+    dispatch(game.actions.restart());
+    dispatch(game.actions.submitQuiztype('training'));
+    // dispatch(game.actions.submitOpponent(''));
     dispatch(game.actions.submitOperation(event));
     setTimeout(() => { navigate('/questions') }, 500);
   }

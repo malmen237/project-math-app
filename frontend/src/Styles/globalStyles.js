@@ -14,7 +14,6 @@ export const Devices = {
 
 export const OuterWrapper = styled.div`
   background-color: white;
-  // ADDED:
   display: flex;
   flex-direction: column;
   align-items: center;

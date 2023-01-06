@@ -10,7 +10,7 @@ import { useMultiDrop } from 'react-dnd-multi-backend';
 import DnDForm from 'dndComponents/DnDForm';
 import Timer from './Timer';
 import TextForm from './TextForm';
-import { OuterWrapper } from '../Styles/globalStyles';
+import { OuterWrapper } from '../styles/globalStyles';
 
 const HeadShakeAnimation = keyframes`${headShake}`;
 const HeartBeatAnimation = keyframes`${pulse}`;
@@ -21,8 +21,8 @@ const Training = () => {
   const [nextButton, setNextButton] = useState(false);
   const [providedAnswer, setProvidedAnswer] = useState(false);
   const [time, setTime] = useState(0);
-  const [formInput, setFormInput] = useState(false);
-  const [basket, setBasket] = useState([])
+  const [formInput, setFormInput] = useState(true);
+  const [basket, setBasket] = useState([]);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -34,26 +34,19 @@ const Training = () => {
   const trainingOver = useSelector((state) => state.game.gameOver);
   const isAnswerCorrect = useSelector((state) => state.game.isCorrect);
 
-  const addAnswerToBasket = (id) => {
-    // const answerList = problem.answers.filter((pet, index) => index === id)
-    const selected = id
-    console.log('dragged:', id)
-    setAnswer(id)
+  const addAnswerToBasket = (name) => {
+    const selected = name
+    setAnswer(name)
     setBasket([selected])
-    // setBasket([answerList[0]])
-    // setAnswer(basket[0])
     setNextButton(true);
-    // console.log('BASKET SET TO:', answerList[0])
   }
 
   // eslint-disable-next-line max-len
   const [[dropProps], { html5: [html5Props, html5Drop], touch: [touchProps, touchDrop] }] = useMultiDrop({
-    // input object:
-    // accept is mandatory
     accept: 'card',
     // drop is a callback function, triggers with every drop, receives data from item in useDrag
-    // adds the item to the basket array if it's not already there, a new instance of array returned
-    drop: (item) => addAnswerToBasket(item.id),
+    // adds the item to the basket array
+    drop: (item) => addAnswerToBasket(item.name),
     collect: (monitor) => ({
       isOver: monitor.isOver()
     })
@@ -71,10 +64,15 @@ const Training = () => {
     return () => clearInterval(interval);
   }, []);
 
+  // MOVED TIMER INTO SEPARATE USE-EFFECT
+  useEffect(() => {
+    setTime(0);
+    <Timer />
+  }, []);
+
   // Function that activates when user enters an answer,
   // also resets the goToNextQuestion-state hook
   const moveToNext = () => {
-    console.log('answer before dispatch:', answer)
     dispatch(game.actions.submitAnswer(answer));
     setAnswer('');
     setBasket([]);
@@ -85,28 +83,15 @@ const Training = () => {
   }
 
   const onFormSubmit = (event) => {
-    // To be ADDED to onFormsubmit once it is fully working
-    // dispatch(game.actions.submitTime(time));
-    // dispatch(game.actions.submitAnswer(answer));
-    const { keyCode } = event;
-
-    if (keyCode === 13 && !trainingOver) {
-      moveToNext(event);
-    } else if (keyCode === 13 && trainingOver) {
-      navigate('/summary');
-    } else {
-      event.preventDefault();
-    }
-  }
-
-  // Enables the user to use the enter-key to progress.
-  const onKeyDown = (event) => {
-    const { keyCode } = event;
-
-    if (keyCode === 13 && !trainingOver) {
+    event.preventDefault();
+    if (!trainingOver) {
       moveToNext();
-    } else if (keyCode === 13 && trainingOver) {
-      onFormSubmit(event);
+    } else {
+      dispatch(game.actions.submitTime(time));
+      dispatch(game.actions.submitAnswer(answer));
+      setProvidedAnswer(true);
+      setTimeout(() => { setNextQuestion(true) }, 2000);
+      setTimeout(() => { navigate('/summary') }, 2000);
     }
   }
 
@@ -118,8 +103,6 @@ const Training = () => {
   // Get set of questions from database
   useEffect(() => {
     if (nextQuestion) {
-      setTime(0);
-      <Timer />
       setNextQuestion(false);
       setProvidedAnswer(false);
       // To post type of math problems to be trained
@@ -149,12 +132,11 @@ const Training = () => {
 
   return (
     <OuterWrapper>
-      <h1>Question: {problem.question}</h1>
+      <Question>Question: {problem.question}</Question>
       <form onSubmit={onFormSubmit}>
         {formInput ? <TextForm
           answer={answer}
-          handleUserAnswerInput={handleUserAnswerInput}
-          onKeyDown={onKeyDown} /> : <DnDForm
+          handleUserAnswerInput={handleUserAnswerInput} /> : <DnDForm
           basket={basket}
           html5DropStyle={html5DropStyle}
           html5Drop={html5Drop}
@@ -164,9 +146,10 @@ const Training = () => {
         {!trainingOver && (
           <Button
             className={providedAnswer ? (isAnswerCorrect ? 'correct' : 'wrong') : 'default'}
-            onClick={moveToNext}
+            type="submit"
             disabled={!nextButton}
-            type="button">Next
+            onClick={onFormSubmit}>
+            Next
           </Button>
         )}
         {trainingOver && (
@@ -174,8 +157,8 @@ const Training = () => {
             className={providedAnswer ? (isAnswerCorrect ? 'correct' : 'wrong') : 'default'}
             type="submit"
             disabled={!nextButton}
-            onClick={(event) => onFormSubmit(event)}>
-              Submit
+            onClick={onFormSubmit}>
+            Submit
           </Button>
         )}
       </form>
@@ -186,6 +169,11 @@ const Training = () => {
 }
 
 export default Training;
+
+const Question = styled.h1`
+  font-size: 2rem;
+  color: #555;
+`
 
 const Button = styled.button`
   display: flex;
