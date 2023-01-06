@@ -275,29 +275,29 @@ const problemGenerator = (numberRange, operation) => {
     case "+":
       question = `What is ${a} + ${b}?`;
       answer = a + b;
-    break;
+      break;
     case "-":
       question = `What is ${a} - ${b}?`;
       answer = a - b;
-    break;
+      break;
     case "*":
       question = `What is ${a} * ${b}?`;
       answer = a * b;
-    break;
+      break;
     case "/":
       question = `What is ${a} / ${b}?`;
       answer = (Math.round((a / b) * 10) / 10);
-    break;
+      break;
     case "eq":
       question = `In the equation: ${a}x + ${b} = ${c}. What is the value of x?`;
       option = shuffledEquationsOptions;
       answer = answerEquations();
-    break;
+      break;
     case "fr":
       question = `${questionFraction}`;
       option = shuffledFractionsOptions;
       answer = answerFractions();
-    break;
+      break;
     default:
       question = "Wrong operation in question!";
   }
@@ -327,6 +327,41 @@ app.post("/questions", async (req, res) => {
   try {
     let q = problemGenerator(setNumber, operation);
     const newOperation = await new Problem({question: q.question, answer: q.answer, option: q.option, operation: operation}).save()
+    res.status(200).json({
+      success: true, 
+      response: newOperation
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      response: error
+    });
+  }
+});
+
+const ChallengeSchema = mongoose.Schema({
+  questions: []
+});
+
+const Challenge = mongoose.model("Challenge", ChallengeSchema);
+
+app.post("/challenges", async (req, res) => {
+  try {
+    let qs = [];
+    let setNumber = 0;
+    for(let i = 0; i < 10; i++) {
+      let operation = ['fr', '-', '/', '*', 'eq', '+'][Math.floor(Math.random() * 6)]
+      if (operation === '+' || operation === '-') {
+        setNumber = 1000;
+      } else if (operation === '*' || operation === '/') {
+        setNumber = 12;
+      } else if (operation === 'eq' || operation === 'fr') {
+        setNumber = 10;
+      }
+      let q = problemGenerator(setNumber, operation);
+      qs.push({question: q.question, answer: q.answer, option: q.option, operation: operation});
+    }
+    const newOperation = await new Challenge({questions: qs}).save()
     res.status(200).json({
       success: true, 
       response: newOperation

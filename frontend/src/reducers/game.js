@@ -3,12 +3,11 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   operation: null,
   setNumber: null,
-  questions: {},
+  questions: [],
   answers: null,
   currentProblemIndex: 0,
   gameOver: false,
   isCorrect: null,
-  // ADDED three lines:
   correctAnswers: 0,
   userPoints: 0,
   // Time is added in seconds

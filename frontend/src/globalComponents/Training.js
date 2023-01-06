@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { API_URL } from 'utils/utils';
 import { game } from 'reducers/game';
 import { headShake, pulse } from 'react-animations';
 import styled, { keyframes } from 'styled-components/macro';
@@ -23,6 +24,8 @@ const Training = () => {
   const [time, setTime] = useState(0);
   const [formInput, setFormInput] = useState(false);
   const [basket, setBasket] = useState([])
+  // ! Add setChallenge stateHook
+  const [challenge] = useState(true)
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -35,31 +38,23 @@ const Training = () => {
   const isAnswerCorrect = useSelector((state) => state.game.isCorrect);
 
   const addAnswerToBasket = (name) => {
-    // const answerList = problem.answers.filter((pet, index) => index === id)
-    const selected = name
-    // console.log('dragged:', name)
-    setAnswer(name)
-    setBasket([selected])
-    // setBasket([answerList[0]])
-    // setAnswer(basket[0])
+    const selected = name;
+    setAnswer(name);
+    setBasket([selected]);
     setNextButton(true);
-    // console.log('BASKET SET TO:', answerList[0])
   }
 
-  // eslint-disable-next-line max-len
-  const [[dropProps], { html5: [html5Props, html5Drop], touch: [touchProps, touchDrop] }] = useMultiDrop({
-    // input object:
-    // accept is mandatory
+  const [[dropProps], {
+    html5: [html5Props, html5Drop],
+    touch: [touchProps, touchDrop]
+  }] = useMultiDrop({
     accept: 'card',
-    // drop is a callback function, triggers with every drop, receives data from item in useDrag
-    // adds the item to the basket array if it's not already there, a new instance of array returned
     drop: (item) => addAnswerToBasket(item.name),
     collect: (monitor) => ({
       isOver: monitor.isOver()
     })
-  })
+  });
 
-  // DROPPROPS - Where should it be used??
   const html5DropStyle = { backgroundColor: (dropProps.isOver && html5Props.canDrop) ? '#f3f3f3' : '#bbbbbb' } // (html5Props.isOver && html5Props.canDrop)
   const touchDropStyle = { backgroundColor: (touchProps.isOver && touchProps.canDrop) ? '#f3f3f3' : 'lightcoral' } // (touchProps.isOver && touchProps.canDrop)
 
@@ -74,7 +69,6 @@ const Training = () => {
   // Function that activates when user enters an answer,
   // also resets the goToNextQuestion-state hook
   const moveToNext = () => {
-    // console.log('answer before dispatch:', answer)
     dispatch(game.actions.submitAnswer(answer));
     setAnswer('');
     setBasket([]);
@@ -133,19 +127,26 @@ const Training = () => {
           setNumber
         })
       }
-      fetch('http://localhost:8080/questions', options)
+      fetch(API_URL(challenge ? 'challenges' : 'questions'), options)
         .then((res) => res.json())
         .then((json) => {
           console.log('json.response', json.response)
-          dispatch(game.actions.submitQuestion(json.response));
-          if (operation === '+' || operation === '-' || operation === '*' || operation === '/') {
-            return setFormInput(true)
-          } else if (operation === 'eq' || operation === 'fr') {
-            return setFormInput(false)
-          }
+          // json.response.questions.map((singleQuestion) => {
+          //   return (
+          //     dispatch(game.actions.submitQuestion(singleQuestion))
+          //   )
+          // })
+          dispatch(game.actions.submitQuestion(json.response.questions));
+          console.log(setFormInput)
         })
     }
   }, [nextQuestion]);
+
+  // if (operation === '+' || operation === '-' || operation === '*' || operation === '/') {
+  //   return setFormInput(true);
+  // } else if (operation === 'eq' || operation === 'fr') {
+  //   return setFormInput(false);
+  // }
 
   return (
     <OuterWrapper>
