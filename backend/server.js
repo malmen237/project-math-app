@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import crypto from "crypto";
 import bcrypt from "bcrypt";
 import { gcd } from "mathjs";
+import userStatsRouter from "./routes/userStatsRouter";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/math"
 mongoose.connect(mongoUrl, {useNewUrlParser: true, useUnifiedTopology: true})
@@ -39,33 +40,6 @@ const UserSchema = mongoose.Schema({
 })
 
 const User = mongoose.model("User", UserSchema);
-
-// ADDED:
-// Schema for users stats to be stored in database
-const UserStatsSchema = mongoose.Schema({
-  username: {
-    type: String,
-    unique: true,
-    required: true,
-  },
-  quizType: {
-    type: String
-  },
-  score: {
-    type: Number
-  },
-  points: {
-    type: Number
-  },
-  time: {
-    type: Number
-  },
-  opponent: {
-    type: String
-  }
-})
-
-const UserStats = mongoose.model("UserStats", UserStatsSchema);
 
 // Defines the port the app will run on. Defaults to 8080, but can be overridden
 // when starting the server. Example command to overwrite PORT env variable value:
@@ -333,6 +307,10 @@ app.post("/questions", async (req, res) => {
     });
   }
 });
+
+// ADDED:
+app.use("/userstats", userStatsRouter);
+app.use("/userstats/:username", userStatsRouter);
 
 // Start the server
 app.listen(port, () => {

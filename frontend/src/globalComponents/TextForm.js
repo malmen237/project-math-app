@@ -18,7 +18,7 @@ export default TextForm;
 const Input = styled.input`
   font-size: 1.2rem;
   padding: 0.5rem;
-  width: 20rem;
+  width: 65vw;
   height: 3rem;
   background-color: lightgray;
   border: none;

@@ -23,6 +23,8 @@ const Training = () => {
   const [time, setTime] = useState(0);
   const [formInput, setFormInput] = useState(true);
   const [basket, setBasket] = useState([]);
+  const [showNumber, setShowNumber] = useState(0);
+  const [lastQuestion, setLastQuestion] = useState();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -30,9 +32,13 @@ const Training = () => {
   const operation = useSelector((state) => state.game.operation);
   const setNumber = useSelector((state) => state.game.setNumber);
   const problem = useSelector((state) => state.game.questions);
-  const problemNumber = useSelector((state) => state.game.currentProblemIndex);
-  const trainingOver = useSelector((state) => state.game.gameOver);
   const isAnswerCorrect = useSelector((state) => state.game.isCorrect);
+  // ADDED:
+  const problemNumber = useSelector((state) => state.game.currentProblemIndex);
+  setTimeout(() => { setShowNumber(problemNumber) }, 2000);
+  // ADDED:
+  const trainingOver = useSelector((state) => state.game.gameOver);
+  setTimeout(() => { setLastQuestion(trainingOver) }, 2000);
 
   const addAnswerToBasket = (name) => {
     const selected = name
@@ -143,7 +149,7 @@ const Training = () => {
           touchDropStyle={touchDropStyle}
           touchDrop={touchDrop}
           problem={problem} />}
-        {!trainingOver && (
+        {!lastQuestion && (
           <Button
             className={providedAnswer ? (isAnswerCorrect ? 'correct' : 'wrong') : 'default'}
             type="submit"
@@ -152,7 +158,7 @@ const Training = () => {
             Next
           </Button>
         )}
-        {trainingOver && (
+        {lastQuestion && (
           <Button
             className={providedAnswer ? (isAnswerCorrect ? 'correct' : 'wrong') : 'default'}
             type="submit"
@@ -163,7 +169,7 @@ const Training = () => {
         )}
       </form>
       <Timer time={time} />
-      <p>Question number {problemNumber + 1}</p>
+      <Number>Question number {showNumber + 1}</Number>
     </OuterWrapper>
   );
 }
@@ -171,8 +177,15 @@ const Training = () => {
 export default Training;
 
 const Question = styled.h1`
-  font-size: 2rem;
+  width: 90vw;
+  font-size: 1.5rem;
   color: #555;
+`
+
+const Number = styled.h1`
+  font-size: 1.3rem;
+  color: #555;
+  margin: 1rem;
 `
 
 const Button = styled.button`
@@ -184,8 +197,8 @@ const Button = styled.button`
   font-size: 1.5em;
   font-weight: bold;
   border: none;
-  width: 400px;
-  margin: 10%;
+  width: 70vw;
+  margin: 10% 0;
   padding: 5% 2%;
   border-radius: 25px;
   cursor: pointer;

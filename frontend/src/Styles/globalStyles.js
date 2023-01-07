@@ -19,6 +19,6 @@ export const OuterWrapper = styled.div`
   align-items: center;
   justify-content: center;
   text-align: center;
-  width: 70vw;
+  width: 80vw;
   margin: 2rem auto;
 `
