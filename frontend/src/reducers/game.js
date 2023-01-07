@@ -35,10 +35,11 @@ export const game = createSlice({
     submitAnswer: (state, action) => {
       state.answers = action.payload;
       const answerType = typeof state.answers;
+      const correctAnswer = state.questions[state.currentProblemIndex].answer;
 
       if (answerType === 'string') {
         // eslint-disable-next-line eqeqeq
-        if (state.answers.replace(',', '.') == state.questions.answer) {
+        if (state.answers.replace(',', '.') == correctAnswer) {
           state.isCorrect = true;
           state.correctAnswers += 1;
           state.userPoints += 3;
@@ -47,7 +48,7 @@ export const game = createSlice({
         }
       } else if (answerType === 'object') {
         // eslint-disable-next-line max-len
-        if (state.answers[0] === state.questions.answer[0] && state.answers[1] === state.questions.answer[1]) {
+        if (state.answers[0] === correctAnswer[0] && state.answers[1] === correctAnswer[1]) {
           state.isCorrect = true;
           state.correctAnswers += 1;
           state.userPoints += 3;

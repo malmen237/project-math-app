@@ -260,6 +260,8 @@ const problemGenerator = (numberRange, operation) => {
   const dummyOption2 = [g, h - 5];
   const dummyOption3 = [i, j];
 
+  // TODO: Re-do variable if any 2 are the same
+
   const fractionsOptions = [frOption, dummyOption1, dummyOption2, dummyOption3];
   const equationsOptions = [eqOption, dummyOption1, dummyOption2, dummyOption3];
 
@@ -306,18 +308,7 @@ const problemGenerator = (numberRange, operation) => {
 }
 
 const ProblemSchema = mongoose.Schema({
-  question: {
-    type: String,
-  },
-  answer: {
-    type: []
-  },
-  option: {
-    type: []
-  },
-  operation: {
-    type: String,
-  }
+  questions: []
 });
 
 const Problem = mongoose.model("Problem", ProblemSchema);
@@ -325,8 +316,12 @@ const Problem = mongoose.model("Problem", ProblemSchema);
 app.post("/questions", async (req, res) => {
   const {operation, setNumber} = req.body;
   try {
-    let q = problemGenerator(setNumber, operation);
-    const newOperation = await new Problem({question: q.question, answer: q.answer, option: q.option, operation: operation}).save()
+    let qs = [];
+    for(let i = 0; i < 10; i++) {
+      let q = problemGenerator(setNumber, operation);
+      qs.push({question: q.question, answer: q.answer, option: q.option, operation: operation});
+    }
+    const newOperation = await new Problem({questions: qs}).save()
     res.status(200).json({
       success: true, 
       response: newOperation

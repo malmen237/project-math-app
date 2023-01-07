@@ -22,10 +22,10 @@ const Training = () => {
   const [nextButton, setNextButton] = useState(false);
   const [providedAnswer, setProvidedAnswer] = useState(false);
   const [time, setTime] = useState(0);
-  const [formInput, setFormInput] = useState(false);
-  const [basket, setBasket] = useState([])
+  const [basket, setBasket] = useState([]);
+  const [startFetch, setStartFetch] = useState(true);
   // ! Add setChallenge stateHook
-  const [challenge] = useState(true)
+  const [challenge] = useState(true);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -111,10 +111,11 @@ const Training = () => {
 
   // Get set of questions from database
   useEffect(() => {
-    if (nextQuestion) {
+    if (nextQuestion && startFetch) {
       setTime(0);
       <Timer />
       setNextQuestion(false);
+      setStartFetch(false);
       setProvidedAnswer(false);
       // To post type of math problems to be trained
       const options = {
@@ -131,26 +132,33 @@ const Training = () => {
         .then((res) => res.json())
         .then((json) => {
           console.log('json.response', json.response)
-          // json.response.questions.map((singleQuestion) => {
-          //   return (
-          //     dispatch(game.actions.submitQuestion(singleQuestion))
-          //   )
-          // })
           dispatch(game.actions.submitQuestion(json.response.questions));
-          console.log(setFormInput)
         })
+    } else if (nextQuestion && !startFetch) {
+      setTime(0);
+      <Timer />
+      setNextQuestion(false);
+      setProvidedAnswer(false);
     }
   }, [nextQuestion]);
 
-  // if (operation === '+' || operation === '-' || operation === '*' || operation === '/') {
-  //   return setFormInput(true);
-  // } else if (operation === 'eq' || operation === 'fr') {
-  //   return setFormInput(false);
-  // }
+  if (problem.length === 0) {
+    return (
+      <>
+      </>
+    );
+  }
+
+  let formInput;
+  if (problem[problemNumber].operation === '+' || problem[problemNumber].operation === '-' || problem[problemNumber].operation === '*' || problem[problemNumber].operation === '/') {
+    formInput = true;
+  } else {
+    formInput = false;
+  }
 
   return (
     <OuterWrapper>
-      <h1>Question: {problem.question}</h1>
+      <h1>Question: {problem[problemNumber].question}</h1>
       <form onSubmit={onFormSubmit}>
         {formInput ? <TextForm
           answer={answer}
@@ -161,7 +169,7 @@ const Training = () => {
           html5Drop={html5Drop}
           touchDropStyle={touchDropStyle}
           touchDrop={touchDrop}
-          problem={problem} />}
+          problem={problem[problemNumber]} />}
         {!trainingOver && (
           <Button
             className={providedAnswer ? (isAnswerCorrect ? 'correct' : 'wrong') : 'default'}
