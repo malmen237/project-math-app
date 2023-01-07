@@ -1,12 +1,16 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { game } from 'reducers/game';
 import styled from 'styled-components/macro';
 import { OuterWrapper } from 'styles/globalStyles';
 
 const StartGame = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const onButtonClick = () => {
+    dispatch(game.actions.setMode('challenge'));
     setTimeout(() => { navigate('/questions') }, 500);
   }
 

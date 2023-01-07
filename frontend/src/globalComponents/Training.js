@@ -24,8 +24,7 @@ const Training = () => {
   const [time, setTime] = useState(0);
   const [basket, setBasket] = useState([]);
   const [startFetch, setStartFetch] = useState(true);
-  // ! Add setChallenge stateHook
-  const [challenge] = useState(true);
+  // const [challenge, setChallenge] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -36,6 +35,7 @@ const Training = () => {
   const problemNumber = useSelector((state) => state.game.currentProblemIndex);
   const trainingOver = useSelector((state) => state.game.gameOver);
   const isAnswerCorrect = useSelector((state) => state.game.isCorrect);
+  const mode = useSelector((state) => state.game.mode);
 
   const addAnswerToBasket = (name) => {
     const selected = name;
@@ -112,11 +112,13 @@ const Training = () => {
   // Get set of questions from database
   useEffect(() => {
     if (nextQuestion && startFetch) {
+      console.log('startFetch', startFetch)
       setTime(0);
       <Timer />
       setNextQuestion(false);
       setStartFetch(false);
       setProvidedAnswer(false);
+      console.log('startFetch', startFetch)
       // To post type of math problems to be trained
       const options = {
         method: 'POST',
@@ -128,7 +130,7 @@ const Training = () => {
           setNumber
         })
       }
-      fetch(API_URL(challenge ? 'challenges' : 'questions'), options)
+      fetch(API_URL(mode === 'challenge' ? 'challenges' : 'questions'), options)
         .then((res) => res.json())
         .then((json) => {
           console.log('json.response', json.response)

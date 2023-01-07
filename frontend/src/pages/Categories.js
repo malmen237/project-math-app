@@ -10,6 +10,7 @@ const Categories = () => {
   const navigate = useNavigate();
 
   const onButtonClick = (event) => {
+    dispatch(game.actions.setMode('training'));
     dispatch(game.actions.submitOperation(event));
     setTimeout(() => { navigate('/questions') }, 500);
   }

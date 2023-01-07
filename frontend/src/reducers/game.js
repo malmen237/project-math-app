@@ -11,13 +11,17 @@ const initialState = {
   correctAnswers: 0,
   userPoints: 0,
   // Time is added in seconds
-  time: 0
+  time: 0,
+  mode: null
 }
 
 export const game = createSlice({
   name: 'game',
   initialState,
   reducers: {
+    setMode: (state, action) => {
+      state.mode = action.payload;
+    },
     submitOperation: (state, action) => {
       state.operation = action.payload;
 
