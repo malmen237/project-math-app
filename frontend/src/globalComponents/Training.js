@@ -16,6 +16,7 @@ import { OuterWrapper } from '../styles/globalStyles';
 const HeadShakeAnimation = keyframes`${headShake}`;
 const HeartBeatAnimation = keyframes`${pulse}`;
 
+// ! Rename to something more general like "Questions"
 const Training = () => {
   const [answer, setAnswer] = useState('');
   const [nextQuestion, setNextQuestion] = useState(true);
@@ -24,7 +25,6 @@ const Training = () => {
   const [time, setTime] = useState(0);
   const [basket, setBasket] = useState([]);
   const [startFetch, setStartFetch] = useState(true);
-  // const [challenge, setChallenge] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -112,13 +112,11 @@ const Training = () => {
   // Get set of questions from database
   useEffect(() => {
     if (nextQuestion && startFetch) {
-      console.log('startFetch', startFetch)
       setTime(0);
       <Timer />
       setNextQuestion(false);
       setStartFetch(false);
       setProvidedAnswer(false);
-      console.log('startFetch', startFetch)
       // To post type of math problems to be trained
       const options = {
         method: 'POST',

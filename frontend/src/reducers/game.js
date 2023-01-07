@@ -40,6 +40,8 @@ export const game = createSlice({
       state.answers = action.payload;
       const answerType = typeof state.answers;
       const correctAnswer = state.questions[state.currentProblemIndex].answer;
+      console.log('USER-answer', state.answers)
+      console.log('TRUE-answer', correctAnswer[0], correctAnswer[1])
 
       if (answerType === 'string') {
         // eslint-disable-next-line eqeqeq
@@ -51,7 +53,6 @@ export const game = createSlice({
           state.isCorrect = false;
         }
       } else if (answerType === 'object') {
-        // eslint-disable-next-line max-len
         if (state.answers[0] === correctAnswer[0] && state.answers[1] === correctAnswer[1]) {
           state.isCorrect = true;
           state.correctAnswers += 1;

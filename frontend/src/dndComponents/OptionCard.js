@@ -25,10 +25,10 @@ export const OptionCard = ({ id, name, color }) => {
 
     <div style={containerStyle}>
       <Mouse style={html5DragStyle} ref={html5Drag}>
-        {name}
+        {`${name[0]} / ${name[1]}`}
       </Mouse>
       <Touch style={touchDragStyle} ref={touchDrag}>
-        {name}
+        {`${name[0]} / ${name[1]}`}
       </Touch>
     </div>
 

@@ -218,18 +218,6 @@ const problemGenerator = (numberRange, operation) => {
     Math.floor(Math.random() * 4)
   ];
 
-  const answerEquations = () => {
-    if (numeratorEquations === 0) {
-      return [0];
-    } else if (numeratorEquations === denominatorEquations) {
-      return [1];
-    } else {
-      return (
-        [numeratorEquations, denominatorEquations]
-      );
-    }
-  };
-
   const answerFractions = () => {
     if (numeratorMultiplication === 0 || numeratorDivision === 0 || numeratorAddition === 0 || numeratorSubtraction === 0) {
       return [0];
@@ -254,7 +242,7 @@ const problemGenerator = (numberRange, operation) => {
     }
   };
 
-  const eqOption = answerEquations();
+  const eqOption = [numeratorEquations, denominatorEquations]
   const frOption = answerFractions();
   const dummyOption1 = [e - 5, f];
   const dummyOption2 = [g, h - 5];
@@ -293,7 +281,7 @@ const problemGenerator = (numberRange, operation) => {
     case "eq":
       question = `In the equation: ${a}x + ${b} = ${c}. What is the value of x?`;
       option = shuffledEquationsOptions;
-      answer = answerEquations();
+      answer = eqOption;
       break;
     case "fr":
       question = `${questionFraction}`;

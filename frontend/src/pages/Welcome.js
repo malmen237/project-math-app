@@ -9,7 +9,6 @@ import { OuterWrapper } from '../styles/globalStyles';
 const Welcome = () => {
   const navigate = useNavigate();
   const username = useSelector((store) => store.user.username);
-  console.log(username)
 
   const trainButtonClick = () => {
     navigate('/category');
