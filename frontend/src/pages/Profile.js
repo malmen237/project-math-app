@@ -6,7 +6,7 @@ import { OuterWrapper } from '../styles/globalStyles';
 const Profile = () => {
   return (
     <OuterWrapper>
-      <TiTle>All profile info</TiTle>
+      <Title>All profile info</Title>
       <Statistics />
     </OuterWrapper>
   )
@@ -14,7 +14,7 @@ const Profile = () => {
 
 export default Profile;
 
-const TiTle = styled.h1`
+const Title = styled.h1`
   font-size: 2rem;
   color: #555;
   margin: 2rem;

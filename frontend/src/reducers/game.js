@@ -13,7 +13,7 @@ const initialState = {
   // Time is added in seconds
   time: 0,
   quiztype: null,
-  opponent: ''
+  opponent: '-'
 }
 
 export const game = createSlice({
