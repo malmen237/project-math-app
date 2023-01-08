@@ -20,15 +20,25 @@ export const OptionCard = ({ id, name, color }) => {
   const containerStyle = { opacity: isDragging ? 0.5 : 1 }
   const html5DragStyle = { backgroundColor: color, opacity: html5Props.isDragging ? 0.5 : 1 }
   const touchDragStyle = { backgroundColor: color, opacity: touchProps.isDragging ? 0.5 : 1 }
+
+  const fractionReturn = () => {
+    if (name[0] === 0 || name[1] === 0) {
+      return 0
+    } else if (name[0] === name[1]) {
+      return 1
+    } else {
+      return `${name[0]} / ${name[1]}`
+    }
+  }
   return (
   // Any element that is draggable has to have a ref
 
     <div style={containerStyle}>
       <Mouse style={html5DragStyle} ref={html5Drag}>
-        {`${name[0]} / ${name[1]}`}
+        {fractionReturn()}
       </Mouse>
       <Touch style={touchDragStyle} ref={touchDrag}>
-        {`${name[0]} / ${name[1]}`}
+        {fractionReturn()}
       </Touch>
     </div>
 

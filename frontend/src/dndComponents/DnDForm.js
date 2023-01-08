@@ -9,14 +9,8 @@ import { OptionCard } from './OptionCard';
 const DnDForm = ({ problem, basket, html5DropStyle, html5Drop, touchDropStyle, touchDrop }) => {
   const options = () => {
     return problem.option?.map((singleOption, index) => {
-      // if (singleOption[0] === 0 || singleOption[1] === 0) {
-      //   return <OptionCard name={[0]} id={index} />
-      // } else if (singleOption[0] === singleOption[1]) {
-      //   return <OptionCard name={[1]} id={index} />
-      // } else {
       return <OptionCard name={singleOption} id={index} />
     })
-    // })
   }
 
   return (
