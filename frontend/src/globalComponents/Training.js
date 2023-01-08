@@ -73,10 +73,10 @@ const Training = () => {
   }, []);
 
   // MOVED TIMER INTO SEPARATE USE-EFFECT
-  // useEffect(() => {
-  //   setTime(0);
-  //   <Timer />
-  // }, []);
+  useEffect(() => {
+    setTime(0);
+    <Timer />
+  }, []);
 
   // Function that activates when user enters an answer,
   // also resets the goToNextQuestion-state hook
@@ -111,8 +111,8 @@ const Training = () => {
   // Get set of questions from database
   useEffect(() => {
     if (nextQuestion && startFetch) {
-      setTime(0);
-      <Timer />
+      // setTime(0);
+      // <Timer />
       setNextQuestion(false);
       setStartFetch(false);
       setProvidedAnswer(false);
@@ -134,8 +134,8 @@ const Training = () => {
           dispatch(game.actions.submitQuestion(json.response.questions));
         })
     } else if (nextQuestion && !startFetch) {
-      setTime(0);
-      <Timer />
+      // setTime(0);
+      // <Timer />
       setNextQuestion(false);
       setProvidedAnswer(false);
     }

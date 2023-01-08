@@ -70,7 +70,7 @@ export const game = createSlice({
       state.time = action.payload;
     },
     goToNextQuestion: (state) => {
-      if (state.currentProblemIndex + 1 === 2) {
+      if (state.currentProblemIndex + 1 === 9) {
         state.gameOver = true
         state.currentProblemIndex += 1
       } else {
