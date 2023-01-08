@@ -36,6 +36,7 @@ const Summary = () => {
   // Display users results
   const username = useSelector((state) => state.user.username);
   const quiztype = useSelector((state) => state.game.mode);
+  const category = useSelector((state) => state.game.operation);
   const score = useSelector((state) => state.game.correctAnswers);
   const points = useSelector((state) => state.game.userPoints);
   const timeInSecs = useSelector((state) => state.game.time);
@@ -53,6 +54,7 @@ const Summary = () => {
     body: JSON.stringify({
       username,
       quiztype,
+      category,
       score,
       points,
       time,

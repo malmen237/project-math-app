@@ -46,6 +46,7 @@ const Statistics = () => {
 
     <GridContainer>
       <ColumnHeader>Quiz type</ColumnHeader>
+      <ColumnHeader>Category</ColumnHeader>
       <ColumnHeader>Score</ColumnHeader>
       <ColumnHeader>Points (Stars?)</ColumnHeader>
       <ColumnHeader>Time</ColumnHeader>
@@ -53,6 +54,7 @@ const Statistics = () => {
       {stats.map((item) => (
         <>
           <GridItem>{item.quiztype}</GridItem>
+          <GridItem>{item.category}</GridItem>
           <GridItem>{item.score} / 10</GridItem>
           <GridItem>{item.points}</GridItem>
           <GridItem>{item.time}</GridItem>
@@ -69,7 +71,7 @@ export default Statistics;
 const GridContainer = styled.section`
   display: grid;
   width: 90vw;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   gap: 0.3rem;
 `
 const ColumnHeader = styled.div`
@@ -81,4 +83,5 @@ const ColumnHeader = styled.div`
 const GridItem = styled.div`
   background-color: #FACE75;
   padding: 0.5rem;
+  font-size: larger;
 `

@@ -9,6 +9,9 @@ const UserStatsSchema = mongoose.Schema({
     quiztype: {
       type: String
     },
+    category: {
+      type: String
+    },
     score: {
       type: Number
     },

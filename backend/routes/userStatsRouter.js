@@ -33,14 +33,15 @@ router.get("/:username",  async (req, res) => {
 // Update user's statistics with latest results
 // router.post("/", authenticateUser)
 router.post("/", async (req, res) => {
-  const { username, quiztype, score, points, time, opponent } = req.body;
+  const { username, quiztype, category, score, points, time, opponent } = req.body;
   try {
-    const newStat = await new UserStats({username: username, quiztype: quiztype, score: score, points: points, time: time, opponent: opponent}).save()
+    const newStat = await new UserStats({username: username, quiztype: quiztype, category: category, score: score, points: points, time: time, opponent: opponent}).save()
     res.status(201).json({
         success: true,
         response: {
           username: newStat.username,
           quiztype: newStat.quiztype,
+          category: newStat.category,
           score: newStat.score,
           points: newStat.points, 
           time: newStat.time, 
