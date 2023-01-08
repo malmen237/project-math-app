@@ -34,16 +34,16 @@ const Training = () => {
   const operation = useSelector((state) => state.game.operation);
   const setNumber = useSelector((state) => state.game.setNumber);
   const problem = useSelector((state) => state.game.questions);
-  const isAnswerCorrect = useSelector((state) => state.game.isCorrect);
-  // ADDED:
   const problemNumber = useSelector((state) => state.game.currentProblemIndex);
-  setTimeout(() => { setShowNumber(problemNumber) }, 2000);
   // ADDED:
+  setTimeout(() => { setShowNumber(problemNumber) }, 2000);
   const trainingOver = useSelector((state) => state.game.gameOver);
+  // ADDED:
+  setTimeout(() => { setLastQuestion(trainingOver) }, 2000);
+  const isAnswerCorrect = useSelector((state) => state.game.isCorrect);
   const mode = useSelector((state) => state.game.mode);
 
   const addAnswerToBasket = (name) => {
-    setTimeout(() => { setLastQuestion(trainingOver) }, 2000);
     const selected = name;
     setAnswer(name);
     setBasket([selected]);
@@ -73,10 +73,10 @@ const Training = () => {
   }, []);
 
   // MOVED TIMER INTO SEPARATE USE-EFFECT
-  useEffect(() => {
-    setTime(0);
-    <Timer />
-  }, []);
+  // useEffect(() => {
+  //   setTime(0);
+  //   <Timer />
+  // }, []);
 
   // Function that activates when user enters an answer,
   // also resets the goToNextQuestion-state hook
