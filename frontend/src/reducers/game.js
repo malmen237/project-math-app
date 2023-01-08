@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
   operation: null,
   setNumber: null,
-  questions: {},
+  questions: [],
   answers: null,
   currentProblemIndex: 0,
   gameOver: false,
@@ -42,35 +42,32 @@ export const game = createSlice({
     },
     submitAnswer: (state, action) => {
       state.answers = action.payload;
-      console.log('state.answer:', state.answers, typeof state.answers)
-      const answerType = typeof state.answers
+      const answerType = typeof state.answers;
+      const correctAnswer = state.questions[state.currentProblemIndex].answer;
+      console.log('USER-answer', state.answers)
+      console.log('TRUE-answer', correctAnswer[0], correctAnswer[1])
 
       if (answerType === 'string') {
         // eslint-disable-next-line eqeqeq
-        if (state.answers.replace(',', '.') == state.questions.answer) {
-          state.isCorrect = true
+        if (state.answers.replace(',', '.') == correctAnswer) {
+          state.isCorrect = true;
           state.correctAnswers += 1;
           state.userPoints += 3;
         } else {
-          state.isCorrect = false
+          state.isCorrect = false;
         }
-        console.log('state.correctAnswers:', state.correctAnswers)
-      }
-
-      if (answerType === 'number') {
-        // eslint-disable-next-line eqeqeq
-        if (state.answers == state.questions.answer) {
-          state.isCorrect = true
+      } else if (answerType === 'object') {
+        if (state.answers[0] === correctAnswer[0] && state.answers[1] === correctAnswer[1]) {
+          state.isCorrect = true;
           state.correctAnswers += 1;
           state.userPoints += 3;
         } else {
-          state.isCorrect = false
+          state.isCorrect = false;
         }
       }
     },
     submitTime: (state, action) => {
       state.time = action.payload;
-      console.log('time action.payload:', action.payload)
     },
     goToNextQuestion: (state) => {
       if (state.currentProblemIndex + 1 === 2) {

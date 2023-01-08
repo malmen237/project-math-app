@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable no-plusplus */
 import React from 'react';
 import styled from 'styled-components/macro';
 // import { useMultiDrop } from 'react-dnd-multi-backend';
@@ -7,25 +5,24 @@ import { Devices } from 'styles/globalStyles';
 import { OptionCard } from './OptionCard';
 
 const DnDForm = ({ problem, basket, html5DropStyle, html5Drop, touchDropStyle, touchDrop }) => {
-  console.log(problem)
+  const options = () => {
+    return problem.option?.map((singleOption, index) => {
+      return <OptionCard name={singleOption} id={index} />
+    })
+  }
+
   return (
     <>
       <MouseDropArea style={html5DropStyle} ref={html5Drop}>
-        {basket.map((card, index) => <OptionCard key={card} id={index} name={card} />)}
+        {basket.map((card, index) => <OptionCard id={index} name={card} />)}
         <div>Drag your answer here!</div>
       </MouseDropArea>
       <TouchDropArea style={touchDropStyle} ref={touchDrop}>
-        {basket.map((card, index) => <OptionCard key={card} id={index} name={card} />)}
-        {/* {!touchProps.isOver && <Instruct>Drag & drop your answer here!</Instruct>} */}
+        {basket.map((card, index) => <OptionCard id={index} name={card} />)}
         {basket.length === 0 && <Instruct>Drag & drop your answer here!</Instruct>}
-        {/* {touchProps.isOver && <div>Drop Here!</div>} */}
       </TouchDropArea>
       <Options>
-        {problem.answer?.map((card, index) => {
-          return (
-            <OptionCard key={card} id={index} name={card} />
-          )
-        })}
+        {options()}
       </Options>
     </>
   );

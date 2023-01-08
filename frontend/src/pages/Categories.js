@@ -19,7 +19,7 @@ const Categories = () => {
 
   return (
     <OuterWrapper>
-      <Choose>Choose your poison</Choose>
+      <Choose>Pick your poison</Choose>
       <ChoiceWrapper>
         <Choice type="button" onClick={() => onButtonClick('+')}>+</Choice>
         <Choice type="button" onClick={() => onButtonClick('-')}>-</Choice>

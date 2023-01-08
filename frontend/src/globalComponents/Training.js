@@ -3,6 +3,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { API_URL } from 'utils/utils';
 import { game } from 'reducers/game';
 import { headShake, pulse } from 'react-animations';
 import styled, { keyframes } from 'styled-components/macro';
@@ -15,16 +16,17 @@ import { OuterWrapper } from '../styles/globalStyles';
 const HeadShakeAnimation = keyframes`${headShake}`;
 const HeartBeatAnimation = keyframes`${pulse}`;
 
+// ! Rename to something more general like "Questions"
 const Training = () => {
   const [answer, setAnswer] = useState('');
   const [nextQuestion, setNextQuestion] = useState(true);
   const [nextButton, setNextButton] = useState(false);
   const [providedAnswer, setProvidedAnswer] = useState(false);
   const [time, setTime] = useState(0);
-  const [formInput, setFormInput] = useState(true);
   const [basket, setBasket] = useState([]);
   const [showNumber, setShowNumber] = useState(0);
   const [lastQuestion, setLastQuestion] = useState();
+  const [startFetch, setStartFetch] = useState(true);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -38,27 +40,27 @@ const Training = () => {
   setTimeout(() => { setShowNumber(problemNumber) }, 2000);
   // ADDED:
   const trainingOver = useSelector((state) => state.game.gameOver);
-  setTimeout(() => { setLastQuestion(trainingOver) }, 2000);
+  const mode = useSelector((state) => state.game.mode);
 
   const addAnswerToBasket = (name) => {
-    const selected = name
-    setAnswer(name)
-    setBasket([selected])
+    setTimeout(() => { setLastQuestion(trainingOver) }, 2000);
+    const selected = name;
+    setAnswer(name);
+    setBasket([selected]);
     setNextButton(true);
   }
 
-  // eslint-disable-next-line max-len
-  const [[dropProps], { html5: [html5Props, html5Drop], touch: [touchProps, touchDrop] }] = useMultiDrop({
+  const [[dropProps], {
+    html5: [html5Props, html5Drop],
+    touch: [touchProps, touchDrop]
+  }] = useMultiDrop({
     accept: 'card',
-    // drop is a callback function, triggers with every drop, receives data from item in useDrag
-    // adds the item to the basket array
     drop: (item) => addAnswerToBasket(item.name),
     collect: (monitor) => ({
       isOver: monitor.isOver()
     })
-  })
+  });
 
-  // DROPPROPS - Where should it be used??
   const html5DropStyle = { backgroundColor: (dropProps.isOver && html5Props.canDrop) ? '#f3f3f3' : '#bbbbbb' } // (html5Props.isOver && html5Props.canDrop)
   const touchDropStyle = { backgroundColor: (touchProps.isOver && touchProps.canDrop) ? '#f3f3f3' : 'lightcoral' } // (touchProps.isOver && touchProps.canDrop)
 
@@ -108,8 +110,11 @@ const Training = () => {
 
   // Get set of questions from database
   useEffect(() => {
-    if (nextQuestion) {
+    if (nextQuestion && startFetch) {
+      setTime(0);
+      <Timer />
       setNextQuestion(false);
+      setStartFetch(false);
       setProvidedAnswer(false);
       // To post type of math problems to be trained
       const options = {
@@ -122,23 +127,37 @@ const Training = () => {
           setNumber
         })
       }
-      fetch('http://localhost:8080/questions', options)
+      fetch(API_URL(mode === 'challenge' ? 'challenges' : 'questions'), options)
         .then((res) => res.json())
         .then((json) => {
           console.log('json.response', json.response)
-          dispatch(game.actions.submitQuestion(json.response));
-          if (operation === '+' || operation === '-' || operation === '*' || operation === '/') {
-            return setFormInput(true)
-          } else if (operation === 'eq' || operation === 'fr') {
-            return setFormInput(false)
-          }
+          dispatch(game.actions.submitQuestion(json.response.questions));
         })
+    } else if (nextQuestion && !startFetch) {
+      setTime(0);
+      <Timer />
+      setNextQuestion(false);
+      setProvidedAnswer(false);
     }
   }, [nextQuestion]);
 
+  if (problem.length === 0) {
+    return (
+      <>
+      </>
+    );
+  }
+
+  let formInput;
+  if (problem[problemNumber].operation === '+' || problem[problemNumber].operation === '-' || problem[problemNumber].operation === '*' || problem[problemNumber].operation === '/') {
+    formInput = true;
+  } else {
+    formInput = false;
+  }
+
   return (
     <OuterWrapper>
-      <Question>Question: {problem.question}</Question>
+      <Question>Question: {problem[problemNumber].question}</Question>
       <form onSubmit={onFormSubmit}>
         {formInput ? <TextForm
           answer={answer}
@@ -148,7 +167,7 @@ const Training = () => {
           html5Drop={html5Drop}
           touchDropStyle={touchDropStyle}
           touchDrop={touchDrop}
-          problem={problem} />}
+          problem={problem[problemNumber]} />}
         {!lastQuestion && (
           <Button
             className={providedAnswer ? (isAnswerCorrect ? 'correct' : 'wrong') : 'default'}

@@ -164,7 +164,7 @@ const problemGenerator = (numberRange, operation) => {
   let h = Math.floor(Math.random() * numMax) + 1;
   let i = Math.floor(Math.random() * numMax) + 1;
   let j = Math.floor(Math.random() * numMax) + 1;
-  let question = "", answer = 0;
+  let question = "", answer = 0, option=0;
 
   let commonDivisorEquations = gcd(c - b, a);
   let commonDivisorMultiplication = gcd(a * c, b * d);
@@ -192,18 +192,6 @@ const problemGenerator = (numberRange, operation) => {
     Math.floor(Math.random() * 4)
   ];
 
-  const answerEquations = () => {
-    if (numeratorEquations === 0) {
-      return [0];
-    } else if (numeratorEquations === denominatorEquations) {
-      return [1];
-    } else {
-      return (
-        [numeratorEquations, denominatorEquations]
-      );
-    }
-  };
-
   const answerFractions = () => {
     if (numeratorMultiplication === 0 || numeratorDivision === 0 || numeratorAddition === 0 || numeratorSubtraction === 0) {
       return [0];
@@ -228,11 +216,13 @@ const problemGenerator = (numberRange, operation) => {
     }
   };
 
-  const eqOption = answerEquations();
+  const eqOption = [numeratorEquations, denominatorEquations]
   const frOption = answerFractions();
-  const dummyOption1 = [e - 5, f - 5];
-  const dummyOption2 = [g, h];
+  const dummyOption1 = [e - 5, f];
+  const dummyOption2 = [g, h - 5];
   const dummyOption3 = [i, j];
+
+  // TODO: Re-do variable if any 2 are the same
 
   const fractionsOptions = [frOption, dummyOption1, dummyOption2, dummyOption3];
   const equationsOptions = [eqOption, dummyOption1, dummyOption2, dummyOption3];
@@ -249,44 +239,38 @@ const problemGenerator = (numberRange, operation) => {
     case "+":
       question = `What is ${a} + ${b}?`;
       answer = a + b;
-    break;
+      break;
     case "-":
       question = `What is ${a} - ${b}?`;
       answer = a - b;
-    break;
+      break;
     case "*":
       question = `What is ${a} * ${b}?`;
       answer = a * b;
-    break;
+      break;
     case "/":
       question = `What is ${a} / ${b}?`;
       answer = (Math.round((a / b) * 10) / 10);
-    break;
+      break;
     case "eq":
       question = `In the equation: ${a}x + ${b} = ${c}. What is the value of x?`;
-      answer = shuffledEquationsOptions;
-    break;
+      option = shuffledEquationsOptions;
+      answer = eqOption;
+      break;
     case "fr":
       question = `${questionFraction}`;
-      answer = shuffledFractionsOptions;
-    break;
+      option = shuffledFractionsOptions;
+      answer = answerFractions();
+      break;
     default:
       question = "Wrong operation in question!";
   }
 
-  return {question, answer};
+  return {question, answer, option};
 }
 
 const ProblemSchema = mongoose.Schema({
-  question: {
-    type: String,
-  },
-  answer: {
-    type: []
-  },
-  operation: {
-    type: String,
-  }
+  questions: []
 });
 
 const Problem = mongoose.model("Problem", ProblemSchema);
@@ -294,8 +278,47 @@ const Problem = mongoose.model("Problem", ProblemSchema);
 app.post("/questions", async (req, res) => {
   const {operation, setNumber} = req.body;
   try {
-    let q = problemGenerator(setNumber, operation);
-    const newOperation = await new Problem({question: q.question, answer: q.answer, operation: operation}).save()
+    let qs = [];
+    for(let i = 0; i < 10; i++) {
+      let q = problemGenerator(setNumber, operation);
+      qs.push({question: q.question, answer: q.answer, option: q.option, operation: operation});
+    }
+    const newOperation = await new Problem({questions: qs}).save()
+    res.status(200).json({
+      success: true, 
+      response: newOperation
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      response: error
+    });
+  }
+});
+
+const ChallengeSchema = mongoose.Schema({
+  questions: []
+});
+
+const Challenge = mongoose.model("Challenge", ChallengeSchema);
+
+app.post("/challenges", async (req, res) => {
+  try {
+    let qs = [];
+    let setNumber = 0;
+    for(let i = 0; i < 10; i++) {
+      let operation = ['fr', '-', '/', '*', 'eq', '+'][Math.floor(Math.random() * 6)]
+      if (operation === '+' || operation === '-') {
+        setNumber = 1000;
+      } else if (operation === '*' || operation === '/') {
+        setNumber = 12;
+      } else if (operation === 'eq' || operation === 'fr') {
+        setNumber = 10;
+      }
+      let q = problemGenerator(setNumber, operation);
+      qs.push({question: q.question, answer: q.answer, option: q.option, operation: operation});
+    }
+    const newOperation = await new Challenge({questions: qs}).save()
     res.status(200).json({
       success: true, 
       response: newOperation
