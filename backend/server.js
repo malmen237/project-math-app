@@ -5,7 +5,7 @@ import crypto from "crypto";
 import bcrypt from "bcrypt";
 import { gcd } from "mathjs";
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/math"
+const mongoUrl = process.env.MONGO_URL || "mongodb://127.0.0.1/math"
 mongoose.connect(mongoUrl, {useNewUrlParser: true, useUnifiedTopology: true})
 mongoose.Promise = Promise
 
@@ -80,7 +80,7 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send([
     { "API": "Math-questions" },
-    { "path": "/games", "url": 'https://project-math', "methods": ["GET", "POST"] }
+    { "path": "/games", "url": 'https://project-math', "methods": ["GET", "POST", "PUT", "DELETE"] }
   ]);
 });
 

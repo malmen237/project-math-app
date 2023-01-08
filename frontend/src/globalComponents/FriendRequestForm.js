@@ -1,4 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
+
+const FriendRequestForm = ({ username, onUsernameChange, onSubmit }) => {
+  return (
+    <form onSubmit={onSubmit}>
+      <label htmlFor="request">
+        Friends username:
+        <input
+          type="text"
+          value={username}
+          onChange={onUsernameChange} />
+      </label>
+      <button type="submit">Send friend request</button>
+    </form>
+  );
+};
+
+export default FriendRequestForm;
+
+/* import React, { useState } from 'react';
 
 const FriendRequestForm = ({ sendFriendRequest }) => {
   const [friendUsername, setFriendUsername] = useState('');
@@ -23,4 +42,4 @@ const FriendRequestForm = ({ sendFriendRequest }) => {
   );
 };
 
-export default FriendRequestForm;
+export default FriendRequestForm; */

@@ -15,8 +15,10 @@
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
     "crypto": "^1.0.1",
+    "crypto-es": "^1.2.7",
     "express": "^4.17.3",
     "mathjs": "^11.5.0",
+    "mongodb": "^4.13.0",
     "mongoose": "^6.8.2",
     "nodemon": "^2.0.20"
   }
