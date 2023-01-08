@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable no-plusplus */
 import React from 'react';
 import styled from 'styled-components/macro';
 // import { useMultiDrop } from 'react-dnd-multi-backend';

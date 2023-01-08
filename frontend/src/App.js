@@ -12,6 +12,8 @@ import Categories from 'pages/Categories';
 import StartGame from 'pages/StartGame';
 import Summary from 'pages/Summary';
 import FriendRequestManager from 'globalComponents/FriendRequestManager';
+import Header from 'globalComponents/Header';
+import Footer from 'globalComponents/Footer';
 import { DndProvider } from 'react-dnd-multi-backend';
 import { HTML5toTouch } from 'rdndmb-html5-to-touch';
 
@@ -27,6 +29,7 @@ export const App = () => {
     <Provider store={store}>
       <DndProvider options={HTML5toTouch}>
         <BrowserRouter>
+          <Header />
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/welcome" element={<Welcome />} />
@@ -38,6 +41,7 @@ export const App = () => {
             <Route path="/404" element={<NotFound />} />
             <Route path="*" element={<Navigate to="/404" />} />
           </Routes>
+          <Footer />
         </BrowserRouter>
       </DndProvider>
     </Provider>
