@@ -12,7 +12,7 @@ const initialState = {
   userPoints: 0,
   // Time is added in seconds
   time: 0,
-  quiztype: null,
+  mode: null,
   opponent: '-'
 }
 
@@ -20,8 +20,8 @@ export const game = createSlice({
   name: 'game',
   initialState,
   reducers: {
-    submitQuiztype: (state, action) => {
-      state.quiztype = action.payload;
+    setMode: (state, action) => {
+      state.mode = action.payload;
     },
     submitOpponent: (state, action) => {
       state.opponent = action.payload;
