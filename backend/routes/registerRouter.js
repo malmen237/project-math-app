@@ -2,7 +2,7 @@ import express from "express";
 import User from "../schemas/User";
 import bcrypt from "bcrypt";
 
-const router = express.Router()
+const router = express.Router();
 
 //REGISTER
 router.post("/", async (req, res) => {
@@ -36,8 +36,8 @@ router.post("/", async (req, res) => {
         res.status(400).json({
           success: false,
           response: error
-        })
+        });
     }
-  })
+  });
 
   export default router;

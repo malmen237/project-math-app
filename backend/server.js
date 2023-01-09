@@ -8,6 +8,8 @@ import logInRouter from "./routes/logInRouter";
 import challengesRouter from "./routes/challengesRouter";
 import questionsRouter from "./routes/questionsRouter";
 import welcomeRouter from "./routes/welcomeRouter";
+import findUserIdRouter from "./routes/findUserIdRouter";
+import findUsernameRouter from "./routes/findUsernameRouter";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/math"
 mongoose.connect(mongoUrl, {useNewUrlParser: true, useUnifiedTopology: true})
@@ -62,6 +64,9 @@ const authenticateUser = async (req, res, next) => {
 app.use("/register", registerRouter);
 app.use("/login", logInRouter);
 app.use("/welcome", authenticateUser,  welcomeRouter);
+
+app.use("/user/", findUserIdRouter);
+app.use("/user", findUsernameRouter);
 app.use("/userstats", userStatsRouter);
 app.use("/userstats/:username", userStatsRouter);
 
