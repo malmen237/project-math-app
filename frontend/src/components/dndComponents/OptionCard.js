@@ -3,13 +3,13 @@ import { useMultiDrag } from 'react-dnd-multi-backend';
 import styled from 'styled-components';
 import { Devices } from 'Styles/globalStyles';
 
-export const OptionCard = ({ id, name, color }) => {
+export const OptionCard = ({ id, answer, color }) => {
   // Provide's the library the element that needs dragging
   // eslint-disable-next-line max-len
   const [[{ isDragging }], { html5: [html5Props, html5Drag], touch: [touchProps, touchDrag] }] = useMultiDrag({
     type: 'card',
     // item is used to pass data we need for the drop area
-    item: { id, name },
+    item: { id, answer },
     // collect is optional, a function that receives the monitor object
     // monitor holds the state & metadata of the drag action
     collect: (monitor) => ({
@@ -23,12 +23,12 @@ export const OptionCard = ({ id, name, color }) => {
 
   const fractionReturn = () => {
     // console.log('singleOption[0]', singleOption[0])
-    if (name[0] === 0 || name[1] === 0) {
+    if (answer[0] === 0 || answer[1] === 0) {
       return 0
-    } else if (name[0] === name[1]) {
+    } else if (answer[0] === answer[1]) {
       return 1
     } else {
-      return `${name[0]} / ${name[1]}`
+      return `${answer[0]} / ${answer[1]}`
     }
   }
 

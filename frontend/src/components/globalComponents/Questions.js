@@ -41,9 +41,9 @@ const Questions = () => {
   const isAnswerCorrect = useSelector((state) => state.game.isCorrect);
   const mode = useSelector((state) => state.game.mode);
 
-  const addAnswerToBasket = (name) => {
-    const selected = name;
-    setAnswer(name);
+  const addAnswerToBasket = (givenAnswer) => {
+    const selected = givenAnswer;
+    setAnswer(givenAnswer);
     setBasket([selected]);
     setNextButton(true);
   }
@@ -53,7 +53,7 @@ const Questions = () => {
     touch: [touchProps, touchDrop]
   }] = useMultiDrop({
     accept: 'card',
-    drop: (item) => addAnswerToBasket(item.name),
+    drop: (item) => addAnswerToBasket(item.answer),
     collect: (monitor) => ({
       isOver: monitor.isOver()
     })
