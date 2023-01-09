@@ -22,6 +22,7 @@ const Login = () => {
     if (accessToken) {
       navigate('/welcome');
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken]);
 
   const onFormSubmit = (event) => {
