@@ -31,21 +31,23 @@ const DnDForm = ({ problem, basket, html5DropStyle, html5Drop, touchDropStyle, t
 export default DnDForm;
 
 const Options = styled.div`
-  height: 8rem;
+  //height: 8rem;
   width: 80vw;
   border-radius: 5px;
   background-color: beige;
   display: flex;
+  // flex-direction: column;
+  flex-wrap: wrap;
   margin-top: 1rem;
   margin-bottom: 2rem;
   align-items: center;
+  justify-content: center;
 `
 
 const Instruct = styled.div`
   font-size: 1.2rem;
   font-weight: bold;
   color: white;
-
   align-items: center;
   justify-content: center;
 `

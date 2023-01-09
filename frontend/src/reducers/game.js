@@ -12,7 +12,8 @@ const initialState = {
   userPoints: 0,
   // Time is added in seconds
   time: 0,
-  mode: null
+  mode: null,
+  opponent: '-'
 }
 
 export const game = createSlice({
@@ -21,6 +22,9 @@ export const game = createSlice({
   reducers: {
     setMode: (state, action) => {
       state.mode = action.payload;
+    },
+    submitOpponent: (state, action) => {
+      state.opponent = action.payload;
     },
     submitOperation: (state, action) => {
       state.operation = action.payload;

@@ -46,12 +46,12 @@ export const OptionCard = ({ id, name, color }) => {
 }
 
 const Touch = styled.div`
-    height: 3rem;
-    width: 3rem;
+    height: 8rem;
+    width: 8rem;
     background-color: green;
     margin: 1rem;
     color: white;
-    border-radius: 5px;
+    border-radius: 15px;
     display: flex;
     align-items: center;
     justify-content: center;

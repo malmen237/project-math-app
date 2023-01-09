@@ -11,6 +11,7 @@ import Training from 'globalComponents/Training';
 import Categories from 'pages/Categories';
 import StartGame from 'pages/StartGame';
 import Summary from 'pages/Summary';
+import Profile from 'pages/Profile';
 import FriendRequestManager from 'globalComponents/FriendRequestManager';
 import Header from 'globalComponents/Header';
 import Footer from 'globalComponents/Footer';
@@ -37,6 +38,7 @@ export const App = () => {
             <Route path="/game" element={<StartGame />} />
             <Route path="/questions" element={<Training />} />
             <Route path="/summary" element={<Summary />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/friends" element={<FriendRequestManager />} />
             <Route path="/404" element={<NotFound />} />
             <Route path="*" element={<Navigate to="/404" />} />
