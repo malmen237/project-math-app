@@ -1,20 +1,20 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Login from 'globalComponents/Login';
+import Login from 'components/globalComponents/Login';
 import Welcome from 'pages/Welcome';
-import NotFound from 'globalComponents/NotFound';
+import NotFound from 'components/globalComponents/NotFound';
 import { Provider } from 'react-redux';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import user from 'reducers/user';
 import { game } from 'reducers/game';
-import Training from 'globalComponents/Training';
+import Questions from 'components/globalComponents/Questions';
 import Categories from 'pages/Categories';
 import StartGame from 'pages/StartGame';
 import Summary from 'pages/Summary';
 import Profile from 'pages/Profile';
-import FriendRequestManager from 'globalComponents/FriendRequestManager';
-import Header from 'globalComponents/Header';
-import Footer from 'globalComponents/Footer';
+import FriendRequestManager from 'components/friendReq/FriendRequestManager';
+import Header from 'components/globalComponents/Header';
+import Footer from 'components/globalComponents/Footer';
 import { DndProvider } from 'react-dnd-multi-backend';
 import { HTML5toTouch } from 'rdndmb-html5-to-touch';
 
@@ -36,7 +36,7 @@ export const App = () => {
             <Route path="/welcome" element={<Welcome />} />
             <Route path="/category" element={<Categories />} />
             <Route path="/game" element={<StartGame />} />
-            <Route path="/questions" element={<Training />} />
+            <Route path="/questions" element={<Questions />} />
             <Route path="/summary" element={<Summary />} />
             <Route path="/profile" element={<Profile />} />
             <Route path="/friends" element={<FriendRequestManager />} />

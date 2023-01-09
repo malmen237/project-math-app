@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-import { Devices } from '../styles/globalStyles'
+import { Devices } from '../../styles/globalStyles'
 
 const Footer = () => {
   return (

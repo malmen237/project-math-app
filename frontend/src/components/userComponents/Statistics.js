@@ -20,30 +20,6 @@ const Statistics = () => {
   }, []);
 
   return (
-  // <table>
-  //   <thead>
-  //     <tr>
-  //       <th>Quiz Type</th>
-  //       <th>Score</th>
-  //       <th>Points</th>
-  //       <th>Time</th>
-  //       <th>Opponent</th>
-  //     </tr>
-  //   </thead>
-
-  //   <tbody>
-  //     {stats.map((item) => (
-  //       <tr>
-  //         <td>{item.quiztype}</td>
-  //         <td>{item.score}</td>
-  //         <td>{item.points}</td>
-  //         <td>{item.time}</td>
-  //         <td>{item.opponent}</td>
-  //       </tr>
-  //     ))}
-  //   </tbody>
-  // </table>
-
     <GridContainer>
       <ColumnHeader>Quiz type</ColumnHeader>
       <ColumnHeader>Category</ColumnHeader>

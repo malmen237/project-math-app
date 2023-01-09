@@ -8,16 +8,15 @@ import { game } from 'reducers/game';
 import { headShake, pulse } from 'react-animations';
 import styled, { keyframes } from 'styled-components/macro';
 import { useMultiDrop } from 'react-dnd-multi-backend';
-import DnDForm from 'dndComponents/DnDForm';
+import DnDForm from 'components/dndComponents/DnDForm';
 import Timer from './Timer';
 import TextForm from './TextForm';
-import { OuterWrapper } from '../styles/globalStyles';
+import { OuterWrapper } from '../../styles/globalStyles';
 
 const HeadShakeAnimation = keyframes`${headShake}`;
 const HeartBeatAnimation = keyframes`${pulse}`;
 
-// ! Rename to something more general like "Questions"
-const Training = () => {
+const Questions = () => {
   const [answer, setAnswer] = useState('');
   const [nextQuestion, setNextQuestion] = useState(true);
   const [nextButton, setNextButton] = useState(false);
@@ -35,10 +34,8 @@ const Training = () => {
   const setNumber = useSelector((state) => state.game.setNumber);
   const problem = useSelector((state) => state.game.questions);
   const problemNumber = useSelector((state) => state.game.currentProblemIndex);
-  // ADDED:
   setTimeout(() => { setShowNumber(problemNumber) }, 2000);
   const trainingOver = useSelector((state) => state.game.gameOver);
-  // ADDED:
   setTimeout(() => { setLastQuestion(trainingOver) }, 2000);
   const isAnswerCorrect = useSelector((state) => state.game.isCorrect);
   const mode = useSelector((state) => state.game.mode);
@@ -111,8 +108,6 @@ const Training = () => {
   // Get set of questions from database
   useEffect(() => {
     if (nextQuestion && startFetch) {
-      // setTime(0);
-      // <Timer />
       setNextQuestion(false);
       setStartFetch(false);
       setProvidedAnswer(false);
@@ -134,8 +129,6 @@ const Training = () => {
           dispatch(game.actions.submitQuestion(json.response.questions));
         })
     } else if (nextQuestion && !startFetch) {
-      // setTime(0);
-      // <Timer />
       setNextQuestion(false);
       setProvidedAnswer(false);
     }
@@ -193,7 +186,7 @@ const Training = () => {
   );
 }
 
-export default Training;
+export default Questions;
 
 const Question = styled.h1`
   width: 90vw;

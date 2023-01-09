@@ -1,5 +1,5 @@
 import React from 'react';
-import Statistics from 'userComponents/Statistics';
+import Statistics from 'components/userComponents/Statistics';
 import styled from 'styled-components/macro';
 import { OuterWrapper } from '../styles/globalStyles';
 
