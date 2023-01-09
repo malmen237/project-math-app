@@ -1,12 +1,6 @@
-## Backend
-
-### View it live
+## View the backend live
 
 
 
-
-## Frontend
-
-### View it live
-
+## View the frontend live
 

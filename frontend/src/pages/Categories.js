@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { game } from 'reducers/game';
-import { OuterWrapper } from 'styles/globalStyles';
+import { OuterWrapper } from 'Styles/globalStyles';
 
 const Categories = () => {
   const dispatch = useDispatch();

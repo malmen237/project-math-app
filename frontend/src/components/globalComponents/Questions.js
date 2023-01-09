@@ -11,7 +11,7 @@ import { useMultiDrop } from 'react-dnd-multi-backend';
 import DnDForm from 'components/dndComponents/DnDForm';
 import Timer from './Timer';
 import TextForm from './TextForm';
-import { OuterWrapper } from '../../styles/globalStyles';
+import { OuterWrapper } from '../../Styles/globalStyles';
 
 const HeadShakeAnimation = keyframes`${headShake}`;
 const HeartBeatAnimation = keyframes`${pulse}`;

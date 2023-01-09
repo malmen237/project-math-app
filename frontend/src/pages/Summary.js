@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { API_URL } from 'utils/utils';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { OuterWrapper } from 'styles/globalStyles';
+import { OuterWrapper } from 'Styles/globalStyles';
 
 const Summary = () => {
   // const dispatch = useDispatch(); useDispatch,

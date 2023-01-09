@@ -1,7 +1,7 @@
 import React from 'react';
 import Statistics from 'components/userComponents/Statistics';
 import styled from 'styled-components/macro';
-import { OuterWrapper } from 'styles/globalStyles';
+import { OuterWrapper } from 'Styles/globalStyles';
 
 const Profile = () => {
   return (

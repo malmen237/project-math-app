@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { game } from 'reducers/game';
 import styled from 'styled-components/macro';
-import { OuterWrapper } from 'styles/globalStyles';
+import { OuterWrapper } from 'Styles/globalStyles';
 
 const StartGame = () => {
   const dispatch = useDispatch();

@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 // import { Player } from '@lottiefiles/react-lottie-player';
 import picture from 'images/bells.png';
-import { OuterWrapper } from 'styles/globalStyles';
+import { OuterWrapper } from 'Styles/globalStyles';
 
 const Welcome = () => {
   const navigate = useNavigate();
