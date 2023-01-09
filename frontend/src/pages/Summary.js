@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { API_URL } from 'utils/utils';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { OuterWrapper } from '../styles/globalStyles';
@@ -62,7 +63,7 @@ const Summary = () => {
     })
   }
 
-  fetch('http://localhost:8080/userstats', options)
+  fetch(API_URL('userstats'), options)
     .then((res) => res.json())
     .then((json) => {
       console.log('json.response', json.response);

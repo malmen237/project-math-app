@@ -7,18 +7,18 @@ import { OptionCard } from './OptionCard';
 const DnDForm = ({ problem, basket, html5DropStyle, html5Drop, touchDropStyle, touchDrop }) => {
   const options = () => {
     return problem.option?.map((singleOption, index) => {
-      return <OptionCard singleOption={singleOption} id={index} />
+      return <OptionCard name={singleOption} id={index} />
     })
   }
 
   return (
     <>
       <MouseDropArea style={html5DropStyle} ref={html5Drop}>
-        {basket.map((card, index) => <OptionCard id={index} singleOption={card} />)}
+        {basket.map((card, index) => <OptionCard id={index} name={card} />)}
         <div>Drag your answer here!</div>
       </MouseDropArea>
       <TouchDropArea style={touchDropStyle} ref={touchDrop}>
-        {basket.map((card, index) => <OptionCard id={index} singleOption={card} />)}
+        {basket.map((card, index) => <OptionCard id={index} name={card} />)}
         {basket.length === 0 && <Instruct>Drag & drop your answer here!</Instruct>}
       </TouchDropArea>
       <Options>
