@@ -10,7 +10,7 @@ import questionsRouter from "./routes/questionsRouter";
 import welcomeRouter from "./routes/welcomeRouter";
 import findUserIdRouter from "./routes/findUserIdRouter";
 import findUsernameRouter from "./routes/findUsernameRouter";
-import findRandomUserRouter from "./routes/findRandomUserRouter";
+import gameChallengeUserRouter from "./routes/challengeUserRouter";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/math"
 mongoose.connect(mongoUrl, {useNewUrlParser: true, useUnifiedTopology: true})
@@ -68,7 +68,7 @@ app.use("/welcome", authenticateUser,  welcomeRouter);
 
 app.use("/user/", findUserIdRouter);
 app.use("/user", findUsernameRouter);
-app.use("/random", findRandomUserRouter)
+app.use("/gameChallengeUser", gameChallengeUserRouter)
 app.use("/userstats", userStatsRouter);
 app.use("/userstats/:username", userStatsRouter);
 
