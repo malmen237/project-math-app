@@ -4,12 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import { game } from 'reducers/game';
 import styled from 'styled-components/macro';
 import { OuterWrapper } from 'Styles/globalStyles';
+import Challenge from 'components/userComponents/Challenge';
 
 const StartGame = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const onButtonClick = () => {
+  const onButtonClick = (event) => {
+    <Challenge opponent={event} />;
     dispatch(game.actions.setMode('challenge'));
     setTimeout(() => { navigate('/questions') }, 500);
   }
@@ -18,8 +20,9 @@ const StartGame = () => {
     <OuterWrapper>
       <Choose>Challenge:</Choose>
       <ChoiceWrapper>
+        {/* // TODO Add friend-ID to challenge friend */}
         <Choice type="button" onClick={() => onButtonClick()}>Friend</Choice>
-        <Choice type="button" onClick={() => onButtonClick()}>Random</Choice>
+        <Choice type="button" onClick={() => onButtonClick('random')}>Random</Choice>
       </ChoiceWrapper>
     </OuterWrapper>
   )

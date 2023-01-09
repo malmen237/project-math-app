@@ -6,11 +6,10 @@ const router = express.Router();
 router.get("/:id", async (req, res) => {
   try {
     const singleUser = await User.findById(req.params.id)
-    console.log('singleUser', req.params.username)
     if (singleUser) {
       res.status(200).json({
         success: true,
-        body: singleUser
+        response: singleUser
       })
     } else {
       res.status(404).json({
