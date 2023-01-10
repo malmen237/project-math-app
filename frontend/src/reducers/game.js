@@ -25,6 +25,7 @@ export const game = createSlice({
     },
     submitOpponent: (state, action) => {
       state.opponent = action.payload;
+      console.log('opponent', state.opponent)
     },
     submitOperation: (state, action) => {
       state.operation = action.payload;

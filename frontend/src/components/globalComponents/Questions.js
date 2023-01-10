@@ -40,6 +40,8 @@ const Questions = () => {
   setTimeout(() => { setLastQuestion(trainingOver) }, 2000);
   const isAnswerCorrect = useSelector((state) => state.game.isCorrect);
   const mode = useSelector((state) => state.game.mode);
+  const opponent = useSelector((state) => state.game.opponent);
+  const user = useSelector((state) => state.user.id);
 
   const addAnswerToBasket = (givenAnswer) => {
     const selected = givenAnswer;
@@ -120,7 +122,9 @@ const Questions = () => {
         },
         body: JSON.stringify({
           operation,
-          setNumber
+          setNumber,
+          opponent: opponent.id,
+          user
         })
       }
       fetch(API_URL(mode === 'challenge' ? 'challenges' : 'questions'), options)

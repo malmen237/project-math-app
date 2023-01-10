@@ -1,17 +1,36 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { game } from 'reducers/game';
 import styled from 'styled-components/macro';
 import { OuterWrapper } from 'Styles/globalStyles';
-import Challenge from 'components/userComponents/Challenge';
+// import Challenge from 'components/userComponents/Challenge';
+import { API_URL } from 'utils/utils';
 
 const StartGame = () => {
+  const user = useSelector((state) => state.user.id);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const onButtonClick = (event) => {
-    <Challenge opponent={event} />;
+    // <Challenge opponent={event} />;
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        opponent: event,
+        user
+      })
+    }
+    fetch(API_URL('gameChallengeUser'), options)
+      .then((res) => res.json())
+      .then((json) => {
+        console.log('response', json.response)
+        dispatch(game.actions.submitOpponent(json.response))
+      })
     dispatch(game.actions.setMode('challenge'));
     setTimeout(() => { navigate('/questions') }, 500);
   }

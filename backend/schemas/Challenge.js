@@ -1,7 +1,9 @@
 import mongoose from "mongoose";
 
 const ChallengeSchema = mongoose.Schema({
-  questions: []
+  questions: [],
+  user: String,
+  opponent: String
 });
 
 const Challenge = mongoose.model("Challenge", ChallengeSchema);

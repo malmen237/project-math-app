@@ -1,9 +1,12 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { game } from 'reducers/game';
 import { API_URL } from 'utils/utils';
 
 const Challenge = ({ opponent }) => {
   const user = useSelector((state) => state.user.id);
+
+  const dispatch = useDispatch();
 
   const options = {
     method: 'POST',
@@ -16,10 +19,11 @@ const Challenge = ({ opponent }) => {
     })
   }
 
-  fetch(API_URL('user'), options)
+  fetch(API_URL('gameChallengeUser'), options)
     .then((res) => res.json())
     .then((json) => {
-      console.log('json.response', json.response)
+      console.log('response', json.response)
+      dispatch(game.actions.submitOpponent(json.response))
     })
 
   return (
