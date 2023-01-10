@@ -10,6 +10,11 @@ const Statistics = () => {
   const [topChallengeStat, setTopChallengeStat] = useState({});
   const [worstTrainStat, setWorstTrainStat] = useState({});
   const [worstChallengeStat, setWorstChallengeStat] = useState({});
+  const [bestOfAllTrainStat, setBestOfAllTrainStat] = useState({});
+  console.log('bestOfallTrainStat', bestOfAllTrainStat)
+  const [bestOfAllChalStat, setBestOfAllChalStat] = useState({});
+  console.log('bestOfAllChalStat', bestOfAllChalStat)
+
   // const [challengeStats, setChallengeStats] = useState([]);
   // console.log('trainstats', trainStats)
   // console.log('Cstats', challengeStats)
@@ -26,6 +31,8 @@ const Statistics = () => {
         setTopChallengeStat(json.response.topChallengeStat)
         setWorstTrainStat(json.response.worstTrainStat)
         setWorstChallengeStat(json.response.worstChallengeStat)
+        setBestOfAllChalStat(json.response.bestOfAllChalStat[0])
+        setBestOfAllTrainStat(json.response.bestOfAllTrainStat[0])
         // setChallengeStats(json.response.challengeStats)
         // setTrainStats(json.response.trainStats[0])
         // setChallengeStats(json.response.challengeStats[0])
@@ -42,46 +49,66 @@ const Statistics = () => {
 
   return (
     <>
+      {/* User's top results for training and challenge */}
       <GridContainer>
         <GridHeader>Your top results:</GridHeader>
-        <FillerHeader />
-        <TrainingHeader>Training</TrainingHeader>
-        <ChallengeHeader>Challenge</ChallengeHeader>
-
-        <RowHeader>Category</RowHeader>
-        <TrainGridItem>{topTrainStat.category}</TrainGridItem>
-        <ChallengeGridItem>{topChallengeStat.category}</ChallengeGridItem>
-        <RowHeader>Score</RowHeader>
-        <TrainGridItem>{topTrainStat.score}</TrainGridItem>
-        <ChallengeGridItem>{topChallengeStat.score}</ChallengeGridItem>
-        <RowHeader>Time</RowHeader>
-        <TrainGridItem>{topTrainStat.time}</TrainGridItem>
-        <ChallengeGridItem>{topChallengeStat.time}</ChallengeGridItem>
-        <RowHeader>Opponent</RowHeader>
-        <TrainGridItem>{topTrainStat.opponent}</TrainGridItem>
-        <ChallengeGridItem>{topChallengeStat.opponent}</ChallengeGridItem>
+        <FillerHeader backGroundcolor="#FA5CB8" />
+        <TrainingHeader backGroundcolor="#FA5CB8">Training</TrainingHeader>
+        <ChallengeHeader backGroundcolor="#FA5CB8">Challenge</ChallengeHeader>
+        <RowHeader backGroundcolor="lightcoral">Category</RowHeader>
+        <TrainGridItem backGroundcolor="#FACE75">{topTrainStat.category}</TrainGridItem>
+        <ChallengeGridItem backGroundcolor="#FACE75">{topChallengeStat.category}</ChallengeGridItem>
+        <RowHeader backGroundcolor="lightcoral">Score</RowHeader>
+        <TrainGridItem backGroundcolor="#FACE75">{topTrainStat.score}</TrainGridItem>
+        <ChallengeGridItem backGroundcolor="#FACE75">{topChallengeStat.score}</ChallengeGridItem>
+        <RowHeader backGroundcolor="lightcoral">Time</RowHeader>
+        <TrainGridItem backGroundcolor="#FACE75">{topTrainStat.time}</TrainGridItem>
+        <ChallengeGridItem backGroundcolor="#FACE75">{topChallengeStat.time}</ChallengeGridItem>
+        <RowHeader backGroundcolor="lightcoral">Opponent</RowHeader>
+        <TrainGridItem backGroundcolor="#FACE75">{topTrainStat.opponent}</TrainGridItem>
+        <ChallengeGridItem backGroundcolor="#FACE75">{topChallengeStat.opponent}</ChallengeGridItem>
       </GridContainer>
 
+      {/* User's worst results for training and challenge */}
       <GridContainer>
         <GridHeader>Your least impressive results:</GridHeader>
-        <FillerHeader />
-        <TrainingHeader>Training</TrainingHeader>
-        <ChallengeHeader>Challenge</ChallengeHeader>
+        <FillerHeader backGroundcolor="#FA5CB8" />
+        <TrainingHeader backGroundcolor="#FA5CB8">Training</TrainingHeader>
+        <ChallengeHeader backGroundcolor="#FA5CB8">Challenge</ChallengeHeader>
+        <RowHeader backGroundcolor="lightcoral">Category</RowHeader>
+        <TrainGridItem backGroundcolor="#FACE75">{worstTrainStat.category}</TrainGridItem>
+        <ChallengeGridItem backGroundcolor="#FACE75">{worstChallengeStat.category}</ChallengeGridItem>
+        <RowHeader backGroundcolor="lightcoral">Score</RowHeader>
+        <TrainGridItem backGroundcolor="#FACE75">{worstTrainStat.score}</TrainGridItem>
+        <ChallengeGridItem backGroundcolor="#FACE75">{worstChallengeStat.score}</ChallengeGridItem>
+        <RowHeader backGroundcolor="lightcoral">Time</RowHeader>
+        <TrainGridItem backGroundcolor="#FACE75">{worstTrainStat.time}</TrainGridItem>
+        <ChallengeGridItem backGroundcolor="#FACE75">{worstChallengeStat.time}</ChallengeGridItem>
+        <RowHeader backGroundcolor="lightcoral">Opponent</RowHeader>
+        <TrainGridItem backGroundcolor="#FACE75">{worstTrainStat.opponent}</TrainGridItem>
+        <ChallengeGridItem backGroundcolor="#FACE75">{worstChallengeStat.opponent}</ChallengeGridItem>
+      </GridContainer>
 
-        {/* Top results for training and challenge */}
-        <RowHeader>Category</RowHeader>
-        <TrainGridItem>{worstTrainStat.category}</TrainGridItem>
-        <ChallengeGridItem>{worstChallengeStat.category}</ChallengeGridItem>
-        <RowHeader>Score</RowHeader>
-        <TrainGridItem>{worstTrainStat.score}</TrainGridItem>
-        <ChallengeGridItem>{worstChallengeStat.score}</ChallengeGridItem>
-        <RowHeader>Time</RowHeader>
-        <TrainGridItem>{worstTrainStat.time}</TrainGridItem>
-        <ChallengeGridItem>{worstChallengeStat.time}</ChallengeGridItem>
-        <RowHeader>Opponent</RowHeader>
-        <TrainGridItem>{worstTrainStat.opponent}</TrainGridItem>
-        <ChallengeGridItem>{worstChallengeStat.opponent}</ChallengeGridItem>
-
+      {/* Best results for training and challenge among all the registered users */}
+      <GridContainer>
+        <GridHeader>Current top score among all users:</GridHeader>
+        <FillerHeader backGroundcolor="#4EFA43" />
+        <TrainingHeader backGroundcolor="#4EFA43">Training</TrainingHeader>
+        <ChallengeHeader backGroundcolor="#4EFA43">Challenge</ChallengeHeader>
+        <RowHeader backGroundcolor="#5093FA">Player</RowHeader>
+        <TrainGridItem backGroundcolor="#FFB6C1">{bestOfAllTrainStat.username}</TrainGridItem>
+        <RowHeader backGroundcolor="#5093FA">Category</RowHeader>
+        <TrainGridItem backGroundcolor="#FFB6C1">{bestOfAllTrainStat.category}</TrainGridItem>
+        <ChallengeGridItem backGroundcolor="#FFB6C1">{bestOfAllChalStat.category}</ChallengeGridItem>
+        <RowHeader backGroundcolor="#5093FA">Score</RowHeader>
+        <TrainGridItem backGroundcolor="#FFB6C1">{bestOfAllTrainStat.score}</TrainGridItem>
+        <ChallengeGridItem backGroundcolor="#FFB6C1">{bestOfAllChalStat.score}</ChallengeGridItem>
+        <RowHeader backGroundcolor="#5093FA">Time</RowHeader>
+        <TrainGridItem backGroundcolor="#FFB6C1">{bestOfAllTrainStat.time}</TrainGridItem>
+        <ChallengeGridItem backGroundcolor="#FFB6C1">{bestOfAllChalStat.time}</ChallengeGridItem>
+        <RowHeader backGroundcolor="#5093FA">Opponent</RowHeader>
+        <TrainGridItem backGroundcolor="#FFB6C1">{bestOfAllTrainStat.opponent}</TrainGridItem>
+        <ChallengeGridItem backGroundcolor="#FFB6C1">{bestOfAllChalStat.opponent}</ChallengeGridItem>
       </GridContainer>
     </>
   )
@@ -108,13 +135,13 @@ const GridHeader = styled.div`
 const FillerHeader = styled.div`
   grid-column: 1/2;
   gap: 0;
-  background-color: #FA5CB8;
+  background-color: ${(props) => props.backGroundcolor};// #FA5CB8;
   border-radius: 0.3rem;
 `
 
 const TrainingHeader = styled.div`
   grid-column: 2/3;
-  background-color: #FA5CB8;
+  background-color: ${(props) => props.backGroundcolor}; // #FA5CB8;
   font-weight: bold;
   padding: 1rem;
   border-radius: 0.3rem;
@@ -127,13 +154,13 @@ const ChallengeHeader = styled(TrainingHeader)`
 
 const RowHeader = styled(TrainingHeader)`
   grid-column: 1/2;
-  background-color: lightcoral;
+  background-color: ${(props) => props.backGroundcolor}; // lightcoral; // #5093FA
   border-radius: 0.3rem;
 `
 
 const TrainGridItem = styled.div`
   grid-column: 2/3;
-  background-color: #FACE75;
+  background-color: ${(props) => props.backGroundcolor}; // #FACE75;
   padding: 0.5rem;
   font-size: larger;
   border-radius: 0.3rem;

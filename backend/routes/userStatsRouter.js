@@ -10,7 +10,11 @@ const router = express.Router()
 router.get("/:username",  async (req, res) => {
   const { username } = req.params;
   try {
-    // const allStats = await UserStats.find({ username: username }).sort({ score: 'desc' })
+    // Get best stats among all registered users
+    const bestOfAllTrainStat = await UserStats.find({ quiztype: 'training' }).sort({ score: 'desc' }).limit(1)
+    const bestOfAllChalStat = await UserStats.find({ quiztype: 'challenge' }).sort({ score: 'desc' }).limit(1)
+
+    // Get speccific user's statistics
     const trainStats = await UserStats.find({ username: username, quiztype: 'training' }).sort({ score: 'desc' })
     const challengeStats = await UserStats.find({ username: username, quiztype: 'challenge' }).sort({ score: 'desc' })
 
@@ -31,6 +35,8 @@ router.get("/:username",  async (req, res) => {
           topChallengeStat: topChallengeStat,
           worstTrainStat: worstTrainStat,
           worstChallengeStat: worstChallengeStat,
+          bestOfAllTrainStat: bestOfAllTrainStat,
+          bestOfAllChalStat: bestOfAllChalStat
         }
     })} else {
       res.status(404).json({ 
