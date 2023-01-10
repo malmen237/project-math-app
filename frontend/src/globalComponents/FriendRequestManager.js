@@ -2,92 +2,94 @@ import React from 'react';
 import FriendRequestForm from './FriendRequestForm';
 import FriendRequestList from './FriendRequestList';
 
-class FriendRequestManager extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      friendRequests: [], // this will hold the list of friend requests
-      username: '' // this will hold the username that is being requested
-    };
-    // .bind to pass the data as an argument to the function of a class based component
-    this.handleUsernameChange = this.handleUsernameChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleAccept = this.handleAccept.bind(this);
-    this.handleReject = this.handleReject.bind(this);
-  }
+function createFriendRequestManager() {
+  return class FriendRequestManager extends React.Component {
+    constructor(props) {
+      super(props);
+      this.state = {
+        friendRequests: [], // this will hold the list of friend requests
+        username: '' // this will hold the username that is being requested
+      };
+      // .bind to pass the data as an argument to the function of a class based component
+      this.handleUsernameChange = this.handleUsernameChange.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
+      this.handleAccept = this.handleAccept.bind(this);
+      this.handleReject = this.handleReject.bind(this);
+    }
 
-  componentDidMount() {
+    componentDidMount() {
     // fetch friend requests from backend here
-    fetch('/api/friend-requests/')
-      .then((response) => response.json())
-      .then((friendRequests) => this.setState({ friendRequests }));
-  }
+      fetch('/api/friend-requests/')
+        .then((response) => response.json())
+        .then((friendRequests) => this.setState({ friendRequests }));
+    }
 
-  handleUsernameChange(event) {
-    this.setState({ username: event.target.value });
-  }
+    handleUsernameChange(event) {
+      this.setState({ username: event.target.value });
+    }
 
-  handleSubmit(event) {
-    event.preventDefault();
-    // send request to backend to check if username exists
-    // if it does, add friend request to list
-    fetch('/api/friend-requests/', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ username: this.state.username })
-    })
-      .then((response) => response.json())
-      .then((newRequest) => {
-        this.setState((prevState) => ({
-          friendRequests: [...prevState.friendRequests, newRequest]
-        }));
-      });
-  }
+    handleSubmit(event) {
+      event.preventDefault();
+      // send request to backend to check if username exists
+      // if it does, add friend request to list
+      fetch('/api/friend-requests/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username: this.state.username })
+      })
+        .then((response) => response.json())
+        .then((newRequest) => {
+          this.setState((prevState) => ({
+            friendRequests: [...prevState.friendRequests, newRequest]
+          }));
+        });
+    }
 
-  handleAccept(request) {
+    handleAccept(request) {
     // send request to backend to accept friend request
-    fetch(`/api/friend-requests/${request.id}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ status: 'accepted' })
-    })
-      .then(() => {
+      fetch(`/api/friend-requests/${request.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ status: 'accepted' })
+      })
+        .then(() => {
         // remove request from list
-        this.setState((prevState) => ({
-          friendRequests: prevState.friendRequests.filter((r) => r.id !== request.id)
-        }));
-      });
-  }
+          this.setState((prevState) => ({
+            friendRequests: prevState.friendRequests.filter((r) => r.id !== request.id)
+          }));
+        });
+    }
 
-  handleReject(request) {
+    handleReject(request) {
     // send request to backend to reject friend request
-    fetch(`/api/friend-requests/${request.id}`, {
-      method: 'DELETE'
-    })
-      .then(() => {
+      fetch(`/api/friend-requests/${request.id}`, {
+        method: 'DELETE'
+      })
+        .then(() => {
         // remove request from list
-        this.setState((prevState) => ({
-          friendRequests: prevState.friendRequests.filter((r) => r.id !== request.id)
-        }));
-      });
-  }
+          this.setState((prevState) => ({
+            friendRequests: prevState.friendRequests.filter((r) => r.id !== request.id)
+          }));
+        });
+    }
 
-  render() {
-    return (
-      <div>
-        <FriendRequestForm
-          username={this.state.username}
-          onUsernameChange={this.handleUsernameChange}
-          onSubmit={this.handleSubmit} />
-        <FriendRequestList
-          friendRequests={this.state.friendRequests}
-          onAccept={this.handleAccept}
-          onReject={this.handleReject} />
-      </div>
-    );
+    render() {
+      return (
+        <div>
+          <FriendRequestForm
+            username={this.state.username}
+            onUsernameChange={this.handleUsernameChange}
+            onSubmit={this.handleSubmit} />
+          <FriendRequestList
+            friendRequests={this.state.friendRequests}
+            onAccept={this.handleAccept}
+            onReject={this.handleReject} />
+        </div>
+      );
+    }
   }
 }
-export default FriendRequestManager;
+export default createFriendRequestManager;
 
 /* import React, { useState, useEffect } from 'react';
 import { MongoClient } from 'mongodb';
