@@ -15,7 +15,6 @@ const StartGame = () => {
   const navigate = useNavigate();
 
   const onButtonClick = (event) => {
-    // <Challenge opponent={event} />;
     const options = {
       method: 'POST',
       headers: {
@@ -27,11 +26,12 @@ const StartGame = () => {
         username
       })
     }
-    fetch(API_URL('gameChallengeUser'), options)
+    fetch(API_URL('challenges'), options)
       .then((res) => res.json())
       .then((json) => {
-        console.log('response', json.response)
-        dispatch(game.actions.submitOpponent(json.response))
+        dispatch(game.actions.submitOpponent(json.response.opponentusername))
+        dispatch(game.actions.submitQuestion(json.response.questions))
+        dispatch(game.actions.submitCheck(false))
       })
     dispatch(game.actions.setMode('challenge'));
     setTimeout(() => { navigate('/questions') }, 500);

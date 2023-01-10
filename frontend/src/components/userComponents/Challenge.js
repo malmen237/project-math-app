@@ -40,7 +40,8 @@ const Challenge = () => {
           return (
             dispatch(game.actions.submitOpponent(json.response[0].username)),
             dispatch(game.actions.submitQuestion(json.response[0].questions)),
-            dispatch(game.actions.setMode('challenge'))
+            dispatch(game.actions.setMode('challenge')),
+            dispatch(game.actions.submitCheck(false))
           )
         }
       })

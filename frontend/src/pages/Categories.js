@@ -12,6 +12,7 @@ const Categories = () => {
   const onButtonClick = (event) => {
     dispatch(game.actions.restart());
     dispatch(game.actions.setMode('training'));
+    dispatch(game.actions.submitCheck(true));
     // dispatch(game.actions.submitOpponent(''));
     dispatch(game.actions.submitOperation(event));
     setTimeout(() => { navigate('/questions') }, 500);

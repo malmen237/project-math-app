@@ -4,7 +4,8 @@ const ChallengeSchema = mongoose.Schema({
   questions: [],
   userId: String,
   username: String,
-  opponent: String
+  opponentId: String,
+  opponentusername: String
 });
 
 const Challenge = mongoose.model("Challenge", ChallengeSchema);

@@ -69,7 +69,7 @@ app.use("/welcome", authenticateUser,  welcomeRouter);
 
 app.use("/user/", findUserIdRouter);
 app.use("/user", findUsernameRouter);
-app.use("/gameChallengeUser", gameChallengeUserRouter)
+app.use("/gameChallengeUser", gameChallengeUserRouter) // ! Not in use ATM
 app.use("/userstats", userStatsRouter);
 app.use("/userstats/:username", userStatsRouter);
 

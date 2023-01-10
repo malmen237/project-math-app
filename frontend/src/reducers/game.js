@@ -13,6 +13,7 @@ const initialState = {
   // Time is added in seconds
   time: 0,
   mode: null,
+  check: null,
   opponent: '-'
 }
 
@@ -22,6 +23,9 @@ export const game = createSlice({
   reducers: {
     setMode: (state, action) => {
       state.mode = action.payload;
+    },
+    submitCheck: (state, action) => {
+      state.check = action.payload;
     },
     submitOpponent: (state, action) => {
       state.opponent = action.payload;
