@@ -1,6 +1,5 @@
 import express from "express";
 import Challenge from "../schemas/Challenge";
-import { problemGenerator } from "../functions/problemGenerator";
 
 const router = express.Router();
 

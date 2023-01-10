@@ -85,7 +85,6 @@ const Questions = () => {
     setAnswer('');
     setBasket([]);
     setProvidedAnswer(true);
-    // dispatch(game.actions.goToNextQuestion());
     setTimeout(() => { dispatch(game.actions.goToNextQuestion()) }, 2000);
     setTimeout(() => { setProvidedAnswer(false) }, 2000);
     setNextButton(false);
@@ -152,7 +151,7 @@ const Questions = () => {
   return (
     <OuterWrapper>
       <Question>Question: {problem[problemNumber].question}</Question>
-      <form onSubmit={onFormSubmit}>
+      <form onSubmit={onFormSubmit} autoComplete="off">
         {formInput ? <TextForm
           answer={answer}
           handleUserAnswerInput={handleUserAnswerInput} /> : <DnDForm

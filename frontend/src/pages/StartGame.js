@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { game } from 'reducers/game';
 import styled from 'styled-components/macro';
 import { OuterWrapper } from 'Styles/globalStyles';
-// import Challenge from 'components/userComponents/Challenge';
+import BackBtn from 'components/globalComponents/BackBtn';
 import { API_URL } from 'utils/utils';
 
 const StartGame = () => {
@@ -31,6 +31,7 @@ const StartGame = () => {
       .then((json) => {
         dispatch(game.actions.submitOpponent(json.response.opponentusername))
         dispatch(game.actions.submitQuestion(json.response.questions))
+        dispatch(game.actions.submitMatchId(json.response.id))
         dispatch(game.actions.submitCheck(false))
       })
     dispatch(game.actions.setMode('challenge'));
@@ -39,6 +40,7 @@ const StartGame = () => {
 
   return (
     <OuterWrapper>
+      <BackBtn />
       <Choose>Challenge:</Choose>
       <ChoiceWrapper>
         {/* // TODO Add friend-ID to challenge friend */}

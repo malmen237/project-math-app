@@ -31,7 +31,7 @@ router.post("/", async (req, res) => {
       
         User.findOne().skip(random).exec(async (err, result) => {
           // const response = {username: result.username, id: result.id}
-          const newOperation = await new Challenge({questions: qs, userId: userId, username: username, opponentusername: result.username, opponentId: result.id, active: true}).save()
+          const newOperation = await new Challenge({questions: qs, active: true, userId: userId, username: username, opponentusername: result.username, opponentId: result.id, active: true}).save()
           res.status(200).json({
             success: true,
             response: newOperation
@@ -49,12 +49,6 @@ router.post("/", async (req, res) => {
         response: newOperation
       })  
     }
-
-  // }
-  //   res.status(200).json({
-  //     success: true, 
-  //     response: newOperation
-  //   });
   } catch (error) {
     res.status(400).json({
       success: false,

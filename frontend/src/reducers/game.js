@@ -14,7 +14,8 @@ const initialState = {
   time: 0,
   mode: null,
   check: null,
-  opponent: '-'
+  opponent: '-',
+  matchId: null
 }
 
 export const game = createSlice({
@@ -26,6 +27,9 @@ export const game = createSlice({
     },
     submitCheck: (state, action) => {
       state.check = action.payload;
+    },
+    submitMatchId: (state, action) => {
+      state.matchId = action.payload;
     },
     submitOpponent: (state, action) => {
       state.opponent = action.payload;

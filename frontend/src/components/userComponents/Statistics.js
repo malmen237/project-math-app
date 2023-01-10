@@ -5,10 +5,8 @@ import styled from 'styled-components/macro';
 
 const Statistics = () => {
   const [stats, setStats] = useState([]);
-  console.log('stats', stats)
 
   const username = useSelector((state) => state.user.username);
-  console.log('username in statistics', username)
 
   // Get users results from database
   useEffect(() => {

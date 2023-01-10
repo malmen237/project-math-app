@@ -5,7 +5,8 @@ const ChallengeSchema = mongoose.Schema({
   userId: String,
   username: String,
   opponentId: String,
-  opponentusername: String
+  opponentusername: String,
+  active: Boolean
 });
 
 const Challenge = mongoose.model("Challenge", ChallengeSchema);
