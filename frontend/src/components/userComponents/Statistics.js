@@ -4,8 +4,9 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 
 const Statistics = () => {
-  // const [trainStats, setTrainStats] = useState({});
-  // const [challengeStats, setChallengeStats] = useState({});
+  const [trainStats, setTrainStats] = useState([]);
+  console.log('trainstats', trainStats)
+  const [challengeStats, setChallengeStats] = useState([]);
   const [topTrainStat, setTopTrainStat] = useState({});
   const [topChallengeStat, setTopChallengeStat] = useState({});
   const [worstTrainStat, setWorstTrainStat] = useState({});
@@ -14,6 +15,17 @@ const Statistics = () => {
   console.log('bestOfallTrainStat', bestOfAllTrainStat)
   const [bestOfAllChalStat, setBestOfAllChalStat] = useState({});
   console.log('bestOfAllChalStat', bestOfAllChalStat)
+
+  let starCount = 0;
+  for (let i = 0; i < trainStats.length; i += 1) {
+    starCount += trainStats[i].points
+  }
+
+  for (let i = 0; i < challengeStats.length; i += 1) {
+    starCount += challengeStats[i].points
+  }
+
+  console.log('starCount', starCount)
 
   // const [challengeStats, setChallengeStats] = useState([]);
   // console.log('trainstats', trainStats)
@@ -27,6 +39,8 @@ const Statistics = () => {
     fetch(`http://localhost:8080/userstats/${username}`)
       .then((res) => res.json())
       .then((json) => {
+        setTrainStats(json.response.trainStats)
+        setChallengeStats(json.response.challengeStats)
         setTopTrainStat(json.response.topTrainStat)
         setTopChallengeStat(json.response.topChallengeStat)
         setWorstTrainStat(json.response.worstTrainStat)
@@ -49,6 +63,7 @@ const Statistics = () => {
 
   return (
     <>
+      <h1>STARCOUNT: {starCount} </h1>
       {/* User's top results for training and challenge */}
       <GridContainer>
         <GridHeader>Your top results:</GridHeader>

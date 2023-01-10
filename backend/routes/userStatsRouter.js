@@ -31,6 +31,8 @@ router.get("/:username",  async (req, res) => {
       res.status(200).json({
         success: true,
         response: { 
+          trainStats: trainStats,
+          challengeStats: challengeStats,
           topTrainStat: topTrainStat,
           topChallengeStat: topChallengeStat,
           worstTrainStat: worstTrainStat,
