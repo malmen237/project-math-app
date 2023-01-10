@@ -11,21 +11,14 @@ router.get("/:username",  async (req, res) => {
   const { username } = req.params;
   try {
     // Get best stats among all registered users
-    const bestOfAllTrainStat = await UserStats.find({ quiztype: 'training' }).sort({ score: 'desc' }).limit(1)
     const bestOfAllChalStat = await UserStats.find({ quiztype: 'challenge' }).sort({ score: 'desc' }).limit(1)
 
-    // Get speccific user's statistics
+    // Get specific user's statistics
     const trainStats = await UserStats.find({ username: username, quiztype: 'training' }).sort({ score: 'desc' })
     const challengeStats = await UserStats.find({ username: username, quiztype: 'challenge' }).sort({ score: 'desc' })
 
-    // const topTrainStat = await UserStats.find({ username: username, quiztype: 'training' }).sort({ score: 'desc' }).limit(1)
-    // const topChallengeStat = await UserStats.find({ username: username, quiztype: 'challenge' }).sort({ score: 'desc' }).limit(1)
-    // const worstTrainStat = await UserStats.find({ username: username, quiztype: 'training' }).sort({ score: 'desc' }).limit(1)
-    // const worstChallengeStat = await UserStats.find({ username: username, quiztype: 'challenge' }).sort({ score: 'desc' }).limit(1)
     const topTrainStat = trainStats[0]
     const topChallengeStat = challengeStats[0]
-    const worstTrainStat = trainStats[trainStats.length - 1]
-    const worstChallengeStat = challengeStats[challengeStats.length - 1]
 
     if (trainStats.length > 0 || challengeStats.length > 0){
       res.status(200).json({
@@ -35,9 +28,6 @@ router.get("/:username",  async (req, res) => {
           challengeStats: challengeStats,
           topTrainStat: topTrainStat,
           topChallengeStat: topChallengeStat,
-          worstTrainStat: worstTrainStat,
-          worstChallengeStat: worstChallengeStat,
-          bestOfAllTrainStat: bestOfAllTrainStat,
           bestOfAllChalStat: bestOfAllChalStat
         }
     })} else {

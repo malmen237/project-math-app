@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { OuterWrapper } from 'Styles/globalStyles';
 
 const Summary = () => {
-  // const dispatch = useDispatch(); useDispatch,
   const navigate = useNavigate();
 
   const onTrainBtnClick = (type) => {
@@ -14,7 +13,7 @@ const Summary = () => {
     if (type === 'training') {
       setTimeout(() => { navigate('/category') }, 500);
     } else {
-      setTimeout(() => { navigate('/questions') }, 500);
+      setTimeout(() => { navigate('/game') }, 500);
     }
   }
 
@@ -76,8 +75,8 @@ const Summary = () => {
       <Correct>{points} points earned</Correct>
       <Correct>Time to complete: {time}</Correct>
 
-      <Next type="button" onClick={() => onTrainBtnClick('training')}>Train again?</Next>
-      <Next type="button" onClick={() => onTrainBtnClick('challenge')}>Start a game!</Next>
+      <Next type="button" onClick={() => onTrainBtnClick('training')}>Train your skills</Next>
+      <Next type="button" onClick={() => onTrainBtnClick('challenge')}>Challenge someone!</Next>
     </OuterWrapper>
   )
 }

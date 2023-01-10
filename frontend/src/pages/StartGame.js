@@ -11,6 +11,8 @@ const StartGame = () => {
   const navigate = useNavigate();
 
   const onButtonClick = (event) => {
+    // ADDED:
+    dispatch(game.actions.restart());
     <Challenge opponent={event} />;
     dispatch(game.actions.setMode('challenge'));
     setTimeout(() => { navigate('/questions') }, 500);
