@@ -1,40 +1,38 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { headShake } from 'react-animations';
-import styled, { keyframes } from 'styled-components/macro';
+import styled from 'styled-components/macro';
 // import { Player } from '@lottiefiles/react-lottie-player';
 import picture from 'images/bells.png';
-import { OuterWrapper } from '../Styles/globalStyles';
-
-const HeadShakeAnimation = keyframes`${headShake}`;
+import { OuterWrapper } from 'Styles/globalStyles';
 
 const Welcome = () => {
   const navigate = useNavigate();
   const username = useSelector((store) => store.user.username);
-  console.log(username)
 
+  const buttonClick = () => {
+    navigate('/profile');
+  }
   const trainButtonClick = () => {
     navigate('/category');
   }
   const gameButtonClick = () => {
-    navigate('/');
+    navigate('/game');
   }
 
   return (
     <OuterWrapper>
       <h1>Welcome, {username}</h1>
+      <button type="button" onClick={buttonClick}>PROFILE</button>
       {/* <Player
         src="https://assets10.lottiefiles.com/packages/lf20_jR229r.json"
         className="player"
         loop
         autoplay /> */}
-      <HeadShakeDiv>
-        <Button onClick={trainButtonClick} type="button">
-          <Img src={picture} alt="" />
+      <Button onClick={trainButtonClick} type="button">
+        <Img src={picture} alt="" />
         Start training session
-        </Button>
-      </HeadShakeDiv>
+      </Button>
       <Button onClick={gameButtonClick} type="button">
         <Img src={picture} alt="" />
         Play game
@@ -67,6 +65,3 @@ const Img = styled.img`
   padding-bottom: 1%;
 `
 
-const HeadShakeDiv = styled.div`
-  animation: infinite 2s ${HeadShakeAnimation};
-`;

@@ -10,13 +10,16 @@ const Categories = () => {
   const navigate = useNavigate();
 
   const onButtonClick = (event) => {
+    dispatch(game.actions.restart());
+    dispatch(game.actions.setMode('training'));
+    // dispatch(game.actions.submitOpponent(''));
     dispatch(game.actions.submitOperation(event));
     setTimeout(() => { navigate('/questions') }, 500);
   }
 
   return (
     <OuterWrapper>
-      <Choose>Choose your poison</Choose>
+      <Choose>Pick your poison</Choose>
       <ChoiceWrapper>
         <Choice type="button" onClick={() => onButtonClick('+')}>+</Choice>
         <Choice type="button" onClick={() => onButtonClick('-')}>-</Choice>

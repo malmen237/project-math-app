@@ -1,12 +1,7 @@
-## Backend
+## View the backend live
 
-### View it live
+https://project-math-app-5ldvgodznq-lz.a.run.app 
 
+## View the frontend live
 
-
-
-## Frontend
-
-### View it live
-
-
+https://mathorama.netlify.app/

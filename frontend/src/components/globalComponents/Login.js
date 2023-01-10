@@ -3,7 +3,8 @@ import { useDispatch, useSelector, batch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { API_URL } from 'utils/utils';
 import user from 'reducers/user';
-import { OuterWrapper } from 'Styles/globalStyles';
+// import { OuterWrapper } from 'styles/globalStyles';
+import styled from 'styled-components/macro';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -21,6 +22,7 @@ const Login = () => {
     if (accessToken) {
       navigate('/welcome');
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken]);
 
   const onFormSubmit = (event) => {
@@ -58,12 +60,13 @@ const Login = () => {
   }
 
   return (
-    <OuterWrapper>
-      <div>
+    <PageWrapper>
+      {/* <LoginWrapper> */}
+      <Intro>
         <h1>Welcome!</h1>
         <h2> Please register or sign in </h2>
-      </div>
-      <div>
+      </Intro>
+      <Selection>
         <div>
           <label htmlFor="register">Register
             <input
@@ -82,8 +85,8 @@ const Login = () => {
               onChange={() => setMode('login')} />
           </label>
         </div>
-      </div>
-      <form onSubmit={onFormSubmit}>
+      </Selection>
+      <StyledForm onSubmit={onFormSubmit}>
         <label htmlFor="username">Username
           <input
             type="text"
@@ -108,11 +111,88 @@ const Login = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)} />
         </label>
-        <button type="submit">{mode === 'login' ? 'Log In' : 'Submit'}</button>
-      </form>
+        <StyledButton type="submit">{mode === 'login' ? 'Log In' : 'Submit'}</StyledButton>
+      </StyledForm>
       <p>{activeError ? error : ''}</p>
-    </OuterWrapper>
+      {/* </LoginWrapper> */}
+    </PageWrapper>
   )
 }
 
 export default Login;
+
+const PageWrapper = styled.section`
+  // border: 2px solid blue;
+  color: white;
+  font-weight: bold;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  // padding: 2rem 45vw;
+  // text-align: center;
+  // border: 2px red solid;
+  background-color: #0093E9;
+  background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+`
+
+const StyledForm = styled.form`
+  // border: 2px solid green;
+  font-size: 1.2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  label {
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+  label + button {
+    margin-top: 10px;
+  }
+  input {
+    margin-left: 10px;
+    border-radius: 5px;
+    border: none;
+    padding: 0.5rem;
+  }
+`
+
+const Intro = styled.div`
+  margin-bottom: 1rem;
+  align-self: center;
+`
+
+const Selection = styled.div`
+  // border: 2px solid red;
+  width: 60vw;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+  input {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+`
+
+const StyledButton = styled.button`
+  font-size: 1.2rem;
+  color: white;
+  background: none;
+  border: 2px solid white;
+  padding: 5px 10px;
+  border-radius: 10px;
+  &:hover {
+    color: #b84545;
+    background-color: white;
+    transition: 0.5s background-color ease-in-out;
+    cursor: pointer;
+  }
+  &:active {
+    transform: translateY(3px);
+  }
+`

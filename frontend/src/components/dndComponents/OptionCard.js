@@ -3,13 +3,13 @@ import { useMultiDrag } from 'react-dnd-multi-backend';
 import styled from 'styled-components';
 import { Devices } from 'Styles/globalStyles';
 
-export const OptionCard = ({ id, name, color }) => {
+export const OptionCard = ({ id, answer, color }) => {
   // Provide's the library the element that needs dragging
   // eslint-disable-next-line max-len
   const [[{ isDragging }], { html5: [html5Props, html5Drag], touch: [touchProps, touchDrag] }] = useMultiDrag({
     type: 'card',
     // item is used to pass data we need for the drop area
-    item: { id, name },
+    item: { id, answer },
     // collect is optional, a function that receives the monitor object
     // monitor holds the state & metadata of the drag action
     collect: (monitor) => ({
@@ -20,15 +20,27 @@ export const OptionCard = ({ id, name, color }) => {
   const containerStyle = { opacity: isDragging ? 0.5 : 1 }
   const html5DragStyle = { backgroundColor: color, opacity: html5Props.isDragging ? 0.5 : 1 }
   const touchDragStyle = { backgroundColor: color, opacity: touchProps.isDragging ? 0.5 : 1 }
+
+  const fractionReturn = () => {
+    // console.log('singleOption[0]', singleOption[0])
+    if (answer[0] === 0 || answer[1] === 0) {
+      return 0
+    } else if (answer[0] === answer[1]) {
+      return 1
+    } else {
+      return `${answer[0]} / ${answer[1]}`
+    }
+  }
+
   return (
   // Any element that is draggable has to have a ref
 
     <div style={containerStyle}>
       <Mouse style={html5DragStyle} ref={html5Drag}>
-        {name}
+        {fractionReturn()}
       </Mouse>
       <Touch style={touchDragStyle} ref={touchDrag}>
-        {name}
+        {fractionReturn()}
       </Touch>
     </div>
 
@@ -36,12 +48,12 @@ export const OptionCard = ({ id, name, color }) => {
 }
 
 const Touch = styled.div`
-    height: 3rem;
-    width: 3rem;
+    height: 8rem;
+    width: 8rem;
     background-color: green;
     margin: 1rem;
     color: white;
-    border-radius: 5px;
+    border-radius: 15px;
     display: flex;
     align-items: center;
     justify-content: center;
