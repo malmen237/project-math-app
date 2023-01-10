@@ -1,14 +1,32 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 // import { Player } from '@lottiefiles/react-lottie-player';
 import picture from 'images/bells.png';
 import { OuterWrapper } from 'Styles/globalStyles';
+import { API_URL } from 'utils/utils';
 
 const Welcome = () => {
   const navigate = useNavigate();
-  const username = useSelector((store) => store.user.username);
+
+  // const accessToken = useSelector((store) => store.user.accessToken);
+  // const username = useSelector((store) => store.user.username);
+
+  const accessToken = localStorage.getItem('accessToken');
+  const username = localStorage.getItem('username');
+
+  // const clearStorage = () => {
+  //   localStorage.removeItem('accessToken');
+  //   localStorage.removeItem('username');
+  //   navigate("/");
+  // }
+
+  useEffect(() => {
+    if (!accessToken) {
+      navigate('/');
+    }
+  }, []);
 
   const buttonClick = () => {
     navigate('/profile');
@@ -19,6 +37,22 @@ const Welcome = () => {
   const gameButtonClick = () => {
     navigate('/game');
   }
+
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: accessToken
+    }
+  }
+
+  useEffect(() => {
+    fetch(API_URL('welcome'), options)
+      .then((response) => response.json())
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }, []);
 
   return (
     <OuterWrapper>

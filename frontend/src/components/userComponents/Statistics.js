@@ -1,34 +1,50 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components/macro';
+import { API_URL } from 'utils/utils';
 
 const Statistics = () => {
+  const navigate = useNavigate();
   const [trainStats, setTrainStats] = useState([]);
-  console.log('trainstats', trainStats)
   const [challengeStats, setChallengeStats] = useState([]);
   const [topTrainStat, setTopTrainStat] = useState({});
   const [topChallengeStat, setTopChallengeStat] = useState({});
   const [bestOfAllChalStat, setBestOfAllChalStat] = useState({});
-  console.log('bestOfAllChalStat', bestOfAllChalStat)
 
   let starCount = 0;
+  // Count total points from all users trainings
   for (let i = 0; i < trainStats.length; i += 1) {
     starCount += trainStats[i].points
   }
-
+  // Count total points from all users challenges
   for (let i = 0; i < challengeStats.length; i += 1) {
     starCount += challengeStats[i].points
   }
 
-  console.log('starCount', starCount)
-
-  const username = useSelector((state) => state.user.username);
+  // const username = useSelector((state) => state.user.username);
+  const accessToken = localStorage.getItem('accessToken');
+  const username = localStorage.getItem('username');
   console.log('username in statistics', username)
+
+  useEffect(() => {
+    if (!accessToken) {
+      navigate('/');
+    }
+  }, []);
+
+  const options = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: accessToken
+    }
+  }
 
   // Get users results from database
   useEffect(() => {
-    fetch(`http://localhost:8080/userstats/${username}`)
+    fetch(API_URL(`userstats/${username}`), options)
       .then((res) => res.json())
       .then((json) => {
         setTrainStats(json.response.trainStats)
@@ -36,7 +52,6 @@ const Statistics = () => {
         setTopTrainStat(json.response.topTrainStat)
         setTopChallengeStat(json.response.topChallengeStat)
         setBestOfAllChalStat(json.response.bestOfAllChalStat[0])
-        console.log('json.response', json.response);
       })
   }, []);
 

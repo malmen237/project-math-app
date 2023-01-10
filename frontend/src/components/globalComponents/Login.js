@@ -39,6 +39,9 @@ const Login = () => {
       .then((data) => {
         if (data.success) {
           batch(() => {
+            // ADDED two lines
+            localStorage.setItem('accessToken', data.response.accessToken);
+            localStorage.setItem('username', data.response.username);
             dispatch(user.actions.setUsername(data.response.username));
             dispatch(user.actions.setId(data.response.id));
             dispatch(user.actions.setUserEmail(data.response.email));
