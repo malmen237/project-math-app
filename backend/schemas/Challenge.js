@@ -2,7 +2,8 @@ import mongoose from "mongoose";
 
 const ChallengeSchema = mongoose.Schema({
   questions: [],
-  user: String,
+  userId: String,
+  username: String,
   opponent: String
 });
 

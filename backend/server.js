@@ -5,12 +5,13 @@ import User from "./schemas/User";
 import userStatsRouter from "./routes/userStatsRouter";
 import registerRouter from "./routes/registerRouter";
 import logInRouter from "./routes/logInRouter";
-import challengesRouter from "./routes/challengesRouter";
+import makeChallengesRouter from "./routes/makeChallengesRouter";
 import questionsRouter from "./routes/questionsRouter";
 import welcomeRouter from "./routes/welcomeRouter";
 import findUserIdRouter from "./routes/findUserIdRouter";
 import findUsernameRouter from "./routes/findUsernameRouter";
 import gameChallengeUserRouter from "./routes/challengeUserRouter";
+import getChallengesRouter from "./routes/getChallengesRouter";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/math"
 mongoose.connect(mongoUrl, {useNewUrlParser: true, useUnifiedTopology: true})
@@ -73,7 +74,8 @@ app.use("/userstats", userStatsRouter);
 app.use("/userstats/:username", userStatsRouter);
 
 app.use("/questions", questionsRouter)
-app.use("/challenges", challengesRouter);
+app.use("/challenges", makeChallengesRouter);
+app.use("/challenges", getChallengesRouter);
 
 // Start the server
 app.listen(port, () => {

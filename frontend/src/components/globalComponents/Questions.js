@@ -26,7 +26,7 @@ const Questions = () => {
   const [basket, setBasket] = useState([]);
   const [showNumber, setShowNumber] = useState(0);
   const [lastQuestion, setLastQuestion] = useState();
-  const [startFetch, setStartFetch] = useState(true);
+  const [startFetch, setStartFetch] = useState(false);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

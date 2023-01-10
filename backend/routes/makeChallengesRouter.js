@@ -5,8 +5,7 @@ import { problemGenerator } from "../functions/problemGenerator";
 const router = express.Router();
 
 router.post("/", async (req, res) => {
-  const { opponent, user } = req.body;
-  console.log(user)
+  const { opponent, userId, username } = req.body;
 
   try {
     let qs = [];
@@ -23,7 +22,7 @@ router.post("/", async (req, res) => {
       let q = problemGenerator(setNumber, operation);
       qs.push({question: q.question, answer: q.answer, option: q.option, operation: operation});
     }
-    const newOperation = await new Challenge({questions: qs, user: user, opponent: opponent}).save()
+    const newOperation = await new Challenge({questions: qs, userId: userId, username: username, opponent: opponent, active: true}).save()
     res.status(200).json({
       success: true, 
       response: newOperation

@@ -8,7 +8,8 @@ import { OuterWrapper } from 'Styles/globalStyles';
 import { API_URL } from 'utils/utils';
 
 const StartGame = () => {
-  const user = useSelector((state) => state.user.id);
+  const userId = useSelector((state) => state.user.id);
+  const username = useSelector((state) => state.user.username);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -22,7 +23,8 @@ const StartGame = () => {
       },
       body: JSON.stringify({
         opponent: event,
-        user
+        userId,
+        username
       })
     }
     fetch(API_URL('gameChallengeUser'), options)

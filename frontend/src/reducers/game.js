@@ -25,7 +25,6 @@ export const game = createSlice({
     },
     submitOpponent: (state, action) => {
       state.opponent = action.payload;
-      console.log('opponent', state.opponent)
     },
     submitOperation: (state, action) => {
       state.operation = action.payload;
@@ -45,8 +44,6 @@ export const game = createSlice({
       state.answers = action.payload;
       const answerType = typeof state.answers;
       const correctAnswer = state.questions[state.currentProblemIndex].answer;
-      console.log('USER-answer', state.answers)
-      console.log('TRUE-answer', correctAnswer[0], correctAnswer[1])
 
       if (answerType === 'string') {
         // eslint-disable-next-line eqeqeq
