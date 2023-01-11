@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { game } from 'reducers/game';
@@ -9,6 +9,14 @@ import Challenge from 'components/userComponents/Challenge';
 const StartGame = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // Authenticate user
+  const accessToken = localStorage.getItem('accessToken');
+  useEffect(() => {
+    if (!accessToken) {
+      navigate('/');
+    }
+  }, [accessToken]);
 
   const onButtonClick = (event) => {
     // ADDED:

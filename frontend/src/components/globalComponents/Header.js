@@ -21,7 +21,7 @@ const Header = () => {
     localStorage.removeItem('username');
     navigate('/');
   }
-
+  const accessToken = localStorage.getItem('accessToken');
   return (
     <HeaderWrapper>
       <HomeBtn onClick={redirectHome} type="button">
@@ -29,9 +29,11 @@ const Header = () => {
       </HomeBtn>
       <LogOutWrapper>
         <UserInfoText>Username: {username}</UserInfoText>
-        <LogOutBtn onClick={logOut} type="button">
+        {accessToken && (
+          <LogOutBtn onClick={logOut} type="button">
           Log Out
-        </LogOutBtn>
+          </LogOutBtn>
+        )}
       </LogOutWrapper>
     </HeaderWrapper>
   )

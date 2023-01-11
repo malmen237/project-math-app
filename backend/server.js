@@ -65,7 +65,6 @@ export const authenticateUser = async (req, res, next) => {
 app.use("/register", registerRouter);
 app.use("/login", logInRouter);
 
-//app.use("/welcome", authenticateUser)
 app.use("/welcome", authenticateUser, welcomeRouter);
 
 app.use("/user/", findUserIdRouter);
@@ -73,9 +72,9 @@ app.use("/user", findUsernameRouter);
 app.use("/gameChallengeUser", gameChallengeUserRouter)
 
 app.use("/userstats", authenticateUser, userStatsRouter);
-app.use("/userstats/:username", userStatsRouter);
+app.use("/userstats/:username", authenticateUser, userStatsRouter);
 
-app.use("/questions", questionsRouter)
+app.use("/questions", authenticateUser, questionsRouter)
 app.use("/challenges", challengesRouter);
 
 // Start the server

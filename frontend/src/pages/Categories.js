@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components/macro';
@@ -8,6 +8,14 @@ import { OuterWrapper } from 'Styles/globalStyles';
 const Categories = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  // Authenticate user
+  const accessToken = localStorage.getItem('accessToken');
+  useEffect(() => {
+    if (!accessToken) {
+      navigate('/');
+    }
+  }, [accessToken]);
 
   const onButtonClick = (event) => {
     dispatch(game.actions.restart());

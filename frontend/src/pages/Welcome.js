@@ -12,20 +12,29 @@ const Welcome = () => {
 
   // const accessToken = useSelector((store) => store.user.accessToken);
   // const username = useSelector((store) => store.user.username);
-
   const accessToken = localStorage.getItem('accessToken');
   const username = localStorage.getItem('username');
-
-  // const clearStorage = () => {
-  //   localStorage.removeItem('accessToken');
-  //   localStorage.removeItem('username');
-  //   navigate("/");
-  // }
 
   useEffect(() => {
     if (!accessToken) {
       navigate('/');
     }
+  }, [accessToken]);
+
+  const authOptions = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: accessToken
+    }
+  }
+
+  useEffect(() => {
+    fetch(API_URL('welcome'), authOptions)
+      .then((response) => response.json())
+      .catch((error) => {
+        console.error('Error:', error);
+      });
   }, []);
 
   const buttonClick = () => {
@@ -37,22 +46,6 @@ const Welcome = () => {
   const gameButtonClick = () => {
     navigate('/game');
   }
-
-  const options = {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: accessToken
-    }
-  }
-
-  useEffect(() => {
-    fetch(API_URL('welcome'), options)
-      .then((response) => response.json())
-      .catch((error) => {
-        console.error('Error:', error);
-      });
-  }, []);
 
   return (
     <OuterWrapper>
@@ -74,6 +67,7 @@ const Welcome = () => {
     </OuterWrapper>
   )
 }
+
 export default Welcome;
 
 const Button = styled.button`

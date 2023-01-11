@@ -39,10 +39,9 @@ const Login = () => {
       .then((data) => {
         if (data.success) {
           batch(() => {
-            // ADDED two lines
             localStorage.setItem('accessToken', data.response.accessToken);
             localStorage.setItem('username', data.response.username);
-            dispatch(user.actions.setUsername(data.response.username));
+            // dispatch(user.actions.setUsername(data.response.username));
             dispatch(user.actions.setId(data.response.id));
             dispatch(user.actions.setUserEmail(data.response.email));
             dispatch(user.actions.setAccessToken(data.response.accessToken));
@@ -51,7 +50,7 @@ const Login = () => {
           setActiveError(false);
         } else {
           batch(() => {
-            dispatch(user.actions.setUsername(null));
+            // dispatch(user.actions.setUsername(null));
             dispatch(user.actions.setId(null));
             dispatch(user.actions.setUserEmail(null));
             dispatch(user.actions.setAccessToken(null));
@@ -136,7 +135,8 @@ const PageWrapper = styled.section`
   // padding: 2rem 45vw;
   // text-align: center;
   // border: 2px red solid;
-  background-color: #0093E9;
+  background-color:  #0093E9; // #4EFA43; 
+  // background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
   background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
 `
 
@@ -185,7 +185,8 @@ const Selection = styled.div`
 const StyledButton = styled.button`
   font-size: 1.2rem;
   color: white;
-  background: none;
+  background-color: green;
+  opacity: .60;
   border: 2px solid white;
   padding: 5px 10px;
   border-radius: 10px;
@@ -199,3 +200,33 @@ const StyledButton = styled.button`
     transform: translateY(3px);
   }
 `
+
+// const edButton = styled.button`
+//   background-color: #FFCD42;
+//   border: #FFCD42;
+//   width: 310px; // Used to be 310px
+//   border-radius: 10px;
+//   color: black;
+//   font-weight: bold;
+//   font-size: 25px;
+//   padding: 18px; // Used to be 20px
+//   margin: 10px;
+//   font-family: 'Special Elite', cursive;
+//   &.correct {
+//     background-color: green;
+//   }
+//   &.wrong {
+//     background-color: red;
+//   }
+//   &:disabled {
+//     opacity: .50;
+//   }
+//   @media ${Devices.tablet} {
+//     &:hover {
+//       filter: saturate(50);
+//       &:disabled {
+//         filter: saturate(1);
+//       }
+//     }
+//   }
+// `

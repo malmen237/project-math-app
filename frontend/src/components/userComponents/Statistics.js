@@ -26,13 +26,14 @@ const Statistics = () => {
   // const username = useSelector((state) => state.user.username);
   const accessToken = localStorage.getItem('accessToken');
   const username = localStorage.getItem('username');
-  console.log('username in statistics', username)
+  console.log('username in statistics', typeof username)
 
+  // Authenticate user
   useEffect(() => {
     if (!accessToken) {
       navigate('/');
     }
-  }, []);
+  }, [accessToken]);
 
   const options = {
     method: 'GET',
