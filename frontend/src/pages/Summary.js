@@ -47,6 +47,7 @@ const Summary = () => {
   // const username = useSelector((state) => state.user.username);
   const username = localStorage.getItem('username');
   console.log('username in summary', username)
+  const matchId = useSelector((state) => state.game.matchId)
   const quiztype = useSelector((state) => state.game.mode);
   const category = useSelector((state) => state.game.operation);
   const score = useSelector((state) => state.game.correctAnswers);
@@ -55,6 +56,7 @@ const Summary = () => {
   const timeConverted = toHoursAndMinutes(timeInSecs)
   const time = `${paddedNumber(timeConverted.m, 2)}:${paddedNumber(timeConverted.s, 2)}`
   const opponent = useSelector((state) => state.game.opponent);
+  console.log(matchId)
 
   // Post users results to database
   const options = {
@@ -70,10 +72,12 @@ const Summary = () => {
       score,
       points,
       time,
-      opponent
+      opponent,
+      matchId
     })
   }
 
+  // Post user's results to the database
   fetch(API_URL('userstats'), options)
     .then((res) => res.json())
     .then((json) => {

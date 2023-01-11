@@ -73,7 +73,7 @@ app.use("/user/", findUserIdRouter); // ! Not in use ATM?
 app.use("/user", findUsernameRouter); // ! Not in use ATM?
 app.use("/gameChallengeUser", gameChallengeUserRouter) // ! Not in use ATM?
 
-app.use("/challenges", makeChallengesRouter);
+app.use("/challenges", authenticateUser, makeChallengesRouter);
 app.use("/challenges", getChallengesRouter);
 app.use("/challengestats", challengeStatsRouter);
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { game } from 'reducers/game';
@@ -14,11 +14,20 @@ const StartGame = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // Authenticate user
+  const accessToken = localStorage.getItem('accessToken');
+  useEffect(() => {
+    if (!accessToken) {
+      navigate('/');
+    }
+  }, []);
+
   const onButtonClick = (event) => {
     const options = {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: accessToken
       },
       body: JSON.stringify({
         opponent: event,

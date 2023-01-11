@@ -18,6 +18,9 @@ const Header = () => {
 
   const logOut = () => {
     dispatch(user.actions.logOut())
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('username');
+    navigate('/');
   }
 
   return (
