@@ -6,6 +6,7 @@ import styled from 'styled-components/macro';
 import { OuterWrapper } from 'Styles/globalStyles';
 import BackBtn from 'components/globalComponents/BackBtn';
 import { API_URL } from 'utils/utils';
+import FadeInDownBig from 'Styles/FadeInDownBig';
 
 const StartGame = () => {
   const userId = useSelector((state) => state.user.id);
@@ -52,9 +53,11 @@ const StartGame = () => {
       <BackBtn />
       <Choose>Challenge:</Choose>
       <ChoiceWrapper>
-        {/* // TODO Add friend-ID to challenge friend */}
-        <Choice type="button" onClick={() => onButtonClick()}>Friend</Choice>
-        <Choice type="button" onClick={() => onButtonClick('random')}>Random</Choice>
+        <FadeInDownBig duration="0.8s" delay="0.2s">
+          {/* // TODO Add friend-ID to challenge friend */}
+          <Choice type="button" onClick={() => onButtonClick()}>Friend</Choice>
+          <Choice type="button" onClick={() => onButtonClick('random')}>Random</Choice>
+        </FadeInDownBig>
       </ChoiceWrapper>
     </OuterWrapper>
   )
@@ -75,7 +78,7 @@ const Choose = styled.p`
 
 const Choice = styled.button`
   width: 12rem;
-  background-color: #F7DD65;
+  background-color: #4EFA43;
   color: #666;
   border-radius: 15px;
   border: 3px solid #5DB0B2;

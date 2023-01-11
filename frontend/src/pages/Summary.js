@@ -6,6 +6,8 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { OuterWrapper } from 'Styles/globalStyles';
 import ProfileBtn from 'components/globalComponents/ProfileBtn';
+import FadeInDownBig from 'Styles/FadeInDownBig';
+import Fireworks from 'Styles/Fireworks';
 
 const Summary = () => {
   const navigate = useNavigate();
@@ -86,14 +88,15 @@ const Summary = () => {
 
   return (
     <OuterWrapper>
-      <Correct>WooooHoooooooooo {username}</Correct>
+      <Correct>WooooHoooooo {username}</Correct>
       <Correct>You got {score} / 10 right!</Correct>
       <Correct>{points} points earned</Correct>
       <Correct>Time to complete: {time}</Correct>
-
-      <Next type="button" onClick={() => onTrainBtnClick('training')}>Train your skills</Next>
-      <Next type="button" onClick={() => onTrainBtnClick('challenge')}>Challenge someone!</Next>
-
+      <Fireworks />
+      <FadeInDownBig duration="0.8s" delay="0.2s">
+        <Next type="button" onClick={() => onTrainBtnClick('training')}>Train your skills</Next>
+        <Next type="button" onClick={() => onTrainBtnClick('challenge')}>Challenge someone!</Next>
+      </FadeInDownBig>
       <ProfileBtn />
     </OuterWrapper>
   )
@@ -102,14 +105,15 @@ const Summary = () => {
 export default Summary;
 
 const Correct = styled.p`
+  font-weight: bold;
   font-size: 2rem;
-  color: #555;
+  color: #34495E;
   margin-bottom: 1rem;
 `
 
 const Next = styled.button`
   width: 12rem;
-  background-color: #F7DD65;
+  background-color: #4EFA43;
   color: #666;
   border-radius: 15px;
   border: 3px solid #5DB0B2;

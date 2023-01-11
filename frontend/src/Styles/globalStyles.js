@@ -22,8 +22,8 @@ export const OuterWrapper = styled.div`
   align-items: center;
   justify-content: center;
   text-align: center;
-  width: 80vw;
-  height: 80vh;
-  margin: 2rem auto;
+  //width: 100vw;
+  height: 100vh;
+  //margin: 2rem auto;
 `
 // Remember: changes made in Footer

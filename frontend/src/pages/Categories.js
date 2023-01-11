@@ -61,7 +61,7 @@ const Choose = styled.p`
 
 const Choice = styled.button`
   width: 12rem;
-  background-color: #F7DD65;
+  background-color: #4EFA43;
   color: #666;
   border-radius: 15px;
   border: 3px solid #5093FA;

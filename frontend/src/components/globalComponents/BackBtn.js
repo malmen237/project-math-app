@@ -24,7 +24,7 @@ export default BackBtn;
 const BackButton = styled.button`
   background-color: #4EFA43;
   border: none;
-  padding: 1%;
+  padding: 3%;
   font-size: 3em;
   border-radius: 15px;
   //filter: grayscale(100%);
