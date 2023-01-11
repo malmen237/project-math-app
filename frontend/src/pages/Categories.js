@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { game } from 'reducers/game';
 import { OuterWrapper } from 'Styles/globalStyles';
+import BackBtn from 'components/globalComponents/BackBtn';
 
 const Categories = () => {
   const dispatch = useDispatch();
@@ -12,6 +13,7 @@ const Categories = () => {
   const onButtonClick = (event) => {
     dispatch(game.actions.restart());
     dispatch(game.actions.setMode('training'));
+    dispatch(game.actions.submitCheck(true));
     // dispatch(game.actions.submitOpponent(''));
     dispatch(game.actions.submitOperation(event));
     setTimeout(() => { navigate('/questions') }, 500);
@@ -19,6 +21,7 @@ const Categories = () => {
 
   return (
     <OuterWrapper>
+      <BackBtn />
       <Choose>Pick your poison</Choose>
       <ChoiceWrapper>
         <Choice type="button" onClick={() => onButtonClick('+')}>+</Choice>

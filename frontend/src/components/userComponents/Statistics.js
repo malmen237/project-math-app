@@ -30,9 +30,9 @@ const Statistics = () => {
   // const [challengeStats, setChallengeStats] = useState([]);
   // console.log('trainstats', trainStats)
   // console.log('Cstats', challengeStats)
+  const [stats, setStats] = useState([]);
 
   const username = useSelector((state) => state.user.username);
-  console.log('username in statistics', username)
 
   // Get users results from database
   useEffect(() => {

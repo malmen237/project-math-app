@@ -4,9 +4,9 @@ import { API_URL } from 'utils/utils';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { OuterWrapper } from 'Styles/globalStyles';
+import ProfileBtn from 'components/globalComponents/ProfileBtn';
 
 const Summary = () => {
-  // const dispatch = useDispatch(); useDispatch,
   const navigate = useNavigate();
 
   const onTrainBtnClick = (type) => {
@@ -14,7 +14,7 @@ const Summary = () => {
     if (type === 'training') {
       setTimeout(() => { navigate('/category') }, 500);
     } else {
-      setTimeout(() => { navigate('/questions') }, 500);
+      setTimeout(() => { navigate('/game') }, 500);
     }
   }
 
@@ -36,6 +36,7 @@ const Summary = () => {
 
   // Display users results
   const username = useSelector((state) => state.user.username);
+  const matchId = useSelector((state) => state.game.matchId)
   const quiztype = useSelector((state) => state.game.mode);
   const category = useSelector((state) => state.game.operation);
   const score = useSelector((state) => state.game.correctAnswers);
@@ -45,6 +46,7 @@ const Summary = () => {
   const time = `${paddedNumber(timeConverted.m, 2)}:${paddedNumber(timeConverted.s, 2)}`
   // console.log('time in summary', time, typeof time)
   const opponent = useSelector((state) => state.game.opponent);
+  console.log(matchId)
 
   // Post users results to database
   const options = {
@@ -59,7 +61,8 @@ const Summary = () => {
       score,
       points,
       time,
-      opponent
+      opponent,
+      matchId
     })
   }
 
@@ -76,8 +79,10 @@ const Summary = () => {
       <Correct>{points} points earned</Correct>
       <Correct>Time to complete: {time}</Correct>
 
-      <Next type="button" onClick={() => onTrainBtnClick('training')}>Train again?</Next>
-      <Next type="button" onClick={() => onTrainBtnClick('challenge')}>Start a game!</Next>
+      <Next type="button" onClick={() => onTrainBtnClick('training')}>Train your skills</Next>
+      <Next type="button" onClick={() => onTrainBtnClick('challenge')}>Challenge someone!</Next>
+
+      <ProfileBtn />
     </OuterWrapper>
   )
 }

@@ -5,12 +5,14 @@ import User from "./schemas/User";
 import userStatsRouter from "./routes/userStatsRouter";
 import registerRouter from "./routes/registerRouter";
 import logInRouter from "./routes/logInRouter";
-import challengesRouter from "./routes/challengesRouter";
+import makeChallengesRouter from "./routes/makeChallengesRouter";
 import questionsRouter from "./routes/questionsRouter";
 import welcomeRouter from "./routes/welcomeRouter";
 import findUserIdRouter from "./routes/findUserIdRouter";
 import findUsernameRouter from "./routes/findUsernameRouter";
 import gameChallengeUserRouter from "./routes/challengeUserRouter";
+import getChallengesRouter from "./routes/getChallengesRouter";
+import challengeStatsRouter from "./routes/challengeStatsRouter";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/math"
 mongoose.connect(mongoUrl, {useNewUrlParser: true, useUnifiedTopology: true})
@@ -66,14 +68,16 @@ app.use("/register", registerRouter);
 app.use("/login", logInRouter);
 app.use("/welcome", authenticateUser,  welcomeRouter);
 
-app.use("/user/", findUserIdRouter);
-app.use("/user", findUsernameRouter);
-app.use("/gameChallengeUser", gameChallengeUserRouter)
+app.use("/user/", findUserIdRouter); // ! Not in use ATM?
+app.use("/user", findUsernameRouter); // ! Not in use ATM?
+app.use("/gameChallengeUser", gameChallengeUserRouter) // ! Not in use ATM?
 app.use("/userstats", userStatsRouter);
 app.use("/userstats/:username", userStatsRouter);
 
 app.use("/questions", questionsRouter)
-app.use("/challenges", challengesRouter);
+app.use("/challenges", makeChallengesRouter);
+app.use("/challenges", getChallengesRouter);
+app.use("/challengestats", challengeStatsRouter);
 
 // Start the server
 app.listen(port, () => {
