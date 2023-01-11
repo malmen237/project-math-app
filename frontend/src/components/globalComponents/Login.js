@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { API_URL } from 'utils/utils';
 import user from 'reducers/user';
 import styled from 'styled-components/macro';
+import { Devices } from 'Styles/globalStyles';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -62,60 +63,60 @@ const Login = () => {
 
   return (
     <PageWrapper>
-      {/* <LoginWrapper> */}
-      <Intro>
-        <h1>Welcome!</h1>
-        <h2> Please register or sign in </h2>
-      </Intro>
-      <Selection>
-        <div>
-          <label htmlFor="register">Register
+      <LoginWrapper>
+        <Intro>
+          <h1>Welcome!</h1>
+          <h2> Please register or sign in </h2>
+        </Intro>
+        <Selection>
+          <div>
+            <label htmlFor="register">Register
+              <input
+                type="radio"
+                id="register"
+                checked={mode === 'register'}
+                onChange={() => setMode('register')} />
+            </label>
+          </div>
+          <div>
+            <label htmlFor="login">Login
+              <input
+                type="radio"
+                id="login"
+                checked={mode === 'login'}
+                onChange={() => setMode('login')} />
+            </label>
+          </div>
+        </Selection>
+        <StyledForm onSubmit={onFormSubmit}>
+          <label htmlFor="username">Username
             <input
-              type="radio"
-              id="register"
-              checked={mode === 'register'}
-              onChange={() => setMode('register')} />
+              type="text"
+              id="username"
+              placeholder={mode === 'login' ? 'Enter your username' : 'Choose your username'}
+              value={username}
+              onChange={(e) => setUsername(e.target.value)} />
           </label>
-        </div>
-        <div>
-          <label htmlFor="login">Login
+          <label htmlFor="password">Password
             <input
-              type="radio"
-              id="login"
-              checked={mode === 'login'}
-              onChange={() => setMode('login')} />
+              type="password"
+              id="password"
+              placeholder={mode === 'login' ? 'Enter your password' : 'Choose your password'}
+              value={password}
+              onChange={(e) => setPassword(e.target.value)} />
           </label>
-        </div>
-      </Selection>
-      <StyledForm onSubmit={onFormSubmit}>
-        <label htmlFor="username">Username
-          <input
-            type="text"
-            id="username"
-            placeholder={mode === 'login' ? 'Enter your username' : 'Choose your username'}
-            value={username}
-            onChange={(e) => setUsername(e.target.value)} />
-        </label>
-        <label htmlFor="password">Password
-          <input
-            type="password"
-            id="password"
-            placeholder={mode === 'login' ? 'Enter your password' : 'Choose your password'}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)} />
-        </label>
-        <label htmlFor="email">Email
-          <input
-            type="email"
-            id="email"
-            placeholder={mode === 'login' ? 'Enter your email' : 'Add your email-adress'}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)} />
-        </label>
-        <StyledButton type="submit">{mode === 'login' ? 'Log In' : 'Submit'}</StyledButton>
-      </StyledForm>
-      <p>{activeError ? error : ''}</p>
-      {/* </LoginWrapper> */}
+          <label htmlFor="email">Email
+            <input
+              type="email"
+              id="email"
+              placeholder={mode === 'login' ? 'Enter your email' : 'Add your email-adress'}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)} />
+          </label>
+          <StyledButton type="submit">{mode === 'login' ? 'Log In' : 'Submit'}</StyledButton>
+        </StyledForm>
+        <p>{activeError ? error : ''}</p>
+      </LoginWrapper>
     </PageWrapper>
   )
 }
@@ -123,7 +124,6 @@ const Login = () => {
 export default Login;
 
 const PageWrapper = styled.section`
-  // border: 2px solid blue;
   color: white;
   font-weight: bold;
   height: 100vh;
@@ -131,46 +131,95 @@ const PageWrapper = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  // padding: 2rem 45vw;
-  // text-align: center;
-  // border: 2px red solid;
   background-color:  #0093E9; // #4EFA43; 
   // background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
   background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+  @media ${Devices.tablet} {
+    display: flex;
+  }
+  @media ${Devices.laptop} {
+    display: flex;
+  }
+  @media ${Devices.desktop} {
+    display: flex;
+  }
+`
+
+export const LoginWrapper = styled.div`
+  border: 3px solid blue;
+  padding: 3px;
+  width: 35vw;
+  max-width: 35vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 2rem auto;
+
+  @media ${Devices.tablet} {
+    //width: 30vw;
+    min-height: 300px;
+    max-width: 600px;
+  }
 `
 
 const StyledForm = styled.form`
-  // border: 2px solid green;
-  font-size: 1.2rem;
+  border: 2px solid green;
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  font-size: 1.2rem;
+
   label {
     color: white;
     display: flex;
     justify-content: space-between;
     width: 100%;
-    margin-bottom: 10px;
+    margin-bottom: 0.6rem;
   }
   label + button {
-    margin-top: 10px;
+    margin-top: 0.6rem;
   }
   input {
-    margin-left: 10px;
-    border-radius: 5px;
+    margin-left: 0.6rem;
+    border-radius: 0.3rem;
     border: none;
     padding: 0.5rem;
   }
+/* 
+  @media ${Devices.tablet} {
+    width: 100%;
+  }
+  @media ${Devices.laptop} {
+    width: 100%;
+  label + button {
+    margin-top: 0.6rem;
+  }
+  input {
+    margin-left: 0.2rem;
+    border-radius: 0.3rem;
+    border: none;
+    padding: 0.5rem;
+  }
+  }
+
+  @media ${Devices.desktop} {
+    width: 10vw;
+  } */
 `
 
 const Intro = styled.div`
-  margin-bottom: 1rem;
+  border: 2px solid green;
+  width: 100%;
+  font-size: 1.2rem;
+  margin-bottom: 1.5rem;
   align-self: center;
 `
 
 const Selection = styled.div`
-  // border: 2px solid red;
-  width: 60vw;
+  border: 2px solid red;
+  width: 100%;
   font-size: 1.2rem;
   display: flex;
   justify-content: space-between;
