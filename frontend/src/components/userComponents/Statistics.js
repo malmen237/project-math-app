@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
 // import { useSelector } from 'react-redux';
@@ -67,9 +68,10 @@ const Statistics = () => {
         <TrainingHeader backGroundcolor="#FA5CB8">Training</TrainingHeader>
         <ChallengeHeader backGroundcolor="#FA5CB8">Challenge</ChallengeHeader>
 
-        <RowHeader backGroundcolor="lightcoral">Category</RowHeader>
+        {/* <RowHeader backGroundcolor="lightcoral">Category</RowHeader>
         <TrainGridItem backGroundcolor="#FACE75">{topTrainStat.category}</TrainGridItem>
-        <ChallengeGridItem backGroundcolor="#FACE75">{topChallengeStat.category}</ChallengeGridItem>
+        // eslint-disable-next-line max-len, max-len
+        <ChallengeGridItem backGroundcolor="#FACE75">{topChallengeStat.category}</ChallengeGridItem> */}
 
         <RowHeader backGroundcolor="lightcoral">Score</RowHeader>
         <TrainGridItem backGroundcolor="#FACE75">{topTrainStat.score}</TrainGridItem>

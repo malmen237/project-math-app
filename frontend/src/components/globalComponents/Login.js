@@ -3,7 +3,6 @@ import { useDispatch, useSelector, batch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { API_URL } from 'utils/utils';
 import user from 'reducers/user';
-// import { OuterWrapper } from 'styles/globalStyles';
 import styled from 'styled-components/macro';
 
 const Login = () => {
@@ -41,7 +40,7 @@ const Login = () => {
           batch(() => {
             localStorage.setItem('accessToken', data.response.accessToken);
             localStorage.setItem('username', data.response.username);
-            // dispatch(user.actions.setUsername(data.response.username));
+            dispatch(user.actions.setUsername(data.response.username));
             dispatch(user.actions.setId(data.response.id));
             dispatch(user.actions.setUserEmail(data.response.email));
             dispatch(user.actions.setAccessToken(data.response.accessToken));
@@ -50,7 +49,7 @@ const Login = () => {
           setActiveError(false);
         } else {
           batch(() => {
-            // dispatch(user.actions.setUsername(null));
+            dispatch(user.actions.setUsername(null));
             dispatch(user.actions.setId(null));
             dispatch(user.actions.setUserEmail(null));
             dispatch(user.actions.setAccessToken(null));

@@ -1,13 +1,22 @@
-import React from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
+import { API_URL } from 'utils/utils';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { OuterWrapper } from 'Styles/globalStyles';
 import ProfileBtn from 'components/globalComponents/ProfileBtn';
-import { OuterWrapper } from '../styles/globalStyles';
 
 const Summary = () => {
   const navigate = useNavigate();
+
+  // Authenticate user
+  const accessToken = localStorage.getItem('accessToken');
+  useEffect(() => {
+    if (!accessToken) {
+      navigate('/');
+    }
+  }, []);
 
   const onTrainBtnClick = (type) => {
     // dispatch(game.actions.submitOperation());
@@ -35,38 +44,37 @@ const Summary = () => {
   }
 
   // Display users results
-  const username = useSelector((state) => state.user.username);
-  const matchId = useSelector((state) => state.game.matchId)
+  // const username = useSelector((state) => state.user.username);
+  const username = localStorage.getItem('username');
+  console.log('username in summary', username)
   const quiztype = useSelector((state) => state.game.mode);
   const category = useSelector((state) => state.game.operation);
-  const quiztype = useSelector((state) => state.game.quiztype);
   const score = useSelector((state) => state.game.correctAnswers);
   const points = useSelector((state) => state.game.userPoints);
   const timeInSecs = useSelector((state) => state.game.time);
   const timeConverted = toHoursAndMinutes(timeInSecs)
   const time = `${paddedNumber(timeConverted.m, 2)}:${paddedNumber(timeConverted.s, 2)}`
-  // console.log('time in summary', time, typeof time)
   const opponent = useSelector((state) => state.game.opponent);
-  console.log(matchId)
 
   // Post users results to database
   const options = {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      Authorization: accessToken
     },
     body: JSON.stringify({
       username,
       quiztype,
+      category,
       score,
       points,
       time,
-      opponent,
-      matchId
+      opponent
     })
   }
 
-  fetch('http://localhost:8080/userstats', options)
+  fetch(API_URL('userstats'), options)
     .then((res) => res.json())
     .then((json) => {
       console.log('json.response', json.response);

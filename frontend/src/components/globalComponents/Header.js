@@ -7,6 +7,7 @@ import styled from 'styled-components/macro';
 
 const Header = () => {
   const username = useSelector((state) => state.user.username);
+  console.log('username', username)
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
