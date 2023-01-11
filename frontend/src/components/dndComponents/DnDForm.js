@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components/macro';
-// import { useMultiDrop } from 'react-dnd-multi-backend';
 import { Devices } from 'Styles/globalStyles';
 import { OptionCard } from './OptionCard';
 
