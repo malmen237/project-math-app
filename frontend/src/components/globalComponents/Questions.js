@@ -30,6 +30,14 @@ const Questions = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // Authenticate user
+  const accessToken = localStorage.getItem('accessToken');
+  useEffect(() => {
+    if (!accessToken) {
+      navigate('/');
+    }
+  }, [accessToken]);
+
   const operation = useSelector((state) => state.game.operation);
   const setNumber = useSelector((state) => state.game.setNumber);
   const problem = useSelector((state) => state.game.questions);
@@ -116,7 +124,8 @@ const Questions = () => {
       const options = {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          Authorization: accessToken
         },
         body: JSON.stringify({
           operation,

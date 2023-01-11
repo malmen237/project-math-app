@@ -44,7 +44,7 @@ app.get("/", (req, res) => {
 });
 
 // AUTHENTICATED ENDPOINT, accessible only when logged in
-const authenticateUser = async (req, res, next) => {
+export const authenticateUser = async (req, res, next) => {
   const accessToken = req.header("Authorization")
   try {
     const user = await User.findOne({accessToken})
@@ -66,18 +66,21 @@ const authenticateUser = async (req, res, next) => {
 
 app.use("/register", registerRouter);
 app.use("/login", logInRouter);
-app.use("/welcome", authenticateUser,  welcomeRouter);
+
+app.use("/welcome", authenticateUser, welcomeRouter);
 
 app.use("/user/", findUserIdRouter); // ! Not in use ATM?
 app.use("/user", findUsernameRouter); // ! Not in use ATM?
 app.use("/gameChallengeUser", gameChallengeUserRouter) // ! Not in use ATM?
-app.use("/userstats", userStatsRouter);
-app.use("/userstats/:username", userStatsRouter);
 
-app.use("/questions", questionsRouter)
 app.use("/challenges", makeChallengesRouter);
 app.use("/challenges", getChallengesRouter);
 app.use("/challengestats", challengeStatsRouter);
+
+app.use("/userstats", authenticateUser, userStatsRouter);
+app.use("/userstats/:username", authenticateUser, userStatsRouter);
+
+app.use("/questions", authenticateUser, questionsRouter)
 
 // Start the server
 app.listen(port, () => {

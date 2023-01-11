@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { API_URL } from 'utils/utils';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { OuterWrapper } from 'Styles/globalStyles';
 import ProfileBtn from 'components/globalComponents/ProfileBtn';
+import { OuterWrapper } from '../styles/globalStyles';
 
 const Summary = () => {
   const navigate = useNavigate();
@@ -39,6 +39,7 @@ const Summary = () => {
   const matchId = useSelector((state) => state.game.matchId)
   const quiztype = useSelector((state) => state.game.mode);
   const category = useSelector((state) => state.game.operation);
+  const quiztype = useSelector((state) => state.game.quiztype);
   const score = useSelector((state) => state.game.correctAnswers);
   const points = useSelector((state) => state.game.userPoints);
   const timeInSecs = useSelector((state) => state.game.time);
@@ -57,7 +58,6 @@ const Summary = () => {
     body: JSON.stringify({
       username,
       quiztype,
-      category,
       score,
       points,
       time,
@@ -66,7 +66,7 @@ const Summary = () => {
     })
   }
 
-  fetch(API_URL('userstats'), options)
+  fetch('http://localhost:8080/userstats', options)
     .then((res) => res.json())
     .then((json) => {
       console.log('json.response', json.response);
