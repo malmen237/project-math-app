@@ -17,8 +17,11 @@ router.get("/:username",  async (req, res) => {
     const trainStats = await UserStats.find({ username: username, quiztype: 'training' }).sort({ score: 'desc' })
     const challengeStats = await UserStats.find({ username: username, quiztype: 'challenge' }).sort({ score: 'desc' })
 
+    console.log('LINDA3', {challengeStats})
+
     const topTrainStat = trainStats[0]
     const topChallengeStat = challengeStats[0]
+    console.log('LINDA2', {topChallengeStat})
 
     if (trainStats.length > 0 || challengeStats.length > 0){
       res.status(200).json({
@@ -48,8 +51,10 @@ router.get("/:username",  async (req, res) => {
 // router.post("/", authenticateUser)
 router.post("/", async (req, res) => {
   const { username, quiztype, category, score, points, time, opponent } = req.body;
+
   try {
     const newStat = await new UserStats({username: username, quiztype: quiztype, category: category, score: score, points: points, time: time, opponent: opponent}).save()
+    console.log('LINDA1', {username: username, quiztype: quiztype, category: category, score: score, points: points, time: time, opponent: opponent})
     res.status(201).json({
         success: true,
         response: {

@@ -130,7 +130,7 @@ const Questions = () => {
         body: JSON.stringify({
           operation,
           setNumber,
-          opponent: opponent.id,
+          opponent,
           user
         })
       }

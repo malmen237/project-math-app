@@ -49,6 +49,7 @@ const Statistics = () => {
     fetch(API_URL(`userstats/${username}`), options)
       .then((res) => res.json())
       .then((json) => {
+        console.log('LINDA', json.response)
         setTrainStats(json.response.trainStats)
         setChallengeStats(json.response.challengeStats)
         setTopTrainStat(json.response.topTrainStat)
@@ -69,6 +70,7 @@ const Statistics = () => {
         <ChallengeHeader backGroundcolor="#FA5CB8">Challenge</ChallengeHeader>
 
         <RowHeader backGroundcolor="lightcoral">Category</RowHeader>
+        {console.log('LINDA2', topChallengeStat.category)}
         <TrainGridItem backGroundcolor="#FACE75">{topTrainStat.category}</TrainGridItem>
         <ChallengeGridItem backGroundcolor="#FACE75">{topChallengeStat.category}</ChallengeGridItem>
 
