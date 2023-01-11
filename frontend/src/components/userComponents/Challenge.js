@@ -51,8 +51,8 @@ const Challenge = () => {
   if (challengePresent === false) {
     return (
       <>
-        <p>Sorry, {username}.</p>
-        <p>You don&apos;t have any challenges right now!</p>
+        <Title>Sorry, {username}.</Title>
+        <Title>You don&apos;t have any challenges right now!</Title>
       </>
     )
   } else {
@@ -67,6 +67,12 @@ const Challenge = () => {
 }
 
 export default Challenge;
+
+const Title = styled.p`
+  font-size: 1.5rem;
+  color: #555;
+  margin: 0.3rem;
+`
 
 const Choice = styled.button`
   width: 12rem;

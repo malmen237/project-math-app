@@ -4,6 +4,7 @@ import React, { useState, useEffect } from 'react';
 // import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components/macro';
+import { Devices } from 'Styles/globalStyles';
 import { API_URL } from 'utils/utils';
 
 const Statistics = () => {
@@ -59,7 +60,10 @@ const Statistics = () => {
 
   return (
     <>
-      <h1>STARCOUNT: {starCount} </h1>
+      <Stars>
+        <Title>⭐ count:</Title>
+        <Title>{starCount}</Title>
+      </Stars>
       {/* User's top results for training and challenge */}
       <UserGridContainer>
         <GridHeader>Your top results:</GridHeader>
@@ -112,17 +116,53 @@ const Statistics = () => {
 
 export default Statistics;
 
+const Stars = styled.div`
+  border: 2px solid #555;
+  border-radius: 1rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  //align-items: flex-start; 
+  margin: 2rem;
+`
+
+const Title = styled.p`
+  font-size: 1.2rem;
+  color: #555;
+  margin: 0.2rem;
+`
+
 const UserGridContainer = styled.section`
   display: grid;
-  width: 90vw;
+  width: 90%;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.1rem;
   margin: 2rem 0;
+
+  @media ${Devices.tablet} {
+    width: 50%;
+  }
+  @media ${Devices.laptop} {
+    width: 40%;
+  }
+  @media ${Devices.desktop} {
+    width: 30%;
+  }
 `
 
 const BestGridContainer = styled(UserGridContainer)`
   grid-template-columns: repeat(2, 1fr);
-  width: 80vw;
+  width: 80%;
+
+  @media ${Devices.tablet} {
+    width: 40%;
+  }
+  @media ${Devices.laptop} {
+    width: 30%;
+  }
+  @media ${Devices.desktop} {
+    width: 20%;
+  }
 `
 
 const GridHeader = styled.div`
