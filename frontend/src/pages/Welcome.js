@@ -1,18 +1,41 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 // import { Player } from '@lottiefiles/react-lottie-player';
 import picture from 'images/bells.png';
 import { OuterWrapper } from 'Styles/globalStyles';
+import { API_URL } from 'utils/utils';
+import ProfileBtn from 'components/globalComponents/ProfileBtn';
 
 const Welcome = () => {
   const navigate = useNavigate();
-  const username = useSelector((store) => store.user.username);
+  // const username = useSelector((store) => store.user.username);
+  const accessToken = localStorage.getItem('accessToken');
+  const username = localStorage.getItem('username');
 
-  const buttonClick = () => {
-    navigate('/profile');
+  useEffect(() => {
+    if (!accessToken) {
+      navigate('/');
+    }
+  }, []);
+
+  const authOptions = {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: accessToken
+    }
   }
+
+  useEffect(() => {
+    fetch(API_URL('welcome'), authOptions)
+      .then((response) => response.json())
+      .catch((error) => {
+        console.error('Error:', error);
+      });
+  }, []);
+
   const trainButtonClick = () => {
     navigate('/category');
   }
@@ -23,7 +46,7 @@ const Welcome = () => {
   return (
     <OuterWrapper>
       <h1>Welcome, {username}</h1>
-      <button type="button" onClick={buttonClick}>PROFILE</button>
+      <ProfileBtn />
       {/* <Player
         src="https://assets10.lottiefiles.com/packages/lf20_jR229r.json"
         className="player"

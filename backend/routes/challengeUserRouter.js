@@ -5,6 +5,8 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
   const { opponent, user } = req.body;
+  console.log(opponent)
+  console.log(user)
 
   // Get a random user
   try {
@@ -14,15 +16,17 @@ router.post("/", async (req, res) => {
         let random = Math.floor(Math.random() * count);
       
         User.findOne().skip(random).exec((err, result) => {
+          const response = {username: result.username, id: result.id}
           res.status(200).json({
             success: true,
-            response: result
+            response: response
           })
       
         })
       })
     } else {
-      const response = await User.findById(opponent);
+      const opponentInfo = await User.findById(opponent);
+      const response = {username: opponentInfo.username, id: opponentInfo.id}
       res.status(200).json({
         success: true,
         response: response

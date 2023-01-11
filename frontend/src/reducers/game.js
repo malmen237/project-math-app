@@ -13,7 +13,9 @@ const initialState = {
   // Time is added in seconds
   time: 0,
   mode: null,
-  opponent: '-'
+  check: null,
+  opponent: '-',
+  matchId: null
 }
 
 export const game = createSlice({
@@ -22,6 +24,12 @@ export const game = createSlice({
   reducers: {
     setMode: (state, action) => {
       state.mode = action.payload;
+    },
+    submitCheck: (state, action) => {
+      state.check = action.payload;
+    },
+    submitMatchId: (state, action) => {
+      state.matchId = action.payload;
     },
     submitOpponent: (state, action) => {
       state.opponent = action.payload;
@@ -44,8 +52,6 @@ export const game = createSlice({
       state.answers = action.payload;
       const answerType = typeof state.answers;
       const correctAnswer = state.questions[state.currentProblemIndex].answer;
-      console.log('USER-answer', state.answers)
-      console.log('TRUE-answer', correctAnswer[0], correctAnswer[1])
 
       if (answerType === 'string') {
         // eslint-disable-next-line eqeqeq

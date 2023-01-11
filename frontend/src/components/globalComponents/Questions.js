@@ -19,7 +19,6 @@ const HeartBeatAnimation = keyframes`${pulse}`;
 
 const Questions = () => {
   const [answer, setAnswer] = useState('');
-  const [nextQuestion, setNextQuestion] = useState(true);
   const [nextButton, setNextButton] = useState(false);
   const [providedAnswer, setProvidedAnswer] = useState(false);
   const [time, setTime] = useState(0);
@@ -31,6 +30,14 @@ const Questions = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // Authenticate user
+  const accessToken = localStorage.getItem('accessToken');
+  useEffect(() => {
+    if (!accessToken) {
+      navigate('/');
+    }
+  }, [accessToken]);
+
   const operation = useSelector((state) => state.game.operation);
   const setNumber = useSelector((state) => state.game.setNumber);
   const problem = useSelector((state) => state.game.questions);
@@ -40,6 +47,9 @@ const Questions = () => {
   setTimeout(() => { setLastQuestion(trainingOver) }, 2000);
   const isAnswerCorrect = useSelector((state) => state.game.isCorrect);
   const mode = useSelector((state) => state.game.mode);
+  const check = useSelector((state) => state.game.check);
+  const opponent = useSelector((state) => state.game.opponent);
+  const user = useSelector((state) => state.user.id);
 
   const addAnswerToBasket = (givenAnswer) => {
     const selected = givenAnswer;
@@ -83,8 +93,8 @@ const Questions = () => {
     setAnswer('');
     setBasket([]);
     setProvidedAnswer(true);
-    dispatch(game.actions.goToNextQuestion());
-    setTimeout(() => { setNextQuestion(true) }, 2000);
+    setTimeout(() => { dispatch(game.actions.goToNextQuestion()) }, 2000);
+    setTimeout(() => { setProvidedAnswer(false) }, 2000);
     setNextButton(false);
   }
 
@@ -96,7 +106,6 @@ const Questions = () => {
       dispatch(game.actions.submitTime(time));
       dispatch(game.actions.submitAnswer(answer));
       setProvidedAnswer(true);
-      setTimeout(() => { setNextQuestion(true) }, 2000);
       setTimeout(() => { navigate('/summary') }, 2000);
     }
   }
@@ -108,19 +117,21 @@ const Questions = () => {
 
   // Get set of questions from database
   useEffect(() => {
-    if (nextQuestion && startFetch) {
-      setNextQuestion(false);
+    if (startFetch && check) {
       setStartFetch(false);
       setProvidedAnswer(false);
       // To post type of math problems to be trained
       const options = {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          Authorization: accessToken
         },
         body: JSON.stringify({
           operation,
-          setNumber
+          setNumber,
+          opponent: opponent.id,
+          user
         })
       }
       fetch(API_URL(mode === 'challenge' ? 'challenges' : 'questions'), options)
@@ -129,11 +140,8 @@ const Questions = () => {
           console.log('json.response', json.response)
           dispatch(game.actions.submitQuestion(json.response.questions));
         })
-    } else if (nextQuestion && !startFetch) {
-      setNextQuestion(false);
-      setProvidedAnswer(false);
     }
-  }, [nextQuestion]);
+  }, [startFetch]);
 
   if (problem.length === 0) {
     return (
@@ -152,7 +160,7 @@ const Questions = () => {
   return (
     <OuterWrapper>
       <Question>Question: {problem[problemNumber].question}</Question>
-      <form onSubmit={onFormSubmit}>
+      <form onSubmit={onFormSubmit} autoComplete="off">
         {formInput ? <TextForm
           answer={answer}
           handleUserAnswerInput={handleUserAnswerInput} /> : <DnDForm

@@ -1,23 +1,55 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { game } from 'reducers/game';
 import styled from 'styled-components/macro';
 import { OuterWrapper } from 'Styles/globalStyles';
-import Challenge from 'components/userComponents/Challenge';
+import BackBtn from 'components/globalComponents/BackBtn';
+import { API_URL } from 'utils/utils';
 
 const StartGame = () => {
+  const userId = useSelector((state) => state.user.id);
+  const username = useSelector((state) => state.user.username);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // Authenticate user
+  const accessToken = localStorage.getItem('accessToken');
+  useEffect(() => {
+    if (!accessToken) {
+      navigate('/');
+    }
+  }, []);
+
   const onButtonClick = (event) => {
-    <Challenge opponent={event} />;
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: accessToken
+      },
+      body: JSON.stringify({
+        opponent: event,
+        userId,
+        username
+      })
+    }
+    fetch(API_URL('challenges'), options)
+      .then((res) => res.json())
+      .then((json) => {
+        dispatch(game.actions.submitOpponent(json.response.opponentusername))
+        dispatch(game.actions.submitQuestion(json.response.questions))
+        dispatch(game.actions.submitMatchId(json.response.id))
+        dispatch(game.actions.submitCheck(true))
+      })
     dispatch(game.actions.setMode('challenge'));
     setTimeout(() => { navigate('/questions') }, 500);
   }
 
   return (
     <OuterWrapper>
+      <BackBtn />
       <Choose>Challenge:</Choose>
       <ChoiceWrapper>
         {/* // TODO Add friend-ID to challenge friend */}

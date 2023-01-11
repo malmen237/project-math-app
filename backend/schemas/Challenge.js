@@ -1,7 +1,12 @@
 import mongoose from "mongoose";
 
 const ChallengeSchema = mongoose.Schema({
-  questions: []
+  questions: [],
+  userId: String,
+  username: String,
+  opponentId: String,
+  opponentusername: String,
+  active: Boolean
 });
 
 const Challenge = mongoose.model("Challenge", ChallengeSchema);

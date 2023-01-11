@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -6,6 +7,7 @@ import styled from 'styled-components/macro';
 
 const Header = () => {
   const username = useSelector((state) => state.user.username);
+  console.log('username', username)
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -16,6 +18,9 @@ const Header = () => {
 
   const logOut = () => {
     dispatch(user.actions.logOut())
+    localStorage.removeItem('accessToken');
+    localStorage.removeItem('username');
+    navigate('/');
   }
 
   return (
@@ -24,10 +29,13 @@ const Header = () => {
         Mathorama
       </HomeBtn>
       <LogOutWrapper>
-        <UserInfoText>Username: {username}</UserInfoText>
-        <LogOutBtn onClick={logOut} type="button">
-          Log Out
-        </LogOutBtn>
+        {username === null ? <MirrorText>amarohtaM</MirrorText>
+        : <>
+            <UserInfoText>Username: {username}</UserInfoText>
+            <LogOutBtn onClick={logOut} type="button">
+            Log Out
+            </LogOutBtn>
+          </>}
       </LogOutWrapper>
     </HeaderWrapper>
   )
@@ -51,6 +59,13 @@ const LogOutWrapper = styled.div`
 
 const UserInfoText = styled.p`
   color: white;
+`
+
+const MirrorText = styled.p`
+  color: white;
+  font-size: 1.5em;
+  font-weight: bold;
+  padding: 2%;
 `
 
 const HomeBtn = styled.button`
