@@ -146,10 +146,10 @@ const PageWrapper = styled.section`
 `
 
 export const LoginWrapper = styled.div`
-  border: 3px solid blue;
+  //border: 3px solid blue;
   padding: 3px;
-  width: 35vw;
-  max-width: 35vw;
+  width: 25rem;
+  max-width: 25rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -158,14 +158,34 @@ export const LoginWrapper = styled.div`
   margin: 2rem auto;
 
   @media ${Devices.tablet} {
-    //width: 30vw;
-    min-height: 300px;
-    max-width: 600px;
+    min-height: 19rem;
+    max-width: 38rem;
+  }
+`
+
+const Intro = styled.div`
+  //border: 2px solid green;
+  width: 15rem;
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  align-self: center;
+`
+
+const Selection = styled.div`
+  //border: 2px solid red;
+  width: 16rem;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+  input {
+    width: 1.5rem;
+    height: 1.5rem;
   }
 `
 
 const StyledForm = styled.form`
-  border: 2px solid green;
+  //border: 2px solid green;
   display: flex;
   flex-direction: column;
   align-items: stretch;
@@ -187,47 +207,6 @@ const StyledForm = styled.form`
     border: none;
     padding: 0.5rem;
   }
-/* 
-  @media ${Devices.tablet} {
-    width: 100%;
-  }
-  @media ${Devices.laptop} {
-    width: 100%;
-  label + button {
-    margin-top: 0.6rem;
-  }
-  input {
-    margin-left: 0.2rem;
-    border-radius: 0.3rem;
-    border: none;
-    padding: 0.5rem;
-  }
-  }
-
-  @media ${Devices.desktop} {
-    width: 10vw;
-  } */
-`
-
-const Intro = styled.div`
-  border: 2px solid green;
-  width: 100%;
-  font-size: 1.2rem;
-  margin-bottom: 1.5rem;
-  align-self: center;
-`
-
-const Selection = styled.div`
-  border: 2px solid red;
-  width: 100%;
-  font-size: 1.2rem;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 2rem;
-  input {
-    width: 1.5rem;
-    height: 1.5rem;
-  }
 `
 
 const StyledButton = styled.button`
@@ -236,7 +215,7 @@ const StyledButton = styled.button`
   background-color: green;
   opacity: .60;
   border: 2px solid white;
-  padding: 5px 10px;
+  padding: 7px 10px;
   border-radius: 10px;
   &:hover {
     color: #b84545;
@@ -248,33 +227,3 @@ const StyledButton = styled.button`
     transform: translateY(3px);
   }
 `
-
-// const edButton = styled.button`
-//   background-color: #FFCD42;
-//   border: #FFCD42;
-//   width: 310px; // Used to be 310px
-//   border-radius: 10px;
-//   color: black;
-//   font-weight: bold;
-//   font-size: 25px;
-//   padding: 18px; // Used to be 20px
-//   margin: 10px;
-//   font-family: 'Special Elite', cursive;
-//   &.correct {
-//     background-color: green;
-//   }
-//   &.wrong {
-//     background-color: red;
-//   }
-//   &:disabled {
-//     opacity: .50;
-//   }
-//   @media ${Devices.tablet} {
-//     &:hover {
-//       filter: saturate(50);
-//       &:disabled {
-//         filter: saturate(1);
-//       }
-//     }
-//   }
-// `
