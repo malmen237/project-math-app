@@ -38,11 +38,11 @@ const FooterContainer = styled.div`
   justify-content: flex-end;
   align-items: center;
   flex-direction: column;
-  margin-top: 10%;
+  //margin-top: 10%;
 
-  @media ${Devices.laptop} {
-    margin-top: 30%;
-  }
+  //@media ${Devices.laptop} {
+  //  margin-top: 30%;
+  //}
 
   @media ${Devices.desktop} {
     margin-top: 40%;

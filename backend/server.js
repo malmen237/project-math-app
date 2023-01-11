@@ -11,11 +11,10 @@ import welcomeRouter from "./routes/welcomeRouter";
 import findUserIdRouter from "./routes/findUserIdRouter";
 import findUsernameRouter from "./routes/findUsernameRouter";
 import gameChallengeUserRouter from "./routes/challengeUserRouter";
-import friendRequestRouter from "./routes/friendRequestRouter";
 import getChallengesRouter from "./routes/getChallengesRouter";
 import challengeStatsRouter from "./routes/challengeStatsRouter";
 
-const mongoUrl = process.env.MONGO_URL || "mongodb://127.0.0.1/math"
+const mongoUrl = process.env.MONGO_URL || "mongodb://localhost/math"
 mongoose.connect(mongoUrl, {useNewUrlParser: true, useUnifiedTopology: true})
 mongoose.Promise = Promise
 
@@ -40,7 +39,7 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send([
     { "API": "Math-questions" },
-    { "path": "/games", "url": 'https://project-math', "methods": ["GET", "POST", "PUT", "DELETE"] }
+    { "path": "/games", "url": 'https://project-math', "methods": ["GET", "POST"] }
   ]);
 });
 
@@ -75,6 +74,7 @@ app.use("/user", findUsernameRouter); // ! Not in use ATM?
 app.use("/gameChallengeUser", gameChallengeUserRouter) // ! Not in use ATM?
 
 app.use("/challenges", authenticateUser, makeChallengesRouter);
+
 app.use("/challenges", getChallengesRouter);
 app.use("/challengestats", challengeStatsRouter);
 
@@ -82,8 +82,6 @@ app.use("/userstats", authenticateUser, userStatsRouter);
 app.use("/userstats/:username", authenticateUser, userStatsRouter);
 
 app.use("/questions", authenticateUser, questionsRouter)
-
-app.use("/friends", friendRequestRouter);
 
 // Start the server
 app.listen(port, () => {

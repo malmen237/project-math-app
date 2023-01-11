@@ -5,6 +5,7 @@ import styled from 'styled-components/macro';
 import { game } from 'reducers/game';
 import { OuterWrapper } from 'Styles/globalStyles';
 import BackBtn from 'components/globalComponents/BackBtn';
+import FadeInDownBig from 'Styles/FadeInDownBig';
 
 const Categories = () => {
   const dispatch = useDispatch();
@@ -31,12 +32,14 @@ const Categories = () => {
       <BackBtn />
       <Choose>Pick your poison</Choose>
       <ChoiceWrapper>
-        <Choice type="button" onClick={() => onButtonClick('+')}>+</Choice>
-        <Choice type="button" onClick={() => onButtonClick('-')}>-</Choice>
-        <Choice type="button" onClick={() => onButtonClick('*')}>*</Choice>
-        <Choice type="button" onClick={() => onButtonClick('/')}>/</Choice>
-        <Choice type="button" onClick={() => onButtonClick('eq')}>Equations</Choice>
-        <Choice type="button" onClick={() => onButtonClick('fr')}>Fractions</Choice>
+        <FadeInDownBig duration="0.8s" delay="0.2s">
+          <Choice type="button" onClick={() => onButtonClick('+')}>+</Choice>
+          <Choice type="button" onClick={() => onButtonClick('-')}>-</Choice>
+          <Choice type="button" onClick={() => onButtonClick('*')}>*</Choice>
+          <Choice type="button" onClick={() => onButtonClick('/')}>/</Choice>
+          <Choice type="button" onClick={() => onButtonClick('eq')}>Equations</Choice>
+          <Choice type="button" onClick={() => onButtonClick('fr')}>Fractions</Choice>
+        </FadeInDownBig>
       </ChoiceWrapper>
     </OuterWrapper>
   )
@@ -45,8 +48,9 @@ const Categories = () => {
 export default Categories;
 
 const ChoiceWrapper = styled.div`
-  display: flex;
+  //display: flex;
   flex-direction: wrap;
+  background: transparent;
 `
 
 const Choose = styled.p`
@@ -60,13 +64,14 @@ const Choice = styled.button`
   background-color: #F7DD65;
   color: #666;
   border-radius: 15px;
-  border: 3px solid #5DB0B2;
+  border: 3px solid #5093FA;
   font-weight: bold;
   font-size: 1.5rem;
   padding: 1rem;
   margin: 1rem;
-  display: flex;
+  //display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
 `
+

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+/* import React, { useState } from 'react';
 import FriendRequestForm from './FriendRequestForm';
 import FriendRequestList from './FriendRequestList';
 
@@ -32,8 +32,6 @@ const FriendRequestManager = () => {
   );
 }
 
-
-
 export default FriendRequestManager;
 
 /* const handleRequest = async (requestId, accept) => {
@@ -65,7 +63,7 @@ export default FriendRequestManager;
       await currentUser.save();
       setFriendRequests(currentUser.friendRequests);
     }
-  }; 
+  };
 
 /* import React, { useState, useEffect } from 'react';
 import { MongoClient } from 'mongodb';
