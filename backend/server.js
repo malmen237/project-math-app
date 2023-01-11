@@ -11,6 +11,7 @@ import welcomeRouter from "./routes/welcomeRouter";
 import findUserIdRouter from "./routes/findUserIdRouter";
 import findUsernameRouter from "./routes/findUsernameRouter";
 import gameChallengeUserRouter from "./routes/challengeUserRouter";
+import friendRequestRouter from "./routes/friendRequestRouter";
 
 const mongoUrl = process.env.MONGO_URL || "mongodb://127.0.0.1/math"
 mongoose.connect(mongoUrl, {useNewUrlParser: true, useUnifiedTopology: true})
@@ -74,6 +75,8 @@ app.use("/userstats/:username", userStatsRouter);
 
 app.use("/questions", questionsRouter)
 app.use("/challenges", challengesRouter);
+
+app.use("/friends", friendRequestRouter);
 
 // Start the server
 app.listen(port, () => {

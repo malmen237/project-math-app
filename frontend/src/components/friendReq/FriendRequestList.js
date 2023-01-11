@@ -1,17 +1,15 @@
 import React from 'react';
-// import { useNavigate } from 'react-router-dom';
+import FriendRequest from './FriendRequest';
 
-const FriendRequestList = ({ friendRequests, acceptFriendRequest, rejectFriendRequest }) => {
+const FriendRequestList = ({ friendRequests }) => {
   return (
-    <ul>
+    <div>
       {friendRequests.map((request) => (
-        <li key={request.id}>
-          {request.username}
-          <button type="button" onClick={() => acceptFriendRequest(request.id)}>Accept</button>
-          <button type="button" onClick={() => rejectFriendRequest(request.id)}>Reject</button>
-        </li>
+        <div key={request.id}>
+          <FriendRequest request={request} />
+        </div>
       ))}
-    </ul>
+    </div>
   );
 };
 

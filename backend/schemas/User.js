@@ -16,6 +16,9 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true
   },
+  friendrequest: [
+
+  ],
   accessToken: {
     type: String,
     default: () => crypto.randomBytes(128).toString('hex')

@@ -16,7 +16,7 @@ const Footer = () => {
           target="_blank">Tina Bruce
         </Link>
         <Link
-          href="https://www.linkedin.com/in/th%C3%A9r%C3%A8se-%C3%A5nmark/"
+          href="https://www.linkedin.com/in/thérèse-ånmark/"
           target="_blank">Thérèse Ånmark
         </Link>
       </LinkContainer>
