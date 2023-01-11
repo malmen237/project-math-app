@@ -1,12 +1,13 @@
 /* eslint-disable indent */
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import user from 'reducers/user';
 import styled from 'styled-components/macro';
 
 const Header = () => {
-  const username = useSelector((state) => state.user.username);
+  // const username = useSelector((state) => state.user.username);
+  const username = localStorage.getItem('username');
   console.log('username', username)
 
   const navigate = useNavigate();
