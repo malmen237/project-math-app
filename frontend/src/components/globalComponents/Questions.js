@@ -12,7 +12,7 @@ import { useMultiDrop } from 'react-dnd-multi-backend';
 import DnDForm from 'components/dndComponents/DnDForm';
 import Timer from './Timer';
 import TextForm from './TextForm';
-import { OuterWrapper } from '../../Styles/globalStyles';
+import { OuterWrapper, Devices } from '../../Styles/globalStyles';
 
 const HeadShakeAnimation = keyframes`${headShake}`;
 const HeartBeatAnimation = keyframes`${pulse}`;
@@ -158,9 +158,9 @@ const Questions = () => {
   }
 
   return (
-    <OuterWrapper>
+    <QuestionWrapper>
       <Question>Question: {problem[problemNumber].question}</Question>
-      <form onSubmit={onFormSubmit} autoComplete="off">
+      <Form onSubmit={onFormSubmit} autoComplete="off">
         {formInput ? <TextForm
           answer={answer}
           handleUserAnswerInput={handleUserAnswerInput} /> : <DnDForm
@@ -188,19 +188,58 @@ const Questions = () => {
             Submit
           </Button>
         )}
-      </form>
+      </Form>
       <Timer time={time} />
       <Number>Question number {showNumber + 1}</Number>
-    </OuterWrapper>
+    </QuestionWrapper>
   );
 }
 
 export default Questions;
 
+const QuestionWrapper = styled(OuterWrapper)`
+  margin: 5rem auto;
+
+  @media ${Devices.tablet} {
+    width: 65vw;
+  }
+
+  @media ${Devices.laptop} {
+    width: 40vw;
+  }
+
+  @media ${Devices.desktop} {
+    width: 50vw;
+  }
+`
+
+const Form = styled.form`
+  width: 100%;
+
+  @media ${Devices.tablet} {
+    width: 65%;
+  }
+
+  @media ${Devices.laptop} {
+    width: 80%;
+  }
+
+  @media ${Devices.desktop} {
+    width: 50%;
+  }
+`
+
 const Question = styled.h1`
-  width: 90vw;
-  font-size: 1.5rem;
+  width: 90%;
+  font-size: 1.3rem;
+  font-weight: bold;
   color: #555;
+  margin-bottom: 1rem;
+
+  @media ${Devices.desktop} {
+    width: 50%;
+    margin-bottom: 2rem;
+  }
 `
 
 const Number = styled.h1`
@@ -213,13 +252,14 @@ const Button = styled.button`
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   background-color: lightblue;
   color: white;
   font-size: 1.5em;
   font-weight: bold;
   border: none;
-  width: 70vw;
-  margin: 10% 0;
+  width: 90%;
+  margin: 5% auto;
   padding: 5% 2%;
   border-radius: 25px;
   cursor: pointer;

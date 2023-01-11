@@ -15,7 +15,7 @@ const DnDForm = ({ problem, basket, html5DropStyle, html5Drop, touchDropStyle, t
     <>
       <MouseDropArea style={html5DropStyle} ref={html5Drop}>
         {basket.map((card, index) => <OptionCard id={index} answer={card} />)}
-        <div>Drag your answer here!</div>
+        {basket.length === 0 && <Instruct>Drag & drop your answer here!</Instruct>}
       </MouseDropArea>
       <TouchDropArea style={touchDropStyle} ref={touchDrop}>
         {basket.map((card, index) => <OptionCard id={index} answer={card} />)}
@@ -31,12 +31,10 @@ const DnDForm = ({ problem, basket, html5DropStyle, html5Drop, touchDropStyle, t
 export default DnDForm;
 
 const Options = styled.div`
-  //height: 8rem;
-  width: 80vw;
+  width: 100%;
   border-radius: 5px;
   background-color: beige;
   display: flex;
-  // flex-direction: column;
   flex-wrap: wrap;
   margin-top: 1rem;
   margin-bottom: 2rem;
@@ -54,11 +52,12 @@ const Instruct = styled.div`
 
 const MouseDropArea = styled.div`
     height: 10rem;
-    width: 30rem;
-    /* background-color: thistle; */
+    width: 100%;
     display: none;
-    margin: 1rem;
+    margin: 1rem 0;
     border-radius: 5px;
+    align-items: center;
+    justify-content: center;
 
     @media ${Devices.laptop} {
       display: flex;
@@ -71,13 +70,17 @@ const MouseDropArea = styled.div`
 
 const TouchDropArea = styled.div`
     height: 10rem;
-    width: 80vw;
-    /* background-color: thistle; */
+    width: 100%;
     display: flex;
     align-items: center;
-    margin: 1rem 0;
-    border-radius: 5px;
     justify-content: center;
+    margin: 1rem 0;
+    border-radius: 6px;
+    
+
+    @media ${Devices.tablet} {
+      width: 100%;
+    }
 
     @media ${Devices.laptop} {
       display: none;

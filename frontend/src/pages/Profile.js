@@ -18,12 +18,13 @@ const Profile = () => {
 export default Profile;
 
 const ProfileWrapper = styled(OuterWrapper)`
-border: 2px solid red;
-  @media ${Devices.tablet} {
-  width: 70vw;
-}
+  border: 2px solid red;
 
-@media ${Devices.desktop} {
+  @media ${Devices.tablet} {
+    width: 70vw;
+  }
+
+  @media ${Devices.desktop} {
     width: 50vw;
   }
 `

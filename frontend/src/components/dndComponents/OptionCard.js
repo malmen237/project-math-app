@@ -48,8 +48,8 @@ export const OptionCard = ({ id, answer, color }) => {
 }
 
 const Touch = styled.div`
-    height: 8rem;
-    width: 8rem;
+    height: 5rem;
+    width: 5rem;
     background-color: green;
     margin: 1rem;
     color: white;
@@ -62,20 +62,20 @@ const Touch = styled.div`
 
     @media ${Devices.laptop} {
       display: none;
-      height: 5rem;
-      width: 5rem;
+      height: 4rem;
+      width: 4rem;
     }
 
     @media ${Devices.desktop} {
       display: none;
-      height: 5rem;
-      width: 5rem;
+      height: 4rem;
+      width: 4rem;
     }
   `
 
 const Mouse = styled.div`
-    height: 5rem;
-    width: 5rem;
+    height: 4rem;
+    width: 4rem;
     background-color: green;
     margin: 1rem;
     color: white;
