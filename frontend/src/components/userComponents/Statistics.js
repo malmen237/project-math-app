@@ -98,7 +98,7 @@ const Statistics = () => {
 
       {/* Best results for challenge among all the registered users */}
       <BestGridContainer>
-        <GridHeader>Current top score among all users:</GridHeader>
+        <GridHeader>Top score among all users:</GridHeader>
 
         <FillerHeader backGroundcolor="#4EFA43" />
         <BestChallengeHeader backGroundcolor="#4EFA43">Challenge</BestChallengeHeader>
@@ -121,8 +121,8 @@ const Statistics = () => {
 export default Statistics;
 
 const Stars = styled.div`
-  border: 2px solid #555;
   border-radius: 1rem;
+  background-color: rgb(0, 0, 0, 0.3);
   padding: 0.5rem;
   display: flex;
   flex-direction: column;
@@ -131,7 +131,7 @@ const Stars = styled.div`
 
 const Title = styled.p`
   font-size: 1.2rem;
-  color: #555;
+  color: white;
   margin: 0.2rem;
 `
 
@@ -171,19 +171,21 @@ const GridHeader = styled.div`
   background-color: lightcyan;
   padding: 1rem;
   font-size: larger;
+  font-weight: bold;
   border-radius: 0.3rem;
+  color: #555;
 `
 
 const FillerHeader = styled.div`
   grid-column: 1/2;
   gap: 0;
-  background-color: ${(props) => props.backGroundcolor};// #FA5CB8;
+  background-color: ${(props) => props.backGroundcolor};
   border-radius: 0.3rem;
 `
 
 const TrainingHeader = styled.div`
   grid-column: 2/3;
-  background-color: ${(props) => props.backGroundcolor}; // #FA5CB8;
+  background-color: ${(props) => props.backGroundcolor};
   font-weight: bold;
   padding: 1rem;
   border-radius: 0.3rem;
@@ -196,23 +198,26 @@ const ChallengeHeader = styled(TrainingHeader)`
 
 const BestChallengeHeader = styled(ChallengeHeader)`
   grid-column: 2/3;
+  
 `
 
 const RowHeader = styled(TrainingHeader)`
   grid-column: 1/2;
-  background-color: ${(props) => props.backGroundcolor}; // lightcoral; // #5093FA
+  background-color: ${(props) => props.backGroundcolor}; 
   border-radius: 0.3rem;
 `
 
 const TrainGridItem = styled.div`
   grid-column: 2/3;
-  background-color: ${(props) => props.backGroundcolor}; // #FACE75;
+  background-color: ${(props) => props.backGroundcolor};
   padding: 0.5rem;
   font-size: larger;
   border-radius: 0.3rem;
+  color: #555;
 `
 
 const ChallengeGridItem = styled(TrainGridItem)`
   grid-column: 3/4;
   border-radius: 0.3rem;
+  color: #555;
 `

@@ -43,7 +43,7 @@ app.get("/", (req, res) => {
   ]);
 });
 
-// AUTHENTICATED ENDPOINT, accessible only when logged in
+// Authenticated endpoint, accessible only when logged in
 export const authenticateUser = async (req, res, next) => {
   const accessToken = req.header("Authorization")
   try {

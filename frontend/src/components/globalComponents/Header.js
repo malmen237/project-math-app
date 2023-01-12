@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import user from 'reducers/user';
 import styled from 'styled-components/macro';
+import { Devices } from '../../Styles/globalStyles';
 
 const Header = () => {
   const username = localStorage.getItem('username');
@@ -45,15 +46,29 @@ export default Header;
 const HeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  border-radius: 15px 10px 10px;
+  background-color: #FACE75;
+  opacity: 0.9;
 `
 
 const LogOutWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  background-color: black;
+  background-color: #555;
+  opacity: 0.8;
   width: 50%;
-  padding: 2%;
+  padding: 5%;
+  border-radius: 15px 35px;
+  
+
+  @media ${Devices.tablet} {
+    display: flex;
+  }
+  @media ${Devices.laptop} {
+    padding: 2%;
+    font-size: larger;
+  }
 `
 
 const UserInfoText = styled.p`
@@ -72,7 +87,7 @@ const HomeBtn = styled.button`
   flex-direction: column;
   align-items: center;
   background-color: transparent;
-  color: black;
+  color: #333;
   font-size: 1.5em;
   font-weight: bold;
   border: none;

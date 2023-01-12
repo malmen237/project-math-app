@@ -16,6 +16,7 @@ const BackBtn = () => {
       ↩️
       </BackButton>
     </BounceInLeft>
+
   )
 }
 

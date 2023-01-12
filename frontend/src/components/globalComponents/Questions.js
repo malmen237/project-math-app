@@ -70,8 +70,8 @@ const Questions = () => {
     })
   });
 
-  const html5DropStyle = { backgroundColor: (dropProps.isOver && html5Props.canDrop) ? '#f3f3f3' : '#bbbbbb' } // (html5Props.isOver && html5Props.canDrop)
-  const touchDropStyle = { backgroundColor: (touchProps.isOver && touchProps.canDrop) ? '#f3f3f3' : 'lightcoral' } // (touchProps.isOver && touchProps.canDrop)
+  const html5DropStyle = { backgroundColor: (dropProps.isOver && html5Props.canDrop) ? '#f3f3f3' : 'lightcoral' }
+  const touchDropStyle = { backgroundColor: (touchProps.isOver && touchProps.canDrop) ? '#f3f3f3' : 'lightcoral' }
 
   // Function that start's the counter to a 1 second interval
   useEffect(() => {
@@ -241,7 +241,7 @@ const Question = styled.h1`
   width: 90%;
   font-size: 1.3rem;
   font-weight: bold;
-  color: black;
+  color: white;
   margin-bottom: 1rem;
 
   @media ${Devices.desktop} {
@@ -281,7 +281,7 @@ const Button = styled.button`
 
   &.wrong {
     border: 2px solid #555;
-    background-color: rgb(159, 43, 104);
+    background-color: red;
     color: white;
     animation: infinite 1s ${HeadShakeAnimation};
   }

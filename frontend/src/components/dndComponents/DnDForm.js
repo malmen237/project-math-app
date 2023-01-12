@@ -33,7 +33,7 @@ export default DnDForm;
 
 const Options = styled.div`
   width: 100%;
-  border-radius: 5px;
+  border-radius: 10px;
   background-color: beige;
   display: flex;
   flex-wrap: wrap;
@@ -56,7 +56,7 @@ const MouseDropArea = styled.div`
     width: 100%;
     display: none;
     margin: 1rem 0;
-    border-radius: 5px;
+    border-radius: 10px;
     align-items: center;
     justify-content: center;
 
@@ -75,7 +75,7 @@ const TouchDropArea = styled.div`
     align-items: center;
     justify-content: center;
     margin: 1rem 0;
-    border-radius: 6px;
+    border-radius: 10px;
     
     @media ${Devices.tablet} {
       width: 100%;

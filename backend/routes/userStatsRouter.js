@@ -6,7 +6,6 @@ import UserStats from "../schemas/UserStats";
 const router = express.Router()
 
 // Get user's statistics to date
-// router.get("/:username", authenticateUser)
 router.get("/:username",  async (req, res) => {
   const { username } = req.params;
   try {
@@ -17,11 +16,8 @@ router.get("/:username",  async (req, res) => {
     const trainStats = await UserStats.find({ username: username, quiztype: 'training' }).sort({ score: 'desc' })
     const challengeStats = await UserStats.find({ username: username, quiztype: 'challenge' }).sort({ score: 'desc' })
 
-    console.log('LINDA3', {challengeStats})
-
     const topTrainStat = trainStats[0]
     const topChallengeStat = challengeStats[0]
-    console.log('LINDA2', {topChallengeStat})
 
     if (trainStats.length > 0 || challengeStats.length > 0){
       res.status(200).json({
@@ -48,7 +44,6 @@ router.get("/:username",  async (req, res) => {
 });
 
 // Update user's statistics with latest results
-// router.post("/", authenticateUser)
 router.post("/", async (req, res) => {
   const { username, quiztype, category, score, points, time, opponent } = req.body;
 

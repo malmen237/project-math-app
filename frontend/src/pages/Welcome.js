@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components/macro';
 // import picture from 'images/bells.png';
-// import { OuterWrapper } from 'Styles/globalStyles';
+import { Headline } from 'Styles/globalStyles';
 import { API_URL } from 'utils/utils';
 import ProfileBtn from 'components/globalComponents/ProfileBtn';
 import { Devices } from '../Styles/globalStyles';
@@ -45,7 +45,7 @@ const Welcome = () => {
   return (
 
     <WelcomeWrapper>
-      <h1>Welcome, {username}</h1>
+      <Headline>Welcome, {username}!</Headline>
       <ProfileBtn />
       <Button onClick={trainButtonClick} type="button">
         {/* <Img src={picture} alt="" /> */}
@@ -76,7 +76,6 @@ const Button = styled.button`
   border-radius: 25px;
   cursor: pointer;
   text-align: center;
-
 `
 
 const WelcomeWrapper = styled.div`

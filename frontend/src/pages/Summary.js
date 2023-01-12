@@ -107,7 +107,7 @@ export default Summary;
 const Correct = styled.p`
   font-weight: bold;
   font-size: 1.5rem;
-  color: #34495E;
+  color: white;
   margin-bottom: 1rem;;
 `
 

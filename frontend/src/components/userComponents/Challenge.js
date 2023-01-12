@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { game } from 'reducers/game';
 import { API_URL } from 'utils/utils';
 import styled from 'styled-components/macro';
+import { Devices } from 'Styles/globalStyles';
 
 const Challenge = () => {
   const [challengePresent, setChallengePresent] = useState(false)
@@ -57,23 +58,46 @@ const Challenge = () => {
 
   if (challengePresent === false) {
     return (
-      <>
-        <p>Sorry, {username}.</p>
-        <p>You don&apos;t have any challenges right now!</p>
-      </>
+      <Wrapper>
+        <Headline>Sorry, {username}.</Headline>
+        <Headline>You don&apos;t have any challenges right now!</Headline>
+      </Wrapper>
     )
   } else {
     return (
-      <>
-        <p>Ok, {username}</p>
-        <p>You have a challenge from {challenger}</p>
+      <Wrapper>
+        <Headline>Ok, {username}</Headline>
+        <Headline>You have a challenge from {challenger}</Headline>
         <Choice type="button" onClick={() => onButtonClick()}>Let&apos;s play!</Choice>
-      </>
+      </Wrapper>
     )
   }
 }
 
 export default Challenge;
+
+const Headline = styled.h1`
+  width: 90%;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #555;
+  margin-bottom: 1rem;
+
+  @media ${Devices.desktop} {
+    width: 50%;
+    margin-bottom: 2rem;
+  }
+`
+const Wrapper = styled.div`
+  color: #555;
+  background-color: beige;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100vw;
+`
 
 const Choice = styled.button`
   width: 12rem;
