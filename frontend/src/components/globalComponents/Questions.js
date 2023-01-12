@@ -138,7 +138,6 @@ const Questions = () => {
       fetch(API_URL(mode === 'challenge' ? 'challenges' : 'questions'), options)
         .then((res) => res.json())
         .then((json) => {
-          console.log('json.response', json.response)
           dispatch(game.actions.submitQuestion(json.response.questions));
         })
     }
@@ -160,7 +159,7 @@ const Questions = () => {
 
   return (
     <QuestionWrapper>
-      {mode === 'challenge' ? `You are challenging ${opponent}` : ''}
+      {mode === 'challenge' ? <ChallengeText>You are challenging {opponent}</ChallengeText> : ''}
       <Question>Question: {problem[problemNumber].question}</Question>
       <Form onSubmit={onFormSubmit} autoComplete="off">
         {formInput ? <TextForm
@@ -198,6 +197,12 @@ const Questions = () => {
 }
 
 export default Questions;
+
+const ChallengeText = styled.p`
+  font-size: 1rem;
+  color: white;
+  padding-bottom: 2%;
+`
 
 const QuestionWrapper = styled.div`
   display: flex;

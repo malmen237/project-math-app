@@ -2,7 +2,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components/macro';
-// import picture from 'images/bells.png';
 import { Headline } from 'Styles/globalStyles';
 import { API_URL } from 'utils/utils';
 import ProfileBtn from 'components/globalComponents/ProfileBtn';
@@ -65,13 +64,13 @@ const Button = styled.button`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #4EFA43;
+  background-color: #43fada;
   color: #555;
   font-size: 1.5em;
   font-weight: bold;
   border: none;
-  width: 400px;
-  margin: 10%;
+  width: 315px;
+  margin: 10% 0;
   padding: 5% 2%;
   border-radius: 25px;
   cursor: pointer;

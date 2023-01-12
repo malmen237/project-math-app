@@ -18,10 +18,9 @@ export const OuterWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   text-align: center;
-  padding-top: 2rem;
   height: 100vh;
+  min-height: 1000px;
 `
 
 export const Headline = styled.h1`

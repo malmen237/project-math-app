@@ -14,7 +14,6 @@ const Summary = () => {
 
   // Authenticate user
   const accessToken = localStorage.getItem('accessToken');
-  console.log('accessToken', accessToken)
   useEffect(() => {
     if (!accessToken) {
       navigate('/');

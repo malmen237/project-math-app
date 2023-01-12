@@ -66,7 +66,7 @@ export default StartGame;
 
 const ChoiceWrapper = styled.div`
   display: flex;
-  flex-direction: wrap;
+  flex-direction: column;
 `
 
 const Choose = styled.p`

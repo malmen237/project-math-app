@@ -17,7 +17,6 @@ import Header from 'components/globalComponents/Header';
 // import Footer from 'components/globalComponents/Footer';
 import { DndProvider } from 'react-dnd-multi-backend';
 import { HTML5toTouch } from 'rdndmb-html5-to-touch';
-// import styled from 'styled-components/macro';
 import { OuterWrapper } from 'Styles/globalStyles';
 
 const reducer = combineReducers({
@@ -53,11 +52,3 @@ export const App = () => {
     </Provider>
   )
 }
-
-// const MainWrap = styled.section`
-// background-color:  #0093E9; // #4EFA43;
-// background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
-
-// background: rgb(250,23,156);
-// background: linear-gradient(0deg, rgba(250,23,156,1) 0%, rgba(80,147,250,1) 100%);
-// `

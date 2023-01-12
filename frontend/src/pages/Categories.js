@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { game } from 'reducers/game';
-// import { OuterWrapper } from 'Styles/globalStyles';
+import { OuterWrapper } from 'Styles/globalStyles';
 import BackBtn from 'components/globalComponents/BackBtn';
 import FadeInDownBig from 'Styles/FadeInDownBig';
 
@@ -30,9 +30,9 @@ const Categories = () => {
   }
 
   return (
-    // <OuterWrapper>
-    <>
-      <BackBtn /><Choose>Pick your poison</Choose>
+    <CatWrapper>
+      <BackBtn />
+      <Choose>Pick your poison</Choose>
       <ChoiceWrapper>
         <FadeInDownBig duration="0.8s" delay="0.2s">
           <Choice type="button" onClick={() => onButtonClick('+')}>+</Choice>
@@ -43,12 +43,16 @@ const Categories = () => {
           <Choice type="button" onClick={() => onButtonClick('fr')}>Fractions</Choice>
         </FadeInDownBig>
       </ChoiceWrapper>
-    </>
-    // </OuterWrapper>
+    </CatWrapper>
   )
 }
 
 export default Categories;
+
+const CatWrapper = styled(OuterWrapper)`
+  padding-top: 2%;
+  min-height: 800px;
+`
 
 const ChoiceWrapper = styled.div`
   //display: flex;

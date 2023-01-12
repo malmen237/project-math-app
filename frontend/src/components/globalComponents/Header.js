@@ -46,7 +46,6 @@ export default Header;
 const HeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  border-radius: 15px 10px 10px;
   background-color: #FACE75;
   opacity: 0.9;
 `
