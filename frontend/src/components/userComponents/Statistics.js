@@ -123,10 +123,10 @@ export default Statistics;
 const Stars = styled.div`
   border: 2px solid #555;
   border-radius: 1rem;
-  padding: 1rem;
+  padding: 0.5rem;
   display: flex;
   flex-direction: column;
-  margin: 2rem;
+  margin-top: 2rem;
 `
 
 const Title = styled.p`

@@ -63,7 +63,7 @@ const ProfileBtn = () => {
 export default ProfileBtn;
 
 const ProfileButton = styled.button`
-  color: turquoise;
+  color: #FACE75;
   background-color: transparent;
   border: none;
   padding: 2%;

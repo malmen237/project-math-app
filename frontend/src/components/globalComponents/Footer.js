@@ -32,21 +32,22 @@ const FooterText = styled.p`
 `
 
 const FooterContainer = styled.div`
-  color: white;
+ // color: white;
   display: flex;
   width: 100%;
   justify-content: flex-end;
   align-items: center;
   flex-direction: column;
-  margin-top: 10%;
+  // padding-top: 10%;
+  //margin-top: 10%;
 
-  @media ${Devices.laptop} {
-    margin-top: 30%;
+  /* @media ${Devices.laptop} {
+   padding-top: 3%;
   }
 
   @media ${Devices.desktop} {
-    margin-top: 40%;
-  }
+    padding-top: 3%;
+  } */
 `
 
 const LinkContainer = styled.div`

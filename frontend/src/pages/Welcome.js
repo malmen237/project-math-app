@@ -2,11 +2,11 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components/macro';
-// import { Player } from '@lottiefiles/react-lottie-player';
-import picture from 'images/bells.png';
-import { OuterWrapper } from 'Styles/globalStyles';
+// import picture from 'images/bells.png';
+// import { OuterWrapper } from 'Styles/globalStyles';
 import { API_URL } from 'utils/utils';
 import ProfileBtn from 'components/globalComponents/ProfileBtn';
+import { Devices } from '../Styles/globalStyles';
 
 const Welcome = () => {
   const navigate = useNavigate();
@@ -43,25 +43,20 @@ const Welcome = () => {
   }
 
   return (
-    <OuterWrapper>
-      <>
-        <h1>Welcome, {username}</h1>
-        <ProfileBtn />
-        {/* <Player
-        src="https://assets10.lottiefiles.com/packages/lf20_jR229r.json"
-        className="player"
-        loop
-        autoplay /> */}
-        <Button onClick={trainButtonClick} type="button">
-          <Img src={picture} alt="" />
+
+    <WelcomeWrapper>
+      <h1>Welcome, {username}</h1>
+      <ProfileBtn />
+      <Button onClick={trainButtonClick} type="button">
+        {/* <Img src={picture} alt="" /> */}
         Start training session
-        </Button>
-        <Button onClick={gameButtonClick} type="button">
-          <Img src={picture} alt="" />
+      </Button>
+      <Button onClick={gameButtonClick} type="button">
+        {/* <Img src={picture} alt="" /> */}
         Play game
-        </Button>
-      </>
-    </OuterWrapper>
+      </Button>
+    </WelcomeWrapper>
+
   )
 }
 export default Welcome;
@@ -70,8 +65,8 @@ const Button = styled.button`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: green;
-  color: white;
+  background-color: #4EFA43;
+  color: #555;
   font-size: 1.5em;
   font-weight: bold;
   border: none;
@@ -81,11 +76,33 @@ const Button = styled.button`
   border-radius: 25px;
   cursor: pointer;
   text-align: center;
+
 `
 
-const Img = styled.img`
-  width: 20%;
-  height: auto;
-  padding-bottom: 1%;
+const WelcomeWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 80vw;
+  margin: 5rem auto;
+
+  @media ${Devices.tablet} {
+    width: 65vw;
+  }
+
+  @media ${Devices.laptop} {
+    width: 40vw;
+  }
+
+  @media ${Devices.desktop} {
+    width: 50vw;
+  }
 `
+// const Img = styled.img`
+// width: 20%;
+// height: auto;
+// padding-bottom: 1%;
+// `
 

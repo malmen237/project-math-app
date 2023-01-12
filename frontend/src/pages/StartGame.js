@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { game } from 'reducers/game';
 import styled from 'styled-components/macro';
-import { OuterWrapper } from 'Styles/globalStyles';
 import BackBtn from 'components/globalComponents/BackBtn';
 import { API_URL } from 'utils/utils';
 
@@ -51,7 +50,7 @@ const StartGame = () => {
   }
 
   return (
-    <OuterWrapper>
+    <>
       <BackBtn />
       <Choose>Challenge:</Choose>
       <ChoiceWrapper>
@@ -59,7 +58,7 @@ const StartGame = () => {
         <Choice type="button">Friend</Choice>
         <Choice type="button" onClick={() => onButtonClick('random')}>Random</Choice>
       </ChoiceWrapper>
-    </OuterWrapper>
+    </>
   )
 }
 
@@ -78,7 +77,7 @@ const Choose = styled.p`
 
 const Choice = styled.button`
   width: 12rem;
-  background-color: #F7DD65;
+  background-color: #4EFA43;
   color: #666;
   border-radius: 15px;
   border: 3px solid #5DB0B2;

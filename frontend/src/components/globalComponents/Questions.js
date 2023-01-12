@@ -12,7 +12,7 @@ import { useMultiDrop } from 'react-dnd-multi-backend';
 import DnDForm from 'components/dndComponents/DnDForm';
 import Timer from './Timer';
 import TextForm from './TextForm';
-import { OuterWrapper, Devices } from '../../Styles/globalStyles';
+import { Devices } from '../../Styles/globalStyles';
 
 const HeadShakeAnimation = keyframes`${headShake}`;
 const HeartBeatAnimation = keyframes`${pulse}`;
@@ -199,13 +199,14 @@ const Questions = () => {
 
 export default Questions;
 
-const QuestionWrapper = styled(OuterWrapper)`
+const QuestionWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 80vw;
   margin: 5rem auto;
-  background-color:  #0093E9;
-  background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
-  // background: transparent;
-  /* background: rgb(250,23,156);
-  background: linear-gradient(0deg, rgba(250,23,156,1) 0%, rgba(80,147,250,1) 100%); */
 
   @media ${Devices.tablet} {
     width: 65vw;

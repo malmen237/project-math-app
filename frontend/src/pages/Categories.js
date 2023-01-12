@@ -4,8 +4,9 @@ import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { game } from 'reducers/game';
-import { OuterWrapper } from 'Styles/globalStyles';
+// import { OuterWrapper } from 'Styles/globalStyles';
 import BackBtn from 'components/globalComponents/BackBtn';
+import FadeInDownBig from 'Styles/FadeInDownBig';
 
 // Rendered when user makes a choice do do a traning problem set
 const Categories = () => {
@@ -29,26 +30,30 @@ const Categories = () => {
   }
 
   return (
-    <OuterWrapper>
-      <BackBtn />
-      <Choose>Pick your poison</Choose>
+    // <OuterWrapper>
+    <>
+      <BackBtn /><Choose>Pick your poison</Choose>
       <ChoiceWrapper>
-        <Choice type="button" onClick={() => onButtonClick('+')}>+</Choice>
-        <Choice type="button" onClick={() => onButtonClick('-')}>-</Choice>
-        <Choice type="button" onClick={() => onButtonClick('*')}>*</Choice>
-        <Choice type="button" onClick={() => onButtonClick('/')}>/</Choice>
-        <Choice type="button" onClick={() => onButtonClick('eq')}>Equations</Choice>
-        <Choice type="button" onClick={() => onButtonClick('fr')}>Fractions</Choice>
+        <FadeInDownBig duration="0.8s" delay="0.2s">
+          <Choice type="button" onClick={() => onButtonClick('+')}>+</Choice>
+          <Choice type="button" onClick={() => onButtonClick('-')}>-</Choice>
+          <Choice type="button" onClick={() => onButtonClick('*')}>*</Choice>
+          <Choice type="button" onClick={() => onButtonClick('/')}>/</Choice>
+          <Choice type="button" onClick={() => onButtonClick('eq')}>Equations</Choice>
+          <Choice type="button" onClick={() => onButtonClick('fr')}>Fractions</Choice>
+        </FadeInDownBig>
       </ChoiceWrapper>
-    </OuterWrapper>
+    </>
+    // </OuterWrapper>
   )
 }
 
 export default Categories;
 
 const ChoiceWrapper = styled.div`
-  display: flex;
+  //display: flex;
   flex-direction: wrap;
+  background: transparent;
 `
 
 const Choose = styled.p`
@@ -59,15 +64,15 @@ const Choose = styled.p`
 
 const Choice = styled.button`
   width: 12rem;
-  background-color: #F7DD65;
+  background-color: #4EFA43;
   color: #666;
   border-radius: 15px;
-  border: 3px solid #5DB0B2;
+  border: 3px solid #5093FA;
   font-weight: bold;
   font-size: 1.5rem;
   padding: 1rem;
   margin: 1rem;
-  display: flex;
+  //display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
