@@ -1,7 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-// import { useSelector } from 'react-redux';
 import styled from 'styled-components/macro';
 // import { Player } from '@lottiefiles/react-lottie-player';
 import picture from 'images/bells.png';
@@ -11,7 +10,6 @@ import ProfileBtn from 'components/globalComponents/ProfileBtn';
 
 const Welcome = () => {
   const navigate = useNavigate();
-  // const username = useSelector((store) => store.user.username);
   const accessToken = localStorage.getItem('accessToken');
   const username = localStorage.getItem('username');
 
@@ -46,21 +44,23 @@ const Welcome = () => {
 
   return (
     <OuterWrapper>
-      <h1>Welcome, {username}</h1>
-      <ProfileBtn />
-      {/* <Player
+      <>
+        <h1>Welcome, {username}</h1>
+        <ProfileBtn />
+        {/* <Player
         src="https://assets10.lottiefiles.com/packages/lf20_jR229r.json"
         className="player"
         loop
         autoplay /> */}
-      <Button onClick={trainButtonClick} type="button">
-        <Img src={picture} alt="" />
+        <Button onClick={trainButtonClick} type="button">
+          <Img src={picture} alt="" />
         Start training session
-      </Button>
-      <Button onClick={gameButtonClick} type="button">
-        <Img src={picture} alt="" />
+        </Button>
+        <Button onClick={gameButtonClick} type="button">
+          <Img src={picture} alt="" />
         Play game
-      </Button>
+        </Button>
+      </>
     </OuterWrapper>
   )
 }

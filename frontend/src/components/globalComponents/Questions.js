@@ -51,6 +51,7 @@ const Questions = () => {
   const opponent = useSelector((state) => state.game.opponent);
   const user = useSelector((state) => state.user.id);
 
+  // Called when an answer is dragged to a drop area
   const addAnswerToBasket = (givenAnswer) => {
     const selected = givenAnswer;
     setAnswer(givenAnswer);
@@ -80,7 +81,7 @@ const Questions = () => {
     return () => clearInterval(interval);
   }, []);
 
-  // MOVED TIMER INTO SEPARATE USE-EFFECT
+  // Start timer when user begins a problem set
   useEffect(() => {
     setTime(0);
     <Timer />
@@ -160,7 +161,6 @@ const Questions = () => {
   return (
     <QuestionWrapper>
       {mode === 'challenge' ? `You are challenging ${opponent}` : ''}
-      {/* {mode === 'challenge' && <Question>`You are challenging ${opponent}`</Question>} */}
       <Question>Question: {problem[problemNumber].question}</Question>
       <Form onSubmit={onFormSubmit} autoComplete="off">
         {formInput ? <TextForm
@@ -201,6 +201,8 @@ export default Questions;
 
 const QuestionWrapper = styled(OuterWrapper)`
   margin: 5rem auto;
+  background-color:  #0093E9;
+  background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
   // background: transparent;
   /* background: rgb(250,23,156);
   background: linear-gradient(0deg, rgba(250,23,156,1) 0%, rgba(80,147,250,1) 100%); */

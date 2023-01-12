@@ -49,6 +49,7 @@ const ProfileBtn = () => {
   if (loading) {
     setInterval(checkIfChallenge, 10 * 1000);
   }
+
   return (
     <>
       {activeChallenge ? <PopUp /> : ''}

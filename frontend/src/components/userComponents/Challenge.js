@@ -50,8 +50,6 @@ const Challenge = () => {
       .then((json) => {
         console.log('LINDA-current id', userid)
         json.response.map((singleChallenge) => {
-          // console.log('LINDA-backend challenge', singleChallenge.opponentId)
-          // console.log('Is there a challenge?', singleChallenge.opponentId === userid)
           return (singleChallenge.opponentId === userid ? renderChallenge(singleChallenge) : '')
         })
       })

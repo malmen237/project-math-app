@@ -8,6 +8,7 @@ import { OuterWrapper } from 'Styles/globalStyles';
 import BackBtn from 'components/globalComponents/BackBtn';
 import { API_URL } from 'utils/utils';
 
+// Rendered when user makes a choice do a challenge another user
 const StartGame = () => {
   const userId = useSelector((state) => state.user.id);
   const username = useSelector((state) => state.user.username);

@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React from 'react';
 import { useMultiDrag } from 'react-dnd-multi-backend';
 import styled from 'styled-components';
@@ -5,7 +6,6 @@ import { Devices } from 'Styles/globalStyles';
 
 export const OptionCard = ({ id, answer, color }) => {
   // Provide's the library the element that needs dragging
-  // eslint-disable-next-line max-len
   const [[{ isDragging }], { html5: [html5Props, html5Drag], touch: [touchProps, touchDrag] }] = useMultiDrag({
     type: 'card',
     // item is used to pass data we need for the drop area
@@ -22,7 +22,6 @@ export const OptionCard = ({ id, answer, color }) => {
   const touchDragStyle = { backgroundColor: color, opacity: touchProps.isDragging ? 0.5 : 1 }
 
   const fractionReturn = () => {
-    // console.log('singleOption[0]', singleOption[0])
     if (answer[0] === 0 || answer[1] === 0) {
       return 0
     } else if (answer[0] === answer[1]) {
@@ -34,7 +33,6 @@ export const OptionCard = ({ id, answer, color }) => {
 
   return (
   // Any element that is draggable has to have a ref
-
     <div style={containerStyle}>
       <Mouse style={html5DragStyle} ref={html5Drag}>
         {fractionReturn()}
@@ -48,8 +46,8 @@ export const OptionCard = ({ id, answer, color }) => {
 }
 
 const Touch = styled.div`
-    height: 8rem;
-    width: 8rem;
+    height: 5rem;
+    width: 5rem;
     background-color: green;
     margin: 1rem;
     color: white;
@@ -62,20 +60,19 @@ const Touch = styled.div`
 
     @media ${Devices.laptop} {
       display: none;
-      height: 5rem;
-      width: 5rem;
+      height: 4rem;
+      width: 4rem;
     }
-
     @media ${Devices.desktop} {
       display: none;
-      height: 5rem;
-      width: 5rem;
+      height: 4rem;
+      width: 4rem;
     }
   `
 
 const Mouse = styled.div`
-    height: 5rem;
-    width: 5rem;
+    height: 4rem;
+    width: 4rem;
     background-color: green;
     margin: 1rem;
     color: white;
@@ -89,7 +86,6 @@ const Mouse = styled.div`
     @media ${Devices.laptop} {
       display: flex;
     }
-
     @media ${Devices.desktop} {
       display: flex;
     }

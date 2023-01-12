@@ -3,35 +3,39 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components/macro';
+import { Devices } from 'Styles/globalStyles';
 import { API_URL } from 'utils/utils';
 
 const Statistics = () => {
   const navigate = useNavigate();
+  // Get all of user's training and challenge results
   const [trainStats, setTrainStats] = useState([]);
   const [challengeStats, setChallengeStats] = useState([]);
+
+  // Get user's best training and challenge results
   const [topTrainStat, setTopTrainStat] = useState({});
   const [topChallengeStat, setTopChallengeStat] = useState({});
+
+  // Get best challenge result amongst all users
   const [bestOfAllChalStat, setBestOfAllChalStat] = useState({});
 
   let starCount = 0;
-  // Count total points from all users trainings
+  // Count total points from all user's trainings
   if (trainStats.length > 0) {
     for (let i = 0; i < trainStats.length; i += 1) {
       starCount += trainStats[i].points
     }
   }
 
-  // Count total points from all users challenges
+  // Count total points from all user's challenges
   if (challengeStats.length > 0) {
     for (let i = 0; i < challengeStats.length; i += 1) {
       starCount += challengeStats[i].points
     }
   }
 
-  // const username = useSelector((state) => state.user.username);
   const accessToken = localStorage.getItem('accessToken');
   const username = localStorage.getItem('username');
-  console.log('username in statistics', typeof username)
 
   // Authenticate user
   useEffect(() => {
@@ -48,12 +52,11 @@ const Statistics = () => {
     }
   }
 
-  // Get users results from database
+  // Get results from database
   useEffect(() => {
     fetch(API_URL(`userstats/${username}`), options)
       .then((res) => res.json())
       .then((json) => {
-        console.log('LINDA', json.response)
         setTrainStats(json.response.trainStats)
         setChallengeStats(json.response.challengeStats)
         setTopTrainStat(json.response.topTrainStat)
@@ -64,7 +67,10 @@ const Statistics = () => {
 
   return (
     <>
-      <h1>STARCOUNT: {starCount} </h1>
+      <Stars>
+        <Title>⭐ count:</Title>
+        <Title>{starCount}</Title>
+      </Stars>
       {/* User's top results for training and challenge */}
       <UserGridContainer>
         <GridHeader>Your top results:</GridHeader>
@@ -74,7 +80,6 @@ const Statistics = () => {
         <ChallengeHeader backGroundcolor="#FA5CB8">Challenge</ChallengeHeader>
 
         <RowHeader backGroundcolor="lightcoral">Category</RowHeader>
-        {console.log('LINDA2', topChallengeStat.category)}
         <TrainGridItem backGroundcolor="#FACE75">{topTrainStat.category}</TrainGridItem>
         <ChallengeGridItem backGroundcolor="#FACE75">{topChallengeStat.category}</ChallengeGridItem>
 
@@ -115,17 +120,50 @@ const Statistics = () => {
 
 export default Statistics;
 
+const Stars = styled.div`
+  border: 2px solid #555;
+  border-radius: 1rem;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  margin: 2rem;
+`
+
+const Title = styled.p`
+  font-size: 1.2rem;
+  color: #555;
+  margin: 0.2rem;
+`
+
 const UserGridContainer = styled.section`
   display: grid;
-  width: 90vw;
+  width: 90%;
   grid-template-columns: repeat(3, 1fr);
   gap: 0.1rem;
   margin: 2rem 0;
+  @media ${Devices.tablet} {
+    width: 50%;
+  }
+  @media ${Devices.laptop} {
+    width: 40%;
+  }
+  @media ${Devices.desktop} {
+    width: 30%;
+  }
 `
 
 const BestGridContainer = styled(UserGridContainer)`
   grid-template-columns: repeat(2, 1fr);
-  width: 80vw;
+  width: 80%;
+  @media ${Devices.tablet} {
+    width: 40%;
+  }
+  @media ${Devices.laptop} {
+    width: 30%;
+  }
+  @media ${Devices.desktop} {
+    width: 20%;
+  }
 `
 
 const GridHeader = styled.div`

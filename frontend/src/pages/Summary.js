@@ -20,7 +20,6 @@ const Summary = () => {
   }, []);
 
   const onTrainBtnClick = (type) => {
-    // dispatch(game.actions.submitOperation());
     if (type === 'training') {
       setTimeout(() => { navigate('/category') }, 500);
     } else {
@@ -45,7 +44,6 @@ const Summary = () => {
   }
 
   // Display users results
-  // const username = useSelector((state) => state.user.username);
   const username = localStorage.getItem('username');
   const matchId = useSelector((state) => state.game.matchId)
   const quiztype = useSelector((state) => state.game.mode);
@@ -57,7 +55,6 @@ const Summary = () => {
   const time = `${paddedNumber(timeConverted.m, 2)}:${paddedNumber(timeConverted.s, 2)}`
   const opponent = useSelector((state) => state.game.opponent);
 
-  // Post users results to database
   const options = {
     method: 'POST',
     headers: {

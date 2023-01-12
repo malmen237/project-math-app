@@ -7,6 +7,7 @@ import { game } from 'reducers/game';
 import { OuterWrapper } from 'Styles/globalStyles';
 import BackBtn from 'components/globalComponents/BackBtn';
 
+// Rendered when user makes a choice do do a traning problem set
 const Categories = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();

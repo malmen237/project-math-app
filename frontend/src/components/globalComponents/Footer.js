@@ -51,8 +51,6 @@ const FooterContainer = styled.div`
 
 const LinkContainer = styled.div`
   display: flex;
-  /* display: grid;
-  grid-template-columns: 50% 50%; */
 
   @media ${Devices.laptop} {
     display: flex;

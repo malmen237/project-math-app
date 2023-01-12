@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector, batch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -22,7 +23,6 @@ const Login = () => {
     if (accessToken) {
       navigate('/welcome');
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken]);
 
   const onFormSubmit = (event) => {
@@ -39,7 +39,6 @@ const Login = () => {
       .then((data) => {
         if (data.success) {
           batch(() => {
-            console.log(data.response.id)
             localStorage.setItem('accessToken', data.response.accessToken);
             localStorage.setItem('username', data.response.username);
             dispatch(user.actions.setUsername(data.response.username));
@@ -64,7 +63,6 @@ const Login = () => {
 
   return (
     <PageWrapper>
-      {/* <LoginWrapper> */}
       <Intro>
         <h1>Welcome!</h1>
         <h2> Please register or sign in </h2>
@@ -117,7 +115,6 @@ const Login = () => {
         <StyledButton type="submit">{mode === 'login' ? 'Log In' : 'Submit'}</StyledButton>
       </StyledForm>
       <p>{activeError ? error : ''}</p>
-      {/* </LoginWrapper> */}
     </PageWrapper>
   )
 }
@@ -146,26 +143,7 @@ const PageWrapper = styled.section`
   }
 `
 
-export const LoginWrapper = styled.div`
-  //border: 3px solid blue;
-  padding: 3px;
-  width: 25rem;
-  max-width: 25rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  margin: 2rem auto;
-
-  @media ${Devices.tablet} {
-    min-height: 19rem;
-    max-width: 38rem;
-  }
-`
-
 const Intro = styled.div`
-  //border: 2px solid green;
   width: 15rem;
   font-size: 1.2rem;
   margin-bottom: 2rem;
@@ -173,7 +151,6 @@ const Intro = styled.div`
 `
 
 const Selection = styled.div`
-  //border: 2px solid red;
   width: 16rem;
   font-size: 1.2rem;
   display: flex;
@@ -186,7 +163,6 @@ const Selection = styled.div`
 `
 
 const StyledForm = styled.form`
-  //border: 2px solid green;
   display: flex;
   flex-direction: column;
   align-items: stretch;
