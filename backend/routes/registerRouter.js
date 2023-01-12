@@ -1,5 +1,6 @@
 import express from "express";
 import User from "../schemas/User";
+import UserStats from "../schemas/UserStats";
 import bcrypt from "bcrypt";
 
 const router = express.Router();
@@ -22,6 +23,9 @@ router.post("/", async (req, res) => {
         })
       } else {
           const newUser = await User({username: username, email: email, password: bcrypt.hashSync(password, salt)}).save()
+          const newChallengeStat = await new UserStats({username: username, quiztype: 'training', category: "-", score: 0, points: 0, time: 0, opponent: "-"}).save()
+          const newUserStat = await new UserStats({username: username, quiztype: 'challenge', category: "-", score: 0, points: 0, time: 0, opponent: "-"}).save()
+          console.log(newUserStat, newChallengeStat)
           res.status(201).json({
           success: true,
           response: {

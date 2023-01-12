@@ -54,7 +54,6 @@ router.post("/", async (req, res) => {
 
   try {
     const newStat = await new UserStats({username: username, quiztype: quiztype, category: category, score: score, points: points, time: time, opponent: opponent}).save()
-    console.log('LINDA1', {username: username, quiztype: quiztype, category: category, score: score, points: points, time: time, opponent: opponent})
     res.status(201).json({
         success: true,
         response: {

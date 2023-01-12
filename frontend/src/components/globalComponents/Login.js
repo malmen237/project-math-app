@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { API_URL } from 'utils/utils';
 import user from 'reducers/user';
 import styled from 'styled-components/macro';
+import { Devices } from 'Styles/globalStyles';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -38,6 +39,7 @@ const Login = () => {
       .then((data) => {
         if (data.success) {
           batch(() => {
+            console.log(data.response.id)
             localStorage.setItem('accessToken', data.response.accessToken);
             localStorage.setItem('username', data.response.username);
             dispatch(user.actions.setUsername(data.response.username));
@@ -123,7 +125,6 @@ const Login = () => {
 export default Login;
 
 const PageWrapper = styled.section`
-  // border: 2px solid blue;
   color: white;
   font-weight: bold;
   height: 100vh;
@@ -131,53 +132,81 @@ const PageWrapper = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  // padding: 2rem 45vw;
-  // text-align: center;
-  // border: 2px red solid;
   background-color:  #0093E9; // #4EFA43; 
   // background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
   background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%);
+  @media ${Devices.tablet} {
+    display: flex;
+  }
+  @media ${Devices.laptop} {
+    display: flex;
+  }
+  @media ${Devices.desktop} {
+    display: flex;
+  }
+`
+
+export const LoginWrapper = styled.div`
+  //border: 3px solid blue;
+  padding: 3px;
+  width: 25rem;
+  max-width: 25rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin: 2rem auto;
+
+  @media ${Devices.tablet} {
+    min-height: 19rem;
+    max-width: 38rem;
+  }
+`
+
+const Intro = styled.div`
+  //border: 2px solid green;
+  width: 15rem;
+  font-size: 1.2rem;
+  margin-bottom: 2rem;
+  align-self: center;
+`
+
+const Selection = styled.div`
+  //border: 2px solid red;
+  width: 16rem;
+  font-size: 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2.5rem;
+  input {
+    width: 1.5rem;
+    height: 1.5rem;
+  }
 `
 
 const StyledForm = styled.form`
-  // border: 2px solid green;
-  font-size: 1.2rem;
+  //border: 2px solid green;
   display: flex;
   flex-direction: column;
   align-items: stretch;
+  font-size: 1.2rem;
+
   label {
     color: white;
     display: flex;
     justify-content: space-between;
     width: 100%;
-    margin-bottom: 10px;
+    margin-bottom: 0.6rem;
   }
   label + button {
-    margin-top: 10px;
+    margin-top: 0.6rem;
   }
   input {
-    margin-left: 10px;
-    border-radius: 5px;
+    margin-left: 0.6rem;
+    border-radius: 0.3rem;
     border: none;
     padding: 0.5rem;
-  }
-`
-
-const Intro = styled.div`
-  margin-bottom: 1rem;
-  align-self: center;
-`
-
-const Selection = styled.div`
-  // border: 2px solid red;
-  width: 60vw;
-  font-size: 1.2rem;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 2rem;
-  input {
-    width: 1.5rem;
-    height: 1.5rem;
   }
 `
 
@@ -187,7 +216,7 @@ const StyledButton = styled.button`
   background-color: green;
   opacity: .60;
   border: 2px solid white;
-  padding: 5px 10px;
+  padding: 7px 10px;
   border-radius: 10px;
   &:hover {
     color: #b84545;
@@ -200,32 +229,3 @@ const StyledButton = styled.button`
   }
 `
 
-// const edButton = styled.button`
-//   background-color: #FFCD42;
-//   border: #FFCD42;
-//   width: 310px; // Used to be 310px
-//   border-radius: 10px;
-//   color: black;
-//   font-weight: bold;
-//   font-size: 25px;
-//   padding: 18px; // Used to be 20px
-//   margin: 10px;
-//   font-family: 'Special Elite', cursive;
-//   &.correct {
-//     background-color: green;
-//   }
-//   &.wrong {
-//     background-color: red;
-//   }
-//   &:disabled {
-//     opacity: .50;
-//   }
-//   @media ${Devices.tablet} {
-//     &:hover {
-//       filter: saturate(50);
-//       &:disabled {
-//         filter: saturate(1);
-//       }
-//     }
-//   }
-// `

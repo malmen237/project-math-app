@@ -28,6 +28,15 @@ const Challenge = () => {
     setTimeout(() => { navigate('/questions') }, 500);
   }
 
+  const renderChallenge = (challengeInfo) => {
+    setChallengePresent(true)
+    dispatch(game.actions.submitOpponent(challengeInfo.username))
+    dispatch(game.actions.submitQuestion(challengeInfo.questions))
+    dispatch(game.actions.submitMatchId(challengeInfo.id))
+    dispatch(game.actions.setMode('challenge'))
+    dispatch(game.actions.submitCheck(false))
+  }
+
   useEffect(() => {
     const options = {
       method: 'GET',
@@ -39,21 +48,12 @@ const Challenge = () => {
     fetch(API_URL(`challenges/${userid}`), options)
       .then((res) => res.json())
       .then((json) => {
-        if (json.response.length === 0) {
-          return (
-            <>
-            </>
-          )
-        } else if (json.response[0].opponent === userid) {
-          setChallengePresent(true)
-          return (
-            dispatch(game.actions.submitOpponent(json.response[0].username)),
-            dispatch(game.actions.submitQuestion(json.response[0].questions)),
-            dispatch(game.actions.submitMatchId(json.response[0].id)),
-            dispatch(game.actions.setMode('challenge')),
-            dispatch(game.actions.submitCheck(false))
-          )
-        }
+        console.log('LINDA-current id', userid)
+        json.response.map((singleChallenge) => {
+          // console.log('LINDA-backend challenge', singleChallenge.opponentId)
+          // console.log('Is there a challenge?', singleChallenge.opponentId === userid)
+          return (singleChallenge.opponentId === userid ? renderChallenge(singleChallenge) : '')
+        })
       })
   }, [])
 

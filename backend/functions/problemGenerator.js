@@ -86,12 +86,12 @@ export const problemGenerator = (numberRange, operation) => {
   
   switch(operation) {
     case "+":
-      question = `What is ${a} + ${b}?`;
-      answer = a + b;
+      question = `What is ${a} + ${b} + ${c}?`;
+      answer = a + b + c;
       break;
     case "-":
-      question = `What is ${a} - ${b}?`;
-      answer = a - b;
+      question = `What is ${a} - ${b} - ${c}?`;
+      answer = a - b - c;
       break;
     case "*":
       question = `What is ${a} * ${b}?`;

@@ -1,7 +1,6 @@
 /* eslint-disable max-len */
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useEffect } from 'react';
-// import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import { API_URL } from 'utils/utils';
@@ -16,12 +15,17 @@ const Statistics = () => {
 
   let starCount = 0;
   // Count total points from all users trainings
-  for (let i = 0; i < trainStats.length; i += 1) {
-    starCount += trainStats[i].points
+  if (trainStats.length > 0) {
+    for (let i = 0; i < trainStats.length; i += 1) {
+      starCount += trainStats[i].points
+    }
   }
+
   // Count total points from all users challenges
-  for (let i = 0; i < challengeStats.length; i += 1) {
-    starCount += challengeStats[i].points
+  if (challengeStats.length > 0) {
+    for (let i = 0; i < challengeStats.length; i += 1) {
+      starCount += challengeStats[i].points
+    }
   }
 
   // const username = useSelector((state) => state.user.username);
@@ -94,10 +98,7 @@ const Statistics = () => {
         <FillerHeader backGroundcolor="#4EFA43" />
         <BestChallengeHeader backGroundcolor="#4EFA43">Challenge</BestChallengeHeader>
         <RowHeader backGroundcolor="#5093FA">Player</RowHeader>
-        <BestChallengeHeader backGroundcolor="#FFB6C1" />
-
-        <RowHeader backGroundcolor="#5093FA">Category</RowHeader>
-        <BestChallengeHeader backGroundcolor="#FFB6C1">{bestOfAllChalStat.category}</BestChallengeHeader>
+        <BestChallengeHeader backGroundcolor="#FFB6C1">{bestOfAllChalStat.username}</BestChallengeHeader>
 
         <RowHeader backGroundcolor="#5093FA">Score</RowHeader>
         <BestChallengeHeader backGroundcolor="#FFB6C1">{bestOfAllChalStat.score}</BestChallengeHeader>

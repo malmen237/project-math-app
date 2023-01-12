@@ -23,14 +23,12 @@ router.post("/", async (req, res) => {
       let q = problemGenerator(setNumber, operation);
       qs.push({question: q.question, answer: q.answer, option: q.option, operation: operation});
     }
-    // const newOperation = await new Challenge({questions: qs, userId: userId, username: username, opponent: opponent, active: true}).save()
 
     if (opponent === 'random') {
       User.countDocuments().exec((err, count) => {
         let random = Math.floor(Math.random() * count);
       
         User.findOne().skip(random).exec(async (err, result) => {
-          // const response = {username: result.username, id: result.id}
           const newOperation = await new Challenge({questions: qs, active: true, userId: userId, username: username, opponentusername: result.username, opponentId: result.id, active: true}).save()
           res.status(200).json({
             success: true,

@@ -38,7 +38,7 @@ export const game = createSlice({
       state.operation = action.payload;
 
       if (state.operation === '+' || state.operation === '-') {
-        state.setNumber = 1000;
+        state.setNumber = 100;
       } else if (state.operation === '*' || state.operation === '/') {
         state.setNumber = 12;
       } else if (state.operation === 'eq' || state.operation === 'fr') {
