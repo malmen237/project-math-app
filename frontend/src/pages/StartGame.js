@@ -24,6 +24,7 @@ const StartGame = () => {
   }, []);
 
   const onButtonClick = (event) => {
+    dispatch(game.actions.restart());
     const options = {
       method: 'POST',
       headers: {
@@ -42,7 +43,7 @@ const StartGame = () => {
         dispatch(game.actions.submitOpponent(json.response.opponentusername))
         dispatch(game.actions.submitQuestion(json.response.questions))
         dispatch(game.actions.submitMatchId(json.response.id))
-        dispatch(game.actions.submitCheck(true))
+        dispatch(game.actions.submitCheck(false))
       })
     dispatch(game.actions.setMode('challenge'));
     setTimeout(() => { navigate('/questions') }, 500);

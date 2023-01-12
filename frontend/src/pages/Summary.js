@@ -12,6 +12,7 @@ const Summary = () => {
 
   // Authenticate user
   const accessToken = localStorage.getItem('accessToken');
+  console.log('accessToken', accessToken)
   useEffect(() => {
     if (!accessToken) {
       navigate('/');
@@ -46,7 +47,6 @@ const Summary = () => {
   // Display users results
   // const username = useSelector((state) => state.user.username);
   const username = localStorage.getItem('username');
-  console.log('username in summary', username)
   const matchId = useSelector((state) => state.game.matchId)
   const quiztype = useSelector((state) => state.game.mode);
   const category = useSelector((state) => state.game.operation);
@@ -56,7 +56,6 @@ const Summary = () => {
   const timeConverted = toHoursAndMinutes(timeInSecs)
   const time = `${paddedNumber(timeConverted.m, 2)}:${paddedNumber(timeConverted.s, 2)}`
   const opponent = useSelector((state) => state.game.opponent);
-  console.log(matchId)
 
   // Post users results to database
   const options = {

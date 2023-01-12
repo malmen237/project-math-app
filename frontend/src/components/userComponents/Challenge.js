@@ -16,6 +16,14 @@ const Challenge = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  // Authenticate user
+  const accessToken = localStorage.getItem('accessToken');
+  useEffect(() => {
+    if (!accessToken) {
+      navigate('/');
+    }
+  }, []);
+
   const onButtonClick = () => {
     setTimeout(() => { navigate('/questions') }, 500);
   }
@@ -24,7 +32,8 @@ const Challenge = () => {
     const options = {
       method: 'GET',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        Authorization: accessToken
       }
     }
     fetch(API_URL(`challenges/${userid}`), options)
