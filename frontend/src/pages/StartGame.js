@@ -54,8 +54,6 @@ const StartGame = () => {
       <BackBtn />
       <Choose>Challenge:</Choose>
       <ChoiceWrapper>
-        {/* // TODO Connect the Friend-List */}
-        <Choice type="button">Friend</Choice>
         <Choice type="button" onClick={() => onButtonClick('random')}>Random</Choice>
       </ChoiceWrapper>
     </>

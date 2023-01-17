@@ -54,12 +54,14 @@ const Numerator = styled.p`
   border-bottom: solid white 1px;
   display: inline-block;
   float: left;
+  padding: 0 0 2px 0;
 `
 
 const Denominator = styled.p`
   display:inline-block;
   clear:left;
   float:left;
+  padding: 2px 0 0 0;
 `
 
 const Touch = styled.div`

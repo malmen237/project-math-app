@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-indent-props */
 /* eslint-disable no-nested-ternary */
@@ -13,6 +14,7 @@ import DnDForm from 'components/dndComponents/DnDForm';
 import Timer from './Timer';
 import TextForm from './TextForm';
 import { Devices } from '../../Styles/globalStyles';
+import SingleQuestion from './SingleQuestion';
 
 const HeadShakeAnimation = keyframes`${headShake}`;
 const HeartBeatAnimation = keyframes`${pulse}`;
@@ -160,7 +162,7 @@ const Questions = () => {
   return (
     <QuestionWrapper>
       {mode === 'challenge' ? <ChallengeText>You are challenging {opponent}</ChallengeText> : ''}
-      <Question>Question: {problem[problemNumber].question}</Question>
+      <SingleQuestion problem={problem[problemNumber].question} operation={problem[problemNumber].operation} />
       <Form onSubmit={onFormSubmit} autoComplete="off">
         {formInput ? <TextForm
           answer={answer}
@@ -239,19 +241,6 @@ const Form = styled.form`
 
   @media ${Devices.desktop} {
     width: 50%;
-  }
-`
-
-const Question = styled.h1`
-  width: 90%;
-  font-size: 1.3rem;
-  font-weight: bold;
-  color: white;
-  margin-bottom: 1rem;
-
-  @media ${Devices.desktop} {
-    width: 50%;
-    margin-bottom: 2rem;
   }
 `
 
