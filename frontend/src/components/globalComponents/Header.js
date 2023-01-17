@@ -25,9 +25,9 @@ const Header = () => {
 
   return (
     <HeaderWrapper>
-      <HomeBtn onClick={redirectHome} type="button">
-        Mathorama
-      </HomeBtn>
+        <HomeBtn onClick={redirectHome} type="button">
+          Mathorama
+        </HomeBtn>
       <LogOutWrapper>
         {username === null ? <MirrorText>amarohtaM</MirrorText>
         : <>
@@ -46,20 +46,22 @@ export default Header;
 const HeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  border-radius: 15px 10px 10px;
-  background-color: #FACE75;
-  opacity: 0.9;
+  background-image: linear-gradient( 109.6deg,  rgba(24,138,141,1) 11.2%, rgba(96,221,142,1) 91.1% );
+  /* background-color: #80D0C7;
+  background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%); */
 `
 
 const LogOutWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  background-color: #555;
+  background-color: #256883;
+  // background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(251,233,169,1) 0%, rgba(246,158,29,0.93) 90% );
   opacity: 0.8;
   width: 50%;
   padding: 5%;
-  border-radius: 15px 35px;
+  border-radius: 15px 120px;
+  box-shadow: 10px 5px 5px;
   
 
   @media ${Devices.tablet} {
@@ -87,7 +89,7 @@ const HomeBtn = styled.button`
   flex-direction: column;
   align-items: center;
   background-color: transparent;
-  color: #333;
+  color: whitesmoke;
   font-size: 1.5em;
   font-weight: bold;
   border: none;

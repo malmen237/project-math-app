@@ -129,6 +129,8 @@ const PageWrapper = styled.section`
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color:  #0093E9;
+  background-image: linear-gradient(160deg, #80D0C7 0%, #0093E9 100%);
 
   @media ${Devices.tablet} {
     display: flex;

@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { API_URL } from 'utils/utils';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-// import { OuterWrapper } from 'Styles/globalStyles';
+import { OuterWrapper } from 'Styles/globalStyles';
 import ProfileBtn from 'components/globalComponents/ProfileBtn';
 import FadeInDownBig from 'Styles/FadeInDownBig';
 import { Player } from '@lottiefiles/react-lottie-player';
@@ -83,7 +83,7 @@ const Summary = () => {
     })
 
   return (
-    <>
+    <OuterWrapper>
       <Player
         src="https://assets10.lottiefiles.com/packages/lf20_jR229r.json"
         className="player"
@@ -98,7 +98,7 @@ const Summary = () => {
         <Next type="button" onClick={() => onTrainBtnClick('challenge')}>Challenge someone!</Next>
       </FadeInDownBig>
       <ProfileBtn />
-    </>
+    </OuterWrapper>
   )
 }
 
@@ -112,7 +112,7 @@ const Correct = styled.p`
 `
 
 const Next = styled.button`
-  width: 12rem;
+  width: 10rem;
   background-color: #4EFA43;
   color: #666;
   border-radius: 15px;

@@ -6,7 +6,7 @@ import styled from 'styled-components/macro';
 import { Headline } from 'Styles/globalStyles';
 import { API_URL } from 'utils/utils';
 import ProfileBtn from 'components/globalComponents/ProfileBtn';
-import { Devices } from '../Styles/globalStyles';
+import { Devices, OuterWrapper } from '../Styles/globalStyles';
 
 const Welcome = () => {
   const navigate = useNavigate();
@@ -43,20 +43,20 @@ const Welcome = () => {
   }
 
   return (
-
-    <WelcomeWrapper>
-      <Headline>Welcome, {username}!</Headline>
-      <ProfileBtn />
-      <Button onClick={trainButtonClick} type="button">
-        {/* <Img src={picture} alt="" /> */}
+    <OuterWrapper>
+      <WelcomeWrapper>
+        <Headline>Welcome, {username}!</Headline>
+        <ProfileBtn />
+        <Button onClick={trainButtonClick} type="button">
+          {/* <Img src={picture} alt="" /> */}
         Start training session
-      </Button>
-      <Button onClick={gameButtonClick} type="button">
-        {/* <Img src={picture} alt="" /> */}
+        </Button>
+        <Button onClick={gameButtonClick} type="button">
+          {/* <Img src={picture} alt="" /> */}
         Play game
-      </Button>
-    </WelcomeWrapper>
-
+        </Button>
+      </WelcomeWrapper>
+    </OuterWrapper>
   )
 }
 export default Welcome;
@@ -65,13 +65,13 @@ const Button = styled.button`
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: #4EFA43;
+  background-color: #43fada;
   color: #555;
   font-size: 1.5em;
   font-weight: bold;
   border: none;
-  width: 400px;
-  margin: 10%;
+  width: 315px;
+  margin: 10% 0;
   padding: 5% 2%;
   border-radius: 25px;
   cursor: pointer;

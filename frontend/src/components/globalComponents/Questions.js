@@ -12,7 +12,7 @@ import { useMultiDrop } from 'react-dnd-multi-backend';
 import DnDForm from 'components/dndComponents/DnDForm';
 import Timer from './Timer';
 import TextForm from './TextForm';
-import { Devices } from '../../Styles/globalStyles';
+import { Devices, OuterWrapper } from '../../Styles/globalStyles';
 
 const HeadShakeAnimation = keyframes`${headShake}`;
 const HeartBeatAnimation = keyframes`${pulse}`;
@@ -159,45 +159,53 @@ const Questions = () => {
   }
 
   return (
-    <QuestionWrapper>
-      {mode === 'challenge' ? `You are challenging ${opponent}` : ''}
-      <Question>Question: {problem[problemNumber].question}</Question>
-      <Form onSubmit={onFormSubmit} autoComplete="off">
-        {formInput ? <TextForm
-          answer={answer}
-          handleUserAnswerInput={handleUserAnswerInput} /> : <DnDForm
-          basket={basket}
-          html5DropStyle={html5DropStyle}
-          html5Drop={html5Drop}
-          touchDropStyle={touchDropStyle}
-          touchDrop={touchDrop}
-          problem={problem[problemNumber]} />}
-        {!lastQuestion && (
-          <Button
-            className={providedAnswer ? (isAnswerCorrect ? 'correct' : 'wrong') : 'default'}
-            type="submit"
-            disabled={!nextButton}
-            onClick={onFormSubmit}>
+    <OuterWrapper>
+      <QuestionWrapper>
+        {mode === 'challenge' ? <ChallengeText>You are challenging {opponent}</ChallengeText> : ''}
+        <Question>Question: {problem[problemNumber].question}</Question>
+        <Form onSubmit={onFormSubmit} autoComplete="off">
+          {formInput ? <TextForm
+            answer={answer}
+            handleUserAnswerInput={handleUserAnswerInput} /> : <DnDForm
+            basket={basket}
+            html5DropStyle={html5DropStyle}
+            html5Drop={html5Drop}
+            touchDropStyle={touchDropStyle}
+            touchDrop={touchDrop}
+            problem={problem[problemNumber]} />}
+          {!lastQuestion && (
+            <Button
+              className={providedAnswer ? (isAnswerCorrect ? 'correct' : 'wrong') : 'default'}
+              type="submit"
+              disabled={!nextButton}
+              onClick={onFormSubmit}>
             Next
-          </Button>
-        )}
-        {lastQuestion && (
-          <Button
-            className={providedAnswer ? (isAnswerCorrect ? 'correct' : 'wrong') : 'default'}
-            type="submit"
-            disabled={!nextButton}
-            onClick={onFormSubmit}>
+            </Button>
+          )}
+          {lastQuestion && (
+            <Button
+              className={providedAnswer ? (isAnswerCorrect ? 'correct' : 'wrong') : 'default'}
+              type="submit"
+              disabled={!nextButton}
+              onClick={onFormSubmit}>
             Submit
-          </Button>
-        )}
-      </Form>
-      <Timer time={time} />
-      <Number>Question number {showNumber + 1}</Number>
-    </QuestionWrapper>
+            </Button>
+          )}
+        </Form>
+        <Timer time={time} />
+        <Number>Question number {showNumber + 1}</Number>
+      </QuestionWrapper>
+    </OuterWrapper>
   );
 }
 
 export default Questions;
+
+const ChallengeText = styled.p`
+  font-size: 1rem;
+  color: white;
+  padding-bottom: 2%;
+`
 
 const QuestionWrapper = styled.div`
   display: flex;

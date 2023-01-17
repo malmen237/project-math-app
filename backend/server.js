@@ -69,6 +69,7 @@ app.use("/login", logInRouter);
 
 app.use("/welcome", authenticateUser, welcomeRouter);
 
+
 app.use("/user/", findUserIdRouter); // ! Not in use ATM?
 app.use("/user", findUsernameRouter); // ! Not in use ATM?
 app.use("/gameChallengeUser", gameChallengeUserRouter) // ! Not in use ATM?
@@ -77,6 +78,7 @@ app.use("/challenges", authenticateUser, makeChallengesRouter);
 
 app.use("/challenges", getChallengesRouter);
 app.use("/challengestats", challengeStatsRouter);
+
 
 app.use("/userstats", authenticateUser, userStatsRouter);
 app.use("/userstats/:username", authenticateUser, userStatsRouter);

@@ -5,12 +5,13 @@ import { useNavigate } from 'react-router-dom';
 import { game } from 'reducers/game';
 import { API_URL } from 'utils/utils';
 import styled from 'styled-components/macro';
-import { Devices } from 'Styles/globalStyles';
+import { Devices, Choice } from 'Styles/globalStyles';
 
 const Challenge = () => {
   const [challengePresent, setChallengePresent] = useState(false)
 
-  const username = useSelector((state) => state.user.username);
+  // const username = useSelector((state) => state.user.username);
+  const username = localStorage.getItem('username');
   const userid = useSelector((state) => state.user.id);
   const challenger = useSelector((state) => state.game.opponent);
 
@@ -77,10 +78,10 @@ const Challenge = () => {
 export default Challenge;
 
 const Headline = styled.h1`
-  width: 90%;
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #555;
+  width: 80%;
+  font-size: 1.4rem;
+  //font-weight: bold;
+  color: whitesmoke;
   margin-bottom: 1rem;
 
   @media ${Devices.desktop} {
@@ -90,27 +91,13 @@ const Headline = styled.h1`
 `
 const Wrapper = styled.div`
   color: #555;
-  background-color: beige;
+  // background-color: beige;
+  // background-color:  #F8CAB8;
+  // background-image: linear-gradient(160deg, beige 0%, #F8CAB8 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   width: 100vw;
-`
-
-const Choice = styled.button`
-  width: 12rem;
-  background-color: #F7DD65;
-  color: #666;
-  border-radius: 15px;
-  border: 3px solid #5DB0B2;
-  font-weight: bold;
-  font-size: 1.5rem;
-  padding: 1rem;
-  margin: 1rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
 `

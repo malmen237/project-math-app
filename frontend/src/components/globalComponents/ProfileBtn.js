@@ -68,6 +68,7 @@ const ProfileButton = styled.button`
   border: none;
   padding: 2%;
   font-size: 2em;
+  cursor: pointer;
 `
 
 const PopUp = styled.div`
