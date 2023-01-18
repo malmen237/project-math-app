@@ -113,10 +113,11 @@ const Correct = styled.p`
 
 const Next = styled.button`
   width: 10rem;
-  background-color: #4EFA43;
+  background-color: #FACE75;
   color: #666;
   border-radius: 15px;
-  border: 3px solid #5093FA;
+  border: 3px solid #5DB0B2;
+  box-shadow: 10px 5px 5px #666;
   font-weight: bold;
   font-size: 1.5rem;
   padding: 1rem;

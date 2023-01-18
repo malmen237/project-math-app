@@ -42,7 +42,6 @@ export const ChoiceWrapper = styled.div`
   //flex-direction: wrap;
   justify-content: center;
   width: 80vw;
-  border: 2px blue solid;
 
   @media ${Devices.tablet} {
     margin: 2rem;
