@@ -47,8 +47,6 @@ const HeaderWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   background-image: linear-gradient( 109.6deg,  rgba(24,138,141,1) 11.2%, rgba(96,221,142,1) 91.1% );
-  /* background-color: #80D0C7;
-  background-image: linear-gradient(160deg, #0093E9 0%, #80D0C7 100%); */
 `
 
 const LogOutWrapper = styled.div`
@@ -56,7 +54,6 @@ const LogOutWrapper = styled.div`
   flex-direction: column;
   align-items: flex-end;
   background-color: #256883;
-  // background-image: radial-gradient( circle farthest-corner at 10% 20%,  rgba(251,233,169,1) 0%, rgba(246,158,29,0.93) 90% );
   opacity: 0.8;
   width: 50%;
   padding: 5%;

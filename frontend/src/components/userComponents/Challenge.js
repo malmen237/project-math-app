@@ -10,7 +10,6 @@ import { Devices, Choice } from 'Styles/globalStyles';
 const Challenge = () => {
   const [challengePresent, setChallengePresent] = useState(false)
 
-  // const username = useSelector((state) => state.user.username);
   const username = localStorage.getItem('username');
   const userid = useSelector((state) => state.user.id);
   const challenger = useSelector((state) => state.game.opponent);
@@ -79,7 +78,6 @@ export default Challenge;
 const Headline = styled.h1`
   width: 80%;
   font-size: 1.4rem;
-  //font-weight: bold;
   color: whitesmoke;
   margin-bottom: 1rem;
 
@@ -90,9 +88,6 @@ const Headline = styled.h1`
 `
 const Wrapper = styled.div`
   color: #555;
-  // background-color: beige;
-  // background-color:  #F8CAB8;
-  // background-image: linear-gradient(160deg, beige 0%, #F8CAB8 100%);
   display: flex;
   flex-direction: column;
   align-items: center;

@@ -20,7 +20,6 @@ const DnDForm = ({ problem, basket, html5DropStyle, html5Drop, touchDropStyle, t
       <MouseDropArea style={html5DropStyle} ref={html5Drop}>
         {basket.map((card, index) => <OptionCard id={index} answer={card} />)}
         {basket.length === 0 && <Instruct>Drag & drop your answer here!</Instruct>}
-        {/* <div>Drag your answer here!</div> */}
       </MouseDropArea>
       <TouchDropArea style={touchDropStyle} ref={touchDrop}>
         {basket.map((card, index) => <OptionCard id={index} answer={card} />)}
@@ -34,18 +33,6 @@ const DnDForm = ({ problem, basket, html5DropStyle, html5Drop, touchDropStyle, t
 }
 
 export default DnDForm;
-
-// const Numerator = styled.p`
-//   border-bottom: solid black 1px;
-//   display: inline-block;
-//   float: left;
-// `
-
-// const Denominator = styled.p`
-//   display:inline-block;
-//   clear:left;
-//   float:left;
-// `
 
 const Options = styled.div`
   width: 100%;

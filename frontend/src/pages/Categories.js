@@ -6,7 +6,6 @@ import { game } from 'reducers/game';
 import { OuterWrapper, Choose, ChoiceWrapper, Choice } from 'Styles/globalStyles';
 import BackBtn from 'components/globalComponents/BackBtn';
 import FadeInDownBig from 'Styles/FadeInDownBig';
-// import styled from 'styled-components';
 
 // Rendered when user makes a choice do do a traning problem set
 const Categories = () => {
@@ -34,9 +33,6 @@ const Categories = () => {
       <BackBtn />
       <Choose>What do you want to practice today?</Choose>
       <Choose>Pick your poison!</Choose>
-      {/* <CatWrapper> */}
-      {/* <BackBtn />
-      <Choose>Pick your poison</Choose> */}
       <ChoiceWrapper>
         <FadeInDownBig duration="0.8s" delay="0.2s">
           <Choice type="button" onClick={() => onButtonClick('+')}>+</Choice>
@@ -47,14 +43,8 @@ const Categories = () => {
           <Choice type="button" onClick={() => onButtonClick('fr')}>Fractions</Choice>
         </FadeInDownBig>
       </ChoiceWrapper>
-      {/* </CatWrapper> */}
     </OuterWrapper>
   )
 }
 
 export default Categories;
-
-// const CatWrapper = styled(OuterWrapper)`
-//   padding-top: 2%;
-//   min-height: 800px;
-// `

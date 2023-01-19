@@ -30,10 +30,6 @@ const SingleQuestion = ({ operation, problem }) => {
           <FractionWrapper><Numerator>{problem[3]}</Numerator><Denominator>{problem[4]}</Denominator></FractionWrapper>
           <Question>?</Question>
         </QuestionWrapper>
-        // <QuestionWrapper>
-        //   <Question>Question: What is <FractionWrapper><Numerator>{problem[0]}</Numerator><Denominator>{problem[1]}</Denominator></FractionWrapper> {problem[2]} <FractionWrapper><Numerator>{problem[3]}</Numerator><Denominator>{problem[4]}</Denominator></FractionWrapper>?
-        //   </Question>
-        // </QuestionWrapper>
       )
     }
   }
@@ -81,7 +77,7 @@ const FractionWrapper = styled.div`
 
 const Numerator = styled.h1`
   border-bottom: solid white 1px;
-  display: inline-block;
+  display: block;
   float: left;
   font-size: 1.3rem;
   font-weight: bold;
@@ -90,9 +86,9 @@ const Numerator = styled.h1`
 `
 
 const Denominator = styled.h1`
-  display:inline-block;
-  clear:left;
-  float:left;
+  display: block;
+  clear: left;
+  float: left;
   font-size: 1.3rem;
   font-weight: bold;
   color: white;

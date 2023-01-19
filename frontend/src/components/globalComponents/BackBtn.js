@@ -2,7 +2,6 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components/macro';
 import BounceInLeft from 'Styles/BounceInLeft';
-// import back from 'images/back.png';
 
 const BackBtn = () => {
   const navigate = useNavigate();
@@ -14,7 +13,6 @@ const BackBtn = () => {
   return (
     <BounceInLeft duration="0.8s" delay="0.2s">
       <BackButton type="button" className="back-btn" onClick={goBack}>
-        {/* <Img src={back} alt="" /> */}
         {' <'}{'<'}
       </BackButton>
     </BounceInLeft>
@@ -35,9 +33,3 @@ const BackButton = styled.button`
   border-radius: 50%;
   cursor: pointer;
 `
-
-// const Img = styled.img`
-//   width: 20%;
-//   height: auto;
-//   padding-bottom: 1%;
-// `

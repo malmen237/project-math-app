@@ -52,42 +52,42 @@ const FractionWrapper = styled.div`
 
 const Numerator = styled.p`
   border-bottom: solid white 1px;
-  display: inline-block;
+  display: block;
   float: left;
   padding: 0 0 2px 0;
 `
 
 const Denominator = styled.p`
-  display:inline-block;
-  clear:left;
-  float:left;
+  display: block;
+  clear: left;
+  float: left;
   padding: 2px 0 0 0;
 `
 
 const Touch = styled.div`
-    height: 5rem;
-    width: 5rem;
-    background-color: green;
-    margin: 1rem;
-    color: white;
-    border-radius: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    font-weight: bold;
+  height: 5rem;
+  width: 5rem;
+  background-color: green;
+  margin: 1rem;
+  color: white;
+  border-radius: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  font-weight: bold;
 
-    @media ${Devices.laptop} {
-      display: none;
-      height: 4rem;
-      width: 4rem;
-    }
-    @media ${Devices.desktop} {
-      display: none;
-      height: 4rem;
-      width: 4rem;
-    }
-  `
+  @media ${Devices.laptop} {
+    display: none;
+    height: 4rem;
+    width: 4rem;
+  }
+  @media ${Devices.desktop} {
+    display: none;
+    height: 4rem;
+    width: 4rem;
+  }
+`
 
 const Mouse = styled.div`
     height: 4rem;

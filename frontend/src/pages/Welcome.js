@@ -47,11 +47,9 @@ const Welcome = () => {
         <Headline>Welcome, {username}!</Headline>
         <ProfileBtn />
         <Button onClick={trainButtonClick} type="button">
-          {/* <Img src={picture} alt="" /> */}
         Start training session
         </Button>
         <Button onClick={gameButtonClick} type="button">
-          {/* <Img src={picture} alt="" /> */}
         Play game
         </Button>
       </WelcomeWrapper>
@@ -98,9 +96,4 @@ const WelcomeWrapper = styled.div`
     width: 50vw;
   }
 `
-// const Img = styled.img`
-// width: 20%;
-// height: auto;
-// padding-bottom: 1%;
-// `
 
