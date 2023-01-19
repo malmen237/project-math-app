@@ -160,25 +160,26 @@ const Questions = () => {
   }
 
   return (
-    <QuestionWrapper>
-      {mode === 'challenge' ? <ChallengeText>You are challenging {opponent}</ChallengeText> : ''}
-      <SingleQuestion problem={problem[problemNumber].question} operation={problem[problemNumber].operation} />
-      <Form onSubmit={onFormSubmit} autoComplete="off">
-        {formInput ? <TextForm
-          answer={answer}
-          handleUserAnswerInput={handleUserAnswerInput} /> : <DnDForm
-          basket={basket}
-          html5DropStyle={html5DropStyle}
-          html5Drop={html5Drop}
-          touchDropStyle={touchDropStyle}
-          touchDrop={touchDrop}
-          problem={problem[problemNumber]} />}
-        {!lastQuestion && (
-          <Button
-            className={providedAnswer ? (isAnswerCorrect ? 'correct' : 'wrong') : 'default'}
-            type="submit"
-            disabled={!nextButton}
-            onClick={onFormSubmit}>
+    <OuterWrapper>
+      <QuestionWrapper>
+        {mode === 'challenge' ? <ChallengeText>You are challenging {opponent}</ChallengeText> : ''}
+        <SingleQuestion problem={problem[problemNumber].question} operation={problem[problemNumber].operation} />
+        <Form onSubmit={onFormSubmit} autoComplete="off">
+          {formInput ? <TextForm
+            answer={answer}
+            handleUserAnswerInput={handleUserAnswerInput} /> : <DnDForm
+            basket={basket}
+            html5DropStyle={html5DropStyle}
+            html5Drop={html5Drop}
+            touchDropStyle={touchDropStyle}
+            touchDrop={touchDrop}
+            problem={problem[problemNumber]} />}
+          {!lastQuestion && (
+            <Button
+              className={providedAnswer ? (isAnswerCorrect ? 'correct' : 'wrong') : 'default'}
+              type="submit"
+              disabled={!nextButton}
+              onClick={onFormSubmit}>
             Next
             </Button>
           )}

@@ -22,6 +22,14 @@ export const OuterWrapper = styled.div`
   text-align: center;
   padding-top: 0.5rem;
   min-height: 100vh;
+
+  @media ${Devices.tablet} {
+    padding-top: 1rem;
+  }
+
+  @media ${Devices.laptop} {
+    padding-top: 2rem;
+  }
 `
 
 export const Headline = styled.h1`
