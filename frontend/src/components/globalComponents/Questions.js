@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable react/jsx-indent-props */
 /* eslint-disable no-nested-ternary */
@@ -13,6 +14,7 @@ import DnDForm from 'components/dndComponents/DnDForm';
 import Timer from './Timer';
 import TextForm from './TextForm';
 import { Devices, OuterWrapper } from '../../Styles/globalStyles';
+import SingleQuestion from './SingleQuestion';
 
 const HeadShakeAnimation = keyframes`${headShake}`;
 const HeartBeatAnimation = keyframes`${pulse}`;
@@ -138,7 +140,6 @@ const Questions = () => {
       fetch(API_URL(mode === 'challenge' ? 'challenges' : 'questions'), options)
         .then((res) => res.json())
         .then((json) => {
-          console.log('json.response', json.response)
           dispatch(game.actions.submitQuestion(json.response.questions));
         })
     }
@@ -159,26 +160,25 @@ const Questions = () => {
   }
 
   return (
-    <OuterWrapper>
-      <QuestionWrapper>
-        {mode === 'challenge' ? <ChallengeText>You are challenging {opponent}</ChallengeText> : ''}
-        <Question>Question: {problem[problemNumber].question}</Question>
-        <Form onSubmit={onFormSubmit} autoComplete="off">
-          {formInput ? <TextForm
-            answer={answer}
-            handleUserAnswerInput={handleUserAnswerInput} /> : <DnDForm
-            basket={basket}
-            html5DropStyle={html5DropStyle}
-            html5Drop={html5Drop}
-            touchDropStyle={touchDropStyle}
-            touchDrop={touchDrop}
-            problem={problem[problemNumber]} />}
-          {!lastQuestion && (
-            <Button
-              className={providedAnswer ? (isAnswerCorrect ? 'correct' : 'wrong') : 'default'}
-              type="submit"
-              disabled={!nextButton}
-              onClick={onFormSubmit}>
+    <QuestionWrapper>
+      {mode === 'challenge' ? <ChallengeText>You are challenging {opponent}</ChallengeText> : ''}
+      <SingleQuestion problem={problem[problemNumber].question} operation={problem[problemNumber].operation} />
+      <Form onSubmit={onFormSubmit} autoComplete="off">
+        {formInput ? <TextForm
+          answer={answer}
+          handleUserAnswerInput={handleUserAnswerInput} /> : <DnDForm
+          basket={basket}
+          html5DropStyle={html5DropStyle}
+          html5Drop={html5Drop}
+          touchDropStyle={touchDropStyle}
+          touchDrop={touchDrop}
+          problem={problem[problemNumber]} />}
+        {!lastQuestion && (
+          <Button
+            className={providedAnswer ? (isAnswerCorrect ? 'correct' : 'wrong') : 'default'}
+            type="submit"
+            disabled={!nextButton}
+            onClick={onFormSubmit}>
             Next
             </Button>
           )}
@@ -242,19 +242,6 @@ const Form = styled.form`
 
   @media ${Devices.desktop} {
     width: 50%;
-  }
-`
-
-const Question = styled.h1`
-  width: 90%;
-  font-size: 1.3rem;
-  font-weight: bold;
-  color: white;
-  margin-bottom: 1rem;
-
-  @media ${Devices.desktop} {
-    width: 50%;
-    margin-bottom: 2rem;
   }
 `
 

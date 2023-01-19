@@ -38,16 +38,6 @@ const FooterContainer = styled.div`
   justify-content: flex-end;
   align-items: center;
   flex-direction: column;
-  // padding-top: 10%;
-  //margin-top: 10%;
-
-  /* @media ${Devices.laptop} {
-   padding-top: 3%;
-  }
-
-  @media ${Devices.desktop} {
-    padding-top: 3%;
-  } */
 `
 
 const LinkContainer = styled.div`

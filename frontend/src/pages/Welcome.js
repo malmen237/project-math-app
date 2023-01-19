@@ -2,7 +2,6 @@
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components/macro';
-// import picture from 'images/bells.png';
 import { Headline } from 'Styles/globalStyles';
 import { API_URL } from 'utils/utils';
 import ProfileBtn from 'components/globalComponents/ProfileBtn';

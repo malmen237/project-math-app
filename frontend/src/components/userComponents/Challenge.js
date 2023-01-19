@@ -50,7 +50,6 @@ const Challenge = () => {
     fetch(API_URL(`challenges/${userid}`), options)
       .then((res) => res.json())
       .then((json) => {
-        console.log('LINDA-current id', userid)
         json.response.map((singleChallenge) => {
           return (singleChallenge.opponentId === userid ? renderChallenge(singleChallenge) : '')
         })

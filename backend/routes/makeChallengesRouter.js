@@ -14,7 +14,7 @@ router.post("/", async (req, res) => {
     for(let i = 0; i < 10; i++) {
       let operation = ['fr', '-', '/', '*', 'eq', '+'][Math.floor(Math.random() * 6)]
       if (operation === '+' || operation === '-') {
-        setNumber = 1000;
+        setNumber = 100;
       } else if (operation === '*' || operation === '/') {
         setNumber = 12;
       } else if (operation === 'eq' || operation === 'fr') {

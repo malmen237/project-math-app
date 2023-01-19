@@ -39,7 +39,17 @@ app.use(express.json());
 app.get("/", (req, res) => {
   res.send([
     { "API": "Math-questions" },
-    { "path": "/games", "url": 'https://project-math', "methods": ["GET", "POST"] }
+    { "path": "/register", "methods": ["POST"] },
+    { "path": "/login", "methods": ["POST"] },
+    { "path": "/welcome", "methods": ["GET"] },
+    { "path": "/user/:id", "methods": ["GET"] },
+    { "path": "/user", "methods": ["GET"] },
+    { "path": "/challenges", "methods": ["GET", "POST"] },
+    { "path": "/gameChallengeUser", "methods": ["POST"] },
+    { "path": "/challengestats", "methods": ["PATCH"] },
+    { "path": "/userstats", "methods": ["GET", "POST"] },
+    { "path": "/userstats/:username", "methods": ["GET", "POST"] },
+    { "path": "/questions", "methods": ["POST"] }
   ]);
 });
 
@@ -69,10 +79,9 @@ app.use("/login", logInRouter);
 
 app.use("/welcome", authenticateUser, welcomeRouter);
 
-
-app.use("/user/", findUserIdRouter); // ! Not in use ATM?
-app.use("/user", findUsernameRouter); // ! Not in use ATM?
-app.use("/gameChallengeUser", gameChallengeUserRouter) // ! Not in use ATM?
+app.use("/user/", findUserIdRouter);
+app.use("/user", findUsernameRouter);
+app.use("/gameChallengeUser", gameChallengeUserRouter);
 
 app.use("/challenges", authenticateUser, makeChallengesRouter);
 
@@ -83,7 +92,7 @@ app.use("/challengestats", challengeStatsRouter);
 app.use("/userstats", authenticateUser, userStatsRouter);
 app.use("/userstats/:username", authenticateUser, userStatsRouter);
 
-app.use("/questions", authenticateUser, questionsRouter)
+app.use("/questions", authenticateUser, questionsRouter);
 
 // Start the server
 app.listen(port, () => {

@@ -32,10 +32,10 @@ export const problemGenerator = (numberRange, operation) => {
   const numeratorSubtraction = (d * a - b * c) / commonDivisorSubtraction;
   const denominatorSubtraction = (b * d) / commonDivisorSubtraction;
 
-  const multiplication = `What is ${a}/${b} * ${c}/${d}?`;
-  const division = `What is ${a}/${b} / ${c}/${d}?`;
-  const addition = `What is ${a}/${b} + ${c}/${d}?`;
-  const subtraction = `What is ${a}/${b} - ${c}/${d}?`;
+  const multiplication = [a, b, '*', c, d];
+  const division = [a, b, '/', c, d];
+  const addition = [a, b, '+', c, d];
+  const subtraction = [a, b, '-', c, d];
 
   const questionFraction = [multiplication, division, addition, subtraction][
     Math.floor(Math.random() * 4)
@@ -86,28 +86,28 @@ export const problemGenerator = (numberRange, operation) => {
   
   switch(operation) {
     case "+":
-      question = `What is ${a} + ${b} + ${c}?`;
+      question = [a, b, c];
       answer = a + b + c;
       break;
     case "-":
-      question = `What is ${a} - ${b} - ${c}?`;
+      question = [a, b, c];
       answer = a - b - c;
       break;
     case "*":
-      question = `What is ${a} * ${b}?`;
+      question = [a, b];
       answer = a * b;
       break;
     case "/":
-      question = `What is ${a} / ${b}?`;
+      question = [a, b];
       answer = (Math.round((a / b) * 10) / 10);
       break;
     case "eq":
-      question = `In the equation: ${a}x + ${b} = ${c}. What is the value of x?`;
+      question = [a, b, c];
       option = shuffledEquationsOptions;
       answer = eqOption;
       break;
     case "fr":
-      question = `${questionFraction}`;
+      question = questionFraction;
       option = shuffledFractionsOptions;
       answer = answerFractions();
       break;

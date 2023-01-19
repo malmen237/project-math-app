@@ -5,8 +5,6 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
   const { opponent, user } = req.body;
-  console.log(opponent)
-  console.log(user)
 
   // Get a random user
   try {

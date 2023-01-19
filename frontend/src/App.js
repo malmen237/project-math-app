@@ -17,8 +17,7 @@ import Header from 'components/globalComponents/Header';
 // import Footer from 'components/globalComponents/Footer';
 import { DndProvider } from 'react-dnd-multi-backend';
 import { HTML5toTouch } from 'rdndmb-html5-to-touch';
-// import styled from 'styled-components/macro';
-// import { OuterWrapper } from 'Styles/globalStyles';
+import { OuterWrapper } from 'Styles/globalStyles';
 
 const reducer = combineReducers({
   user: user.reducer,

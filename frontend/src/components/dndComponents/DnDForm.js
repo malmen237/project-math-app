@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import React from 'react';
 import styled from 'styled-components/macro';
 import { Devices } from 'Styles/globalStyles';
@@ -7,7 +8,9 @@ import { OptionCard } from './OptionCard';
 const DnDForm = ({ problem, basket, html5DropStyle, html5Drop, touchDropStyle, touchDrop }) => {
   const options = () => {
     return problem.option?.map((singleOption, index) => {
-      return <OptionCard answer={singleOption} id={index} />
+      return (
+        <OptionCard answer={singleOption} id={index} />
+      )
     })
   }
 
@@ -31,6 +34,18 @@ const DnDForm = ({ problem, basket, html5DropStyle, html5Drop, touchDropStyle, t
 }
 
 export default DnDForm;
+
+// const Numerator = styled.p`
+//   border-bottom: solid black 1px;
+//   display: inline-block;
+//   float: left;
+// `
+
+// const Denominator = styled.p`
+//   display:inline-block;
+//   clear:left;
+//   float:left;
+// `
 
 const Options = styled.div`
   width: 100%;

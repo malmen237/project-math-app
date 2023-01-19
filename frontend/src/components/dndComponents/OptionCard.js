@@ -27,7 +27,7 @@ export const OptionCard = ({ id, answer, color }) => {
     } else if (answer[0] === answer[1]) {
       return 1
     } else {
-      return `${answer[0]} / ${answer[1]}`
+      return <FractionWrapper><Numerator>{answer[0]}</Numerator><Denominator>{answer[1]}</Denominator></FractionWrapper>
     }
   }
 
@@ -44,6 +44,25 @@ export const OptionCard = ({ id, answer, color }) => {
 
   )
 }
+
+const FractionWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+`
+
+const Numerator = styled.p`
+  border-bottom: solid white 1px;
+  display: inline-block;
+  float: left;
+  padding: 0 0 2px 0;
+`
+
+const Denominator = styled.p`
+  display:inline-block;
+  clear:left;
+  float:left;
+  padding: 2px 0 0 0;
+`
 
 const Touch = styled.div`
     height: 5rem;
