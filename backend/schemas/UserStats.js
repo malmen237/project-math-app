@@ -24,7 +24,7 @@ const UserStatsSchema = mongoose.Schema({
     opponent: {
       type: String
     }
-  })
+  });
   
   const UserStats = mongoose.model("UserStats", UserStatsSchema);
 

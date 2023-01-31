@@ -1,7 +1,5 @@
 import express from "express";
 import UserStats from "../schemas/UserStats";
-// import authenticateUser from "../server";
-
 
 const router = express.Router()
 
@@ -36,10 +34,10 @@ router.get("/:username",  async (req, res) => {
       })
     }
   } catch (error) {
-      res.status(400).json({
-        success: false,
-        response: error
-      })
+    res.status(400).json({
+      success: false,
+      response: error
+    })
   }
 });
 
@@ -50,21 +48,21 @@ router.post("/", async (req, res) => {
   try {
     const newStat = await new UserStats({username: username, quiztype: quiztype, category: category, score: score, points: points, time: time, opponent: opponent}).save()
     res.status(201).json({
-        success: true,
-        response: {
-          username: newStat.username,
-          quiztype: newStat.quiztype,
-          category: newStat.category,
-          score: newStat.score,
-          points: newStat.points, 
-          time: newStat.time, 
-          opponent: newStat.opponent
-        }
+      success: true,
+      response: {
+        username: newStat.username,
+        quiztype: newStat.quiztype,
+        category: newStat.category,
+        score: newStat.score,
+        points: newStat.points, 
+        time: newStat.time, 
+        opponent: newStat.opponent
+      }
     })
   } catch (error) {
-      res.status(400).json({
-      success: false,
-      response: error
+    res.status(400).json({
+    success: false,
+    response: error
     })
   }
 });

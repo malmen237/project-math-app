@@ -76,10 +76,6 @@ const Summary = () => {
 
   // Post user's results to the database
   fetch(API_URL('userstats'), options)
-    .then((res) => res.json())
-    .then((json) => {
-      console.log('json.response', json.response);
-    })
 
   return (
     <OuterWrapper>

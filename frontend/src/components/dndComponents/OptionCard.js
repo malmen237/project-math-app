@@ -32,7 +32,6 @@ export const OptionCard = ({ id, answer, color }) => {
   }
 
   return (
-  // Any element that is draggable has to have a ref
     <div style={containerStyle}>
       <Mouse style={html5DragStyle} ref={html5Drag}>
         {fractionReturn()}

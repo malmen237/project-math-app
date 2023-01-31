@@ -1,4 +1,3 @@
-import express from "express";
 import { gcd } from "mathjs";
 
 export const problemGenerator = (numberRange, operation) => {
@@ -70,8 +69,6 @@ export const problemGenerator = (numberRange, operation) => {
   const dummyOption1 = [e - 5, f];
   const dummyOption2 = [g, h - 5];
   const dummyOption3 = [i, j];
-
-  // TODO: Re-do variable if any 2 are the same
 
   const fractionsOptions = [frOption, dummyOption1, dummyOption2, dummyOption3];
   const equationsOptions = [eqOption, dummyOption1, dummyOption2, dummyOption3];

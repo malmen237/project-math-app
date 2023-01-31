@@ -34,14 +34,12 @@ router.post("/", async (req, res) => {
             success: true,
             response: newOperation
           })
-      
         })
       })
     } else {
       const opponentInfo = await User.findById(opponent);
       const newOperation = await new Challenge({questions: qs, userId: userId, username: username, opponentusername: opponentInfo.username, opponentId: opponentInfo.id, active: true}).save()
       
-      // const response = {username: opponentInfo.username, id: opponentInfo.id}
       res.status(200).json({
         success: true,
         response: newOperation
