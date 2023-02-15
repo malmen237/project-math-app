@@ -1,1 +1,1 @@
-export const API_URL = (slug) => `${process.env.BASE_URL}/${slug}`
+export const API_URL = (slug) => `${process.env.REACT_APP_BASE_URL}/${slug}`
