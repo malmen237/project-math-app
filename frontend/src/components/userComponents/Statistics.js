@@ -76,7 +76,6 @@ const Statistics = () => {
         <GridHeader>Your top results:</GridHeader>
 
         <FillerHeader backGroundcolor="rgb(0, 0, 0, 0.3)" />
-        {/* //"#FA5CB8" bright pink */}
         <TrainingHeader backGroundcolor="rgb(0, 0, 0, 0.3)">Training</TrainingHeader>
         <ChallengeHeader backGroundcolor="rgb(0, 0, 0, 0.3)">Challenge</ChallengeHeader>
 
@@ -107,7 +106,6 @@ const Statistics = () => {
         <BestChallengeItem backGroundcolor="#FFB6C1">{bestOfAllChalStat.username}</BestChallengeItem>
 
         <RowHeader backGroundcolor="#FACE75" color="#555">Score</RowHeader>
-        {/* blue "#5093FA" */}
         <BestChallengeItem backGroundcolor="#FFB6C1" color="#555">{bestOfAllChalStat.score}</BestChallengeItem>
 
         <RowHeader backGroundcolor="#FACE75" color="#555">Time</RowHeader>
