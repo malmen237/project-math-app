@@ -1,7 +1,6 @@
-## View the backend live
-
-https://project-math-app-5ldvgodznq-lz.a.run.app 
+# Final project of my Technigo bootcamp-journey
+A try at making math into a game, to help make young adults struggles in school a bit easier and more fun.
 
 ## View the frontend live
 
-https://mathorama.netlify.app/
+https://lindas-mathorama.netlify.app
